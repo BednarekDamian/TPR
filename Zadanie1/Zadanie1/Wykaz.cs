@@ -1,10 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Zadanie1
+﻿namespace Zadanie1
 {
-    class Wykaz
+    public class Wykaz
     {
+        private int idKlienta;
+        private string nazwaKlienta;
+
+        public Wykaz(int id, string nazwa)
+        {
+            this.idKlienta = id;
+            this.nazwaKlienta = nazwa;
+        }
+
+        public int getId() 
+        {
+            return this.idKlienta;
+        }
+        public string getNazwa()
+        {
+            return this.nazwaKlienta;
+        }
     }
 }
