@@ -16,22 +16,22 @@
             this.rok = rok;
             this.cena = cena;
         }
-        public string getTytul() 
+
+        public int IdKsiazki { get => idKsiazki; set => idKsiazki = value; }
+        public string Tytul { get => tytul; set => tytul = value; }
+        public string Autor { get => autor; set => autor = value; }
+        public string Rok { get => rok; set => rok = value; }
+        public float Cena { get => cena; set => cena = value; }
+
+
+        public string toString()
+
         {
-            return this.tytul;
+
+            return "Id Ksiazki: " + idKsiazki + " , Tytul: " + tytul + " , autor: " + autor + " , Rok: " + rok + " , Cena: " + cena + "\n";
+
         }
-        public string getAutor()
-        {
-            return this.autor;
-        }
-        public string getRok()
-        {
-            return this.rok;
-        }
-        public float getCena()
-        {
-            return this.cena;
-        }
+
 
     }
 }

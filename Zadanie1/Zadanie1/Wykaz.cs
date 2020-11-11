@@ -11,13 +11,13 @@
             this.nazwaKlienta = nazwa;
         }
 
-        public int getId() 
+        public int IdKlienta { get => idKlienta; set => idKlienta = value; }
+        public string NazwaKlienta { get => nazwaKlienta; set => nazwaKlienta = value; }
+
+        public string toString()
         {
-            return this.idKlienta;
+            return "Id klienta: " + idKlienta + " , Nazwa klienta: " + nazwaKlienta;
         }
-        public string getNazwa()
-        {
-            return this.nazwaKlienta;
-        }
+
     }
 }
