@@ -26,7 +26,7 @@ namespace UnitTestProject1
             if (katalog[0].toString() != katalogtest.toString()) Assert.Fail();
             List<OpisStanu> opisStanu = dataService.znajdzOpis(25, 35);
             if (opisStanu[0].toString() != data_plik.GetOpisStanu(0).toString()) Assert.Fail();
-            ObservableCollection<Zdarzenie> zdarzenie = dataService.SzukajZdarzenie(DateTime.Parse("25.03.2020"), DateTime.Parse("25.03.2021"));
+            ObservableCollection<Zdarzenie> zdarzenie = dataService.SzukajZdarzenie(DateTime.Parse("05.03.2020"), DateTime.Parse("05.03.2021"));
             if (zdarzenie.Count() == 0) Assert.Fail();
         }
         [TestMethod]
