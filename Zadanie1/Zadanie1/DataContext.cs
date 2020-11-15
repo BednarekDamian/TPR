@@ -5,18 +5,18 @@ namespace Zadanie1
 {
    public  class DataContext
     {
-        public List<Wykaz> l_wykaz;
-        public Dictionary<int, Katalog> d_katalog;
-        public ObservableCollection<Zdarzenie> ob_zdarzenie;
-        public List<OpisStanu> l_opisStanu;
+        public List<Wykaz> wykazy;
+        public Dictionary<int, Katalog> katalogi;
+        public ObservableCollection<Zdarzenie> zdarzenia;
+        public List<OpisStanu> opisyStanu;
             
 
         public DataContext()
         {
-            this.l_wykaz = new List<Wykaz>();
-            this.d_katalog = new Dictionary<int, Katalog>();
-            this.ob_zdarzenie = new ObservableCollection<Zdarzenie>();
-            this.l_opisStanu = new List<OpisStanu>();
+            this.wykazy = new List<Wykaz>();
+            this.katalogi = new Dictionary<int, Katalog>();
+            this.zdarzenia = new ObservableCollection<Zdarzenie>();
+            this.opisyStanu = new List<OpisStanu>();
         }
        
     }

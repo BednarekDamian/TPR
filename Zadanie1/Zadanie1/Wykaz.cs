@@ -2,17 +2,18 @@
 {
     public class Wykaz
     {
-        private int idKlienta;
+        private string idKlienta;
         private string nazwaKlienta;
 
-        public Wykaz(int id, string nazwa)
+        public Wykaz(string id, string nazwa)
         {
             this.idKlienta = id;
             this.nazwaKlienta = nazwa;
         }
 
-        public int IdKlienta { get => idKlienta; set => idKlienta = value; }
+        public string IdKlienta { get => idKlienta; set => idKlienta = value; }
         public string NazwaKlienta { get => nazwaKlienta; set => nazwaKlienta = value; }
+        public string ALL { get => idKlienta + " " + nazwaKlienta; }
 
         public string toString()
         {
