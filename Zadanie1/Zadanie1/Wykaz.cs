@@ -17,7 +17,7 @@
 
         public string toString()
         {
-            return "Id klienta: " + idKlienta + " , Nazwa klienta: " + nazwaKlienta;
+            return  idKlienta + " " + nazwaKlienta;
         }
 
     }

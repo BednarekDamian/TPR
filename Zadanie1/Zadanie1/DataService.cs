@@ -22,7 +22,7 @@ namespace Zadanie1
             Dictionary<int, Katalog> dictKatalog = katalogi.ToDictionary(x => Int32.Parse(x.IdKatalogu), x => x);
             for (int i = 0; i < katalogi.Count(); i++)
             {
-                Console.WriteLine(dictKatalog[i].ALL);
+                Console.WriteLine(dictKatalog[i].toString());
             }
         }
 
@@ -71,7 +71,7 @@ namespace Zadanie1
 
         public Dictionary<int, Katalog> SzukajKatalog(string e)
         {
-            Dictionary<int, Katalog> all = this.dataR.GetAllKatalog().ToDictionary(x => Int32.Parse(x.IdKatalogu), x => x);
+            Dictionary<int, Katalog> all = this.dataR.GetAllKatalog().ToDictionary(x => Int32.Parse(x.IdKatalogu)-1, x => x);
             Dictionary<int, Katalog> nDicti = new Dictionary<int, Katalog>();
             string xyz = "";
             int i = 0;
@@ -104,7 +104,7 @@ namespace Zadanie1
             ObservableCollection<Zdarzenie> zCollection = new ObservableCollection<Zdarzenie>();
             for (int i = 0; i < this.dataR.GetZdarzenia().Count(); i++)
             {
-                if (all[i].Opis_Stanu.Data_zakupu > s && all[i].Opis_Stanu.Data_zakupu < e) zCollection.Add(all[i]);
+                if (all[i].Opis_Stanu.Data_zakupu >s && all[i].Opis_Stanu.Data_zakupu < e) zCollection.Add(all[i]);
             }
             return zCollection;
         }

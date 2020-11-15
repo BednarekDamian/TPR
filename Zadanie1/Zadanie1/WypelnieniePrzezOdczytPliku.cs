@@ -11,7 +11,7 @@ namespace Zadanie1
 
         public void Filling(DataContext contFil)
         {
-            string[] lines 
+            string[] lines;
         }
     }
 }
