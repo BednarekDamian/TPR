@@ -1,4 +1,4 @@
-﻿namespace Zadanie1
+﻿namespace Zadanie1.Data
 {
     public class Zdarzenie
     {

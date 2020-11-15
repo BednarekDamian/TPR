@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Zadanie1
+namespace Zadanie1.Data
 {
     public class DataRepository
     {

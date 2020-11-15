@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Zadanie1
+namespace Zadanie1.Data
 {
     class WypelnieniePrzezOdczytPliku : DataFiller
     {

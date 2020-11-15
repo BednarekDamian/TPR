@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Zadanie1;
+using Zadanie1.Data;
 
 namespace UnitTestProject1
 {
