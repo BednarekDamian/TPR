@@ -17,7 +17,6 @@ namespace Zadanie1
 
         public void FillerStatic() => filler.Filling(context);
 
-        #region Wykaz
         public void AddWykaz(Wykaz z)
         {
             context.wykazy.Add(z);
@@ -57,9 +56,6 @@ namespace Zadanie1
             }
             context.wykazy.Remove(x);
         }
-        #endregion
-
-        #region Katalog
 
         private int CountKat = 0;
         public int CountKat1 { get => CountKat; set => CountKat = value; }
@@ -103,9 +99,6 @@ namespace Zadanie1
                 }
             }
         }
-        #endregion
-
-        #region Zdarzenie
 
         public void AddZdarzenie(Zdarzenie z)
         {
@@ -137,9 +130,7 @@ namespace Zadanie1
             context.zdarzenia.Remove(context.zdarzenia[d]);
         }
 
-        #endregion
-
-        #region Opis
+    
         public void AddOpis(OpisStanu p)
         {
             context.opisyStanu.Add(p);
@@ -176,8 +167,6 @@ namespace Zadanie1
             }
             context.opisyStanu.Remove(a);
         }
-
-        #endregion
     }
 
 }

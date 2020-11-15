@@ -22,7 +22,6 @@
         public string Autor { get => autor; set => autor = value; }
         public string Rok { get => rok; set => rok = value; }
         public float Cena { get => cena; set => cena = value; }
-        public string ALL { get => idKatalogu + " " + tytul + " " + autor + " " + rok + " " + cena; }
 
         public string toString()
         {

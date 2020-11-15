@@ -14,13 +14,13 @@ namespace Zadanie1
             this.dataR = dataR;
         }
 
-        #region Wyswietlanie
+        
         public void WyswietlKatalog(IEnumerable<Katalog> katalogi)
         {
             Dictionary<int, Katalog> dictKatalog = katalogi.ToDictionary(x => Int32.Parse(x.IdKatalogu), x => x);
             for (int i = 0; i < katalogi.Count(); i++)
             {
-                Console.WriteLine(dictKatalog[i].ALL);
+                Console.WriteLine(dictKatalog[i].toString());
             }
         }
 
@@ -29,7 +29,7 @@ namespace Zadanie1
             List<OpisStanu> listaOpisy = opisy.ToList<OpisStanu>();
             for (int i = 0; i < opisy.Count(); i++)
             {
-                Console.WriteLine(listaOpisy[i].ALL);
+                Console.WriteLine(listaOpisy[i].toString());
             }
         }
         public void WyswietlZdarzenia(IEnumerable<Zdarzenie> zdarzenia)
@@ -37,7 +37,7 @@ namespace Zadanie1
             ObservableCollection<Zdarzenie> kolekcjazdarzen = new ObservableCollection<Zdarzenie>(zdarzenia);
             for (int i = 0; i < zdarzenia.Count(); i++)
             {
-                Console.WriteLine(kolekcjazdarzen[i].ALL);
+                Console.WriteLine(kolekcjazdarzen[i].toString()); ;
             }
         }
         public void WyswietlWykazy(IEnumerable<Wykaz> wykazy)
@@ -45,12 +45,12 @@ namespace Zadanie1
             List<Wykaz> listaW = wykazy.ToList<Wykaz>();
             for (int i = 0; i < wykazy.Count(); i++)
             {
-                Console.WriteLine(listaW[i].ALL);
+                Console.WriteLine(listaW[i].toString());
             }
         }
-        #endregion
+        
 
-        #region Szukanie
+    
         public List<Wykaz> WyszukajWykaz(string x)
         {
             List<Wykaz> all = this.dataR.GetAllWykaz().ToList<Wykaz>();
@@ -58,7 +58,7 @@ namespace Zadanie1
             string xyz = "";
             for (int i = 0; i < this.dataR.GetAllWykaz().Count(); i++)
             {
-                xyz = all[i].ALL;
+                xyz = all[i].toString();
                 if (xyz.Contains(x))
                 {
                     listaW.Add(all[i]);
@@ -75,7 +75,7 @@ namespace Zadanie1
             int i = 0;
             for (int b = 0; b < this.dataR.GetAllWykaz().Count(); b++)
             {
-                xyz = all[b].ALL;
+                xyz = all[b].toString();
                 if (xyz.Contains(e))
                 {
                     nDicti.Add(i, all[b]);
@@ -106,8 +106,7 @@ namespace Zadanie1
             }
             return zCollection;
         }
-        #endregion
-        #region polaczenie
+      
         public IEnumerable<Zdarzenie> ZdarzenieOpisu(OpisStanu p)
         {
             ObservableCollection<Zdarzenie> all = new ObservableCollection<Zdarzenie>(this.dataR.GetZdarzenia());
@@ -138,21 +137,17 @@ namespace Zadanie1
             }
             return (IEnumerable<OpisStanu>)oKatalog;
         }
-        #endregion
-        #region dodawanie
+       
         public void DodajOpis(OpisStanu z) => this.dataR.AddOpis(z);
         public void DodajKatalog(Katalog l) => this.dataR.AddKatalog(l);
         public void DodajWykaz(Wykaz a) => this.dataR.AddWykaz(a);
         public void DodajZdarzenie(Zdarzenie q) => this.dataR.AddZdarzenie(q);
-        #endregion
-        #region stworz
+     
         public void DodajOpis(Katalog katalog, DateTimeOffset data_zakupu, int ilosc, float cena) => this.dataR.AddOpis(new OpisStanu(katalog,data_zakupu,ilosc,cena));
         public void DodajKatalog(string idKatalogu, string tytul, string autor, string rok, float cena) => this.dataR.AddKatalog(new Katalog(idKatalogu,tytul,autor,rok,cena));
         public void DodajWykaz(string id, string nazwa) => this.dataR.AddWykaz(new Wykaz(id, nazwa));
         public void DodajZdarzenie(OpisStanu opis_stanu, Wykaz wykaz) => this.dataR.AddZdarzenie(new Zdarzenie(opis_stanu, wykaz));
-        #endregion
-       
-        #region menagerZdarzen
+      
         public Zdarzenie DodajZdarzenieM(OpisStanu a, Wykaz b)
         {
             return new Zdarzenie(a, b);
@@ -165,6 +160,6 @@ namespace Zadanie1
                 if (t.Opis_Stanu.Equals(a) && t.Wykaz.Equals(b)) this.dataR.DeleteZdarzenie(t);
             }
         }
-        #endregion
+        
     }
 }
