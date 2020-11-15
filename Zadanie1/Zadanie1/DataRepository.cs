@@ -24,7 +24,7 @@ namespace Zadanie1
         }
         public Wykaz GetWykaz(string id)
         {
-            foreach(var x in context.wykazy)
+            foreach(Wykaz x in context.wykazy)
             {
                 if(x.IdKlienta == id)
                 {
@@ -41,7 +41,7 @@ namespace Zadanie1
 
         public void DeleteWykaz(Wykaz z)
         {
-            foreach(var x in context.zdarzenia)
+            foreach(Zdarzenie x in context.zdarzenia)
             {
                 if (x.Wykaz == z) throw new Exception("Nie mozna usunac, czytelnik posiada wypozyczenie");
             }
@@ -51,7 +51,7 @@ namespace Zadanie1
         public void DeleteWykaz(string Wid)
         {
             Wykaz x = GetWykaz(Wid);
-            foreach(var y in context.zdarzenia)
+            foreach(Zdarzenie y in context.zdarzenia)
             {
                 if (y.Wykaz == x) throw new Exception("Nie mozna usunac, czytelnik posiada wypozyczenie");
             }
@@ -82,7 +82,7 @@ namespace Zadanie1
 
         public void DeleteKatalog(int b)
         {
-            foreach(var l in context.opisyStanu)
+            foreach(OpisStanu l in context.opisyStanu)
             {
                 if (l.Katalog.Equals(context.katalogi[b])) throw new Exception("Obiekt jest w uzyci, nie mozna go usunac");
             }
@@ -90,7 +90,7 @@ namespace Zadanie1
         }
         public void DeleteKatalog(Katalog z)
         {
-            foreach(var l in context.opisyStanu)
+            foreach(OpisStanu l in context.opisyStanu)
             {
                 if (l.Katalog == z) throw new Exception("Obiekt jest w uzyci, nie mozna go usunac");
             }
@@ -121,7 +121,7 @@ namespace Zadanie1
         }
         public void DeleteZdarzenie(Zdarzenie v)
         {
-            foreach(var w in context.zdarzenia)
+            foreach(Zdarzenie w in context.zdarzenia)
             {
                 if(v.Equals(w))
                 {
@@ -154,7 +154,7 @@ namespace Zadanie1
         }
         public void DeleteOpis(OpisStanu q)
         {
-            foreach(var t in context.zdarzenia)
+            foreach(Zdarzenie t in context.zdarzenia)
             {
                 if (t.Opis_Stanu.Equals(q))
                 {
@@ -167,7 +167,7 @@ namespace Zadanie1
         public void DeleteOpis(int g)
         {
             OpisStanu a = GetOpisStanu(g);
-            foreach(var e in context.zdarzenia)
+            foreach(Zdarzenie e in context.zdarzenia)
             {
                 if (e.Opis_Stanu.Equals(a))
                 {

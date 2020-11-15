@@ -112,7 +112,7 @@ namespace Zadanie1
         {
             ObservableCollection<Zdarzenie> all = new ObservableCollection<Zdarzenie>(this.dataR.GetZdarzenia());
             ObservableCollection<Zdarzenie> zOpis = new ObservableCollection<Zdarzenie>();
-            foreach (var d in all)
+            foreach (Zdarzenie d in all)
             {
                 if (d.Wykaz.Equals(p)) zOpis.Add(d);
             }
@@ -122,7 +122,7 @@ namespace Zadanie1
             {
             ObservableCollection<Zdarzenie> all = new ObservableCollection<Zdarzenie>(this.dataR.GetZdarzenia());
             ObservableCollection<Zdarzenie> zWyk = new ObservableCollection<Zdarzenie>();
-            foreach(var d in all)
+            foreach(Zdarzenie d in all)
             {
                 if (d.Wykaz.Equals(a)) zWyk.Add(d);
             }
@@ -132,7 +132,7 @@ namespace Zadanie1
         {
             List<OpisStanu> all = this.dataR.GetAllOpis().ToList<OpisStanu>();
             List<OpisStanu> oKatalog = new List<OpisStanu>();
-            foreach(var t in all)
+            foreach(OpisStanu t in all)
             {
                 if (t.Katalog.Equals(m)) oKatalog.Add(t);
             }
@@ -160,7 +160,7 @@ namespace Zadanie1
         public void UsunZdarzenie(OpisStanu a, Wykaz b)
         {
             ObservableCollection<Zdarzenie> all = new ObservableCollection<Zdarzenie>(this.dataR.GetZdarzenia());
-            foreach(var t in all)
+            foreach(Zdarzenie t in all)
             {
                 if (t.Opis_Stanu.Equals(a) && t.Wykaz.Equals(b)) this.dataR.DeleteZdarzenie(t);
             }
