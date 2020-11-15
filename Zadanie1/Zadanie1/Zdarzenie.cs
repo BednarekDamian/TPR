@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Zadanie1
+﻿namespace Zadanie1
 {
     public class Zdarzenie
     {
@@ -19,7 +13,6 @@ namespace Zadanie1
         public OpisStanu Opis_Stanu { get => opis_stanu; set => opis_stanu = value; }
         public Wykaz Wykaz { get => wykaz; set => wykaz = value; }
 
-        public string ALL { get => this.Opis_Stanu.ALL + " " + this.Wykaz.ALL; }
         public string toString()
         {
             return opis_stanu.toString() +"\t"+ wykaz.toString();

@@ -13,7 +13,6 @@
 
         public string IdKlienta { get => idKlienta; set => idKlienta = value; }
         public string NazwaKlienta { get => nazwaKlienta; set => nazwaKlienta = value; }
-        public string ALL { get => idKlienta + " " + nazwaKlienta; }
 
         public string toString()
         {
