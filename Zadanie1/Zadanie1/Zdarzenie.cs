@@ -1,21 +1,29 @@
-﻿namespace Zadanie1.Data
+﻿using System;
+
+namespace Zadanie1.Data
 {
     public class Zdarzenie
     {
-        private OpisStanu opis_stanu;
-        private Wykaz wykaz;
-
-        public Zdarzenie(OpisStanu opis_stanu, Wykaz wykaz)
+        public int idZdarzenie { get; set; }
+        public OpisStanu opis_Stanu { get; set; }
+        public Wykaz wykaz { get; set; }
+        public DateTimeOffset data_zakupu { get; set; }
+        public int ilosc_zakupionych {get; set; }
+        public float cena_calkowita { get; set; }
+ 
+        public Zdarzenie(int id, OpisStanu opis_stanu, Wykaz wykaz, DateTimeOffset time, int ilosc)
         {
-            this.opis_stanu = opis_stanu;
-           this.wykaz = wykaz;
-        }
-        public OpisStanu Opis_Stanu { get => opis_stanu; set => opis_stanu = value; }
-        public Wykaz Wykaz { get => wykaz; set => wykaz = value; }
+            this.idZdarzenie = id;
+            this.opis_Stanu = opis_stanu;
+            this.wykaz = wykaz;
+            this.data_zakupu = time;
+            this.ilosc_zakupionych = ilosc;
+            this.cena_calkowita = ilosc* opis_stanu.katalog.cena;
 
+        }
         public string toString()
         {
-            return opis_stanu.toString() +"\t"+ wykaz.toString();
+            return idZdarzenie+ opis_Stanu.toString() +"\t"+ wykaz.toString()+data_zakupu +ilosc_zakupionych+cena_calkowita;
         }
     }
 }

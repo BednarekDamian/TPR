@@ -2,13 +2,12 @@
 {
     public class Katalog
     {
-        private string idKatalogu;
-        private string tytul;
-        private string autor;
-        private string rok;
-        private float cena;
-
-        public Katalog(string idKatalogu, string tytul, string autor, string rok, float cena)
+        public int idKatalogu { get; set; }
+        public string tytul { get; set; }
+        public string autor { get; set; }
+        public string rok { get; set; }
+        public float cena { get; set; }
+        public Katalog(int idKatalogu, string tytul, string autor, string rok, float cena)
         {
             this.idKatalogu = idKatalogu;
             this.tytul = tytul;
@@ -16,12 +15,6 @@
             this.rok = rok;
             this.cena = cena;
         }
-
-        public string IdKatalogu { get => idKatalogu; set => idKatalogu = value; }
-        public string Tytul { get => tytul; set => tytul = value; }
-        public string Autor { get => autor; set => autor = value; }
-        public string Rok { get => rok; set => rok = value; }
-        public float Cena { get => cena; set => cena = value; }
 
         public string toString()
         {

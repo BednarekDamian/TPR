@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Zadanie1.Data;
 using Zadanie1.logic;
 
@@ -12,41 +10,34 @@ namespace UnitTestProject1
     public class LogicYTest
     {
         [TestMethod]
-        public void WyszukajTest()
+        public void ZdarzenieTest()
         {
-            DataContext context_plik = new DataContext();
-            WypelnienieStalymi plik = new WypelnienieStalymi();
-            DataRepository data_plik = new DataRepository(context_plik, plik);
-            DataService dataService = new DataService(data_plik);
-            data_plik.FillerStatic();
-            List<Wykaz> wykaz = dataService.WyszukajWykaz("1 Mariusz");
-            if (wykaz[0].toString() != "1 Mariusz") Assert.Fail(wykaz[0].toString());
-            Dictionary<int, Katalog> katalog = dataService.SzukajKatalog("Wiedzmin");
-            Katalog katalogtest = new Katalog("6", "Wiedzmin", "Andrzej Sapkowski", "1993", (float)15.0);
-            if (katalog[0].toString() != katalogtest.toString()) Assert.Fail();
-            List<OpisStanu> opisStanu = dataService.znajdzOpis(25, 35);
-            if (opisStanu[0].toString() != data_plik.GetOpisStanu(0).toString()) Assert.Fail();
-            ObservableCollection<Zdarzenie> zdarzenie = dataService.SzukajZdarzenie(DateTime.Parse("05.03.2020"), DateTime.Parse("05.03.2021"));
-            if (zdarzenie.Count() == 0) Assert.Fail();
+            DataContext contex = new DataContext();
+            DataRepository data = new DataRepository(contex);
+            DataService dataService  = new DataService(data);
+
+            Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
+            OpisStanu opisStanu = new OpisStanu(0, katalog1, 1);
+            Wykaz wykaz = new Wykaz(1, "Mariusz");
+            Zdarzenie zdarzenie = new Zdarzenie(0, opisStanu, wykaz, DateTime.Parse("05.03.2020"), 1);
+            dataService.DodajZdarzenie(0 , wykaz, opisStanu, DateTime.Parse("05.03.2020"), 1);
+             List<Zdarzenie> zdarzenie2 = (List<Zdarzenie>) dataService.ZdarzenieDlaWykazu(wykaz);
+            if (zdarzenie2[0].idZdarzenie != zdarzenie.idZdarzenie) Assert.Fail();
         }
         [TestMethod]
-        public void Test2()
+        public void ZdarzeniePomiedzydatami()
         {
+            DataContext contex = new DataContext();
+            DataRepository data = new DataRepository(contex);
+            DataService dataService = new DataService(data);
 
-            DataContext context_plik = new DataContext();
-            WypelnienieStalymi plik = new WypelnienieStalymi();
-            DataRepository data_plik = new DataRepository(context_plik, plik);
-            DataService dataService = new DataService(data_plik);
-             Katalog kat= new Katalog("1", "Basnie", "Grim", "1894", (float)34.7);
-            dataService.DodajOpis(new OpisStanu(kat, DateTimeOffset.Now, 1, (float)25.0));
-            if (data_plik.GetOpisStanu(0).toString() != dataService.znajdzOpis(20, 26)[0].toString()) Assert.Fail();
-            dataService.DodajKatalog(kat);
-
-            if (data_plik.GetAllKatalog().Count() == 0) Assert.Fail(); ;
-
-            Wykaz wykaz = new Wykaz("1", "Mariusz");
-            dataService.DodajWykaz(wykaz);
-            if (dataService.WyszukajWykaz("Mariusz")[0].toString() != wykaz.toString()) Assert.Fail();
+            Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
+            OpisStanu opisStanu = new OpisStanu(0, katalog1, 1);
+            Wykaz wykaz = new Wykaz(1, "Mariusz");
+            Zdarzenie zdarzenie = new Zdarzenie(0, opisStanu, wykaz, DateTime.Parse("05.03.2020"), 1);
+            dataService.DodajZdarzenie(0, wykaz, opisStanu, DateTime.Parse("05.03.2020"), 1);
+           List<Zdarzenie> zdarzenie2= (List<Zdarzenie>)dataService.ZdarazeniePomiedzyDatami(DateTime.Parse("02.03.2020"), DateTime.Parse("09.03.2020"));
+            if (zdarzenie2[0].idZdarzenie != zdarzenie.idZdarzenie) Assert.Fail();
         }
  
     }
