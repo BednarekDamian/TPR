@@ -1,166 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Collections.ObjectModel;
 using Zadanie1.Data;
+
 
 namespace Zadanie1.logic
 {
-    public class DataService
+    public class DataService : IDataService
     {
-        private DataRepository dataR;
+        public IDataRepo dataRepo { get; set; }
 
-        public DataService(DataRepository dataR)
+        public DataService(IDataRepo dataRepo)
         {
-            this.dataR = dataR;
-        }
-
-        
-        public void WyswietlKatalog(IEnumerable<Katalog> katalogi)
-        {
-            Dictionary<int, Katalog> dictKatalog = katalogi.ToDictionary(x => Int32.Parse(x.IdKatalogu), x => x);
-            for (int i = 0; i < katalogi.Count(); i++)
-            {
-                Console.WriteLine(dictKatalog[i].toString());
-            }
+            this.dataRepo = dataRepo;
         }
 
-        public void WyswietlOpis(IEnumerable<OpisStanu> opisy)
+        public void DodajZdarzenie(int id, Wykaz wykaz, OpisStanu opisStanu, DateTimeOffset time, int ilosc)
         {
-            List<OpisStanu> listaOpisy = opisy.ToList<OpisStanu>();
-            for (int i = 0; i < opisy.Count(); i++)
-            {
-                Console.WriteLine(listaOpisy[i].toString());
-            }
+            dataRepo.AddZdarzenie(new Zdarzenie(id, opisStanu, wykaz, time, ilosc));
         }
-        public void WyswietlZdarzenia(IEnumerable<Zdarzenie> zdarzenia)
-        {
-            ObservableCollection<Zdarzenie> kolekcjazdarzen = new ObservableCollection<Zdarzenie>(zdarzenia);
-            for (int i = 0; i < zdarzenia.Count(); i++)
-            {
-                Console.WriteLine(kolekcjazdarzen[i].toString()); ;
-            }
-        }
-        public void WyswietlWykazy(IEnumerable<Wykaz> wykazy)
-        {
-            List<Wykaz> listaW = wykazy.ToList<Wykaz>();
-            for (int i = 0; i < wykazy.Count(); i++)
-            {
-                Console.WriteLine(listaW[i].toString());
-            }
-        }
-        
 
-    
-        public List<Wykaz> WyszukajWykaz(string x)
+        public IEnumerable<OpisStanu> OpisDlaKatalogu(Katalog katalog)
         {
-            List<Wykaz> all = this.dataR.GetAllWykaz().ToList<Wykaz>();
-            List<Wykaz> listaW = new List<Wykaz>();
-            string xyz = "";
-            for (int i = 0; i < this.dataR.GetAllWykaz().Count(); i++)
+            List<OpisStanu> opisStanu = new List<OpisStanu>();
+           foreach( OpisStanu opis in dataRepo.GetAllOpisStanu())
             {
-                xyz = all[i].toString();
-                if (xyz.Contains(x))
+                if (opis.katalog.Equals(katalog))
                 {
-                    listaW.Add(all[i]);
+                    opisStanu.Add(opis);
                 }
             }
-            return listaW;
+            return opisStanu;
         }
 
-        public Dictionary<int, Katalog> SzukajKatalog(string e)
-        {
-            Dictionary<int, Katalog> all = this.dataR.GetAllKatalog().ToDictionary(x => Int32.Parse(x.IdKatalogu)-1, x => x);
-            Dictionary<int, Katalog> nDicti = new Dictionary<int, Katalog>();
-            string xyz = "";
-            int i = 0;
-            for (int b = 0; b < this.dataR.GetAllWykaz().Count(); b++)
+        public void WyswietlKatalogi()
+        {           
+            foreach (Katalog katalog in dataRepo.GetAllKatalog())
             {
-                xyz = all[b].toString();
-                if (xyz.Contains(e))
+                Console.WriteLine(katalog);
+            }
+          
+        }
+
+        public void WyswietlZdarzenia()
+        {
+            foreach (Zdarzenie zdarzenie in dataRepo.GetAllZdarzenie())
+            {
+                Console.WriteLine(zdarzenie);
+            }
+        }
+
+        public IEnumerable<Zdarzenie> ZdarazeniePomiedzyDatami(DateTimeOffset from, DateTimeOffset to)
+        {
+            List<Zdarzenie> listaZdarzen = new List<Zdarzenie>();
+            foreach (Zdarzenie zdarzenie in dataRepo.GetAllZdarzenie())
+            {
+                int jeden = from.CompareTo(zdarzenie.data_zakupu);
+                int dwa = to.CompareTo(zdarzenie.data_zakupu);
+               if ( jeden<0 && dwa>0)
                 {
-                    nDicti.Add(i, all[b]);
-                    i++;
+                    listaZdarzen.Add(zdarzenie);
                 }
             }
-            return nDicti;
+            return listaZdarzen;
         }
 
-        public List<OpisStanu> znajdzOpis(double min, double max)
+        public IEnumerable<Zdarzenie> ZdarzenieDlaWykazu(Wykaz wykaz)
         {
-            List<OpisStanu> all = this.dataR.GetAllOpis().ToList();
-            List<OpisStanu> listaOpis = new List<OpisStanu>();
-            for (int i = 0; i < this.dataR.GetAllOpis().Count(); i++)
+            List<Zdarzenie> listaZdarzen = new List<Zdarzenie>();
+            foreach (Zdarzenie zdarzenie in dataRepo.GetAllZdarzenie())
             {
-                if (all[i].Cena > min && all[i].Cena < max) listaOpis.Add(all[i]);
+                if (zdarzenie.wykaz.Equals(wykaz))
+                {
+                    listaZdarzen.Add(zdarzenie);
+                }
             }
-            return listaOpis;
+            return listaZdarzen;
         }
 
-        public ObservableCollection<Zdarzenie> SzukajZdarzenie(DateTimeOffset s, DateTimeOffset e)
-        {
-            ObservableCollection<Zdarzenie> all = new ObservableCollection<Zdarzenie>(this.dataR.GetZdarzenia());
-            ObservableCollection<Zdarzenie> zCollection = new ObservableCollection<Zdarzenie>();
-            for (int i = 0; i < this.dataR.GetZdarzenia().Count(); i++)
-            {
-                if (all[i].Opis_Stanu.Data_zakupu >s && all[i].Opis_Stanu.Data_zakupu < e) zCollection.Add(all[i]);
-            }
-            return zCollection;
-        }
-      
-        public IEnumerable<Zdarzenie> ZdarzenieOpisu(OpisStanu p)
-        {
-            ObservableCollection<Zdarzenie> all = new ObservableCollection<Zdarzenie>(this.dataR.GetZdarzenia());
-            ObservableCollection<Zdarzenie> zOpis = new ObservableCollection<Zdarzenie>();
-            foreach (Zdarzenie d in all)
-            {
-                if (d.Wykaz.Equals(p)) zOpis.Add(d);
-            }
-            return (IEnumerable<Zdarzenie>)zOpis;
-        }
-        public IEnumerable<Zdarzenie> ZdarzenieWykazu(Wykaz a)
-            {
-            ObservableCollection<Zdarzenie> all = new ObservableCollection<Zdarzenie>(this.dataR.GetZdarzenia());
-            ObservableCollection<Zdarzenie> zWyk = new ObservableCollection<Zdarzenie>();
-            foreach(Zdarzenie d in all)
-            {
-                if (d.Wykaz.Equals(a)) zWyk.Add(d);
-            }
-            return (IEnumerable<Zdarzenie>)zWyk;
-        }
-        public IEnumerable<OpisStanu> OpisKatalogu(Katalog m)
-        {
-            List<OpisStanu> all = this.dataR.GetAllOpis().ToList<OpisStanu>();
-            List<OpisStanu> oKatalog = new List<OpisStanu>();
-            foreach(OpisStanu t in all)
-            {
-                if (t.Katalog.Equals(m)) oKatalog.Add(t);
-            }
-            return (IEnumerable<OpisStanu>)oKatalog;
-        }
-       
-        public void DodajOpis(OpisStanu z) => this.dataR.AddOpis(z);
-        public void DodajKatalog(Katalog l) => this.dataR.AddKatalog(l);
-        public void DodajWykaz(Wykaz a) => this.dataR.AddWykaz(a);
-        public void DodajZdarzenie(Zdarzenie q) => this.dataR.AddZdarzenie(q);
      
-        public void DodajOpis(Katalog katalog, DateTimeOffset data_zakupu, int ilosc, float cena) => this.dataR.AddOpis(new OpisStanu(katalog,data_zakupu,ilosc,cena));
-        public void DodajKatalog(string idKatalogu, string tytul, string autor, string rok, float cena) => this.dataR.AddKatalog(new Katalog(idKatalogu,tytul,autor,rok,cena));
-        public void DodajWykaz(string id, string nazwa) => this.dataR.AddWykaz(new Wykaz(id, nazwa));
-        public void DodajZdarzenie(OpisStanu opis_stanu, Wykaz wykaz) => this.dataR.AddZdarzenie(new Zdarzenie(opis_stanu, wykaz));
-      
-        public Zdarzenie DodajZdarzenieM(OpisStanu a, Wykaz b)
-        {
-            return new Zdarzenie(a, b);
-        }
-        public void UsunZdarzenie(OpisStanu a, Wykaz b)
-        {
-            ObservableCollection<Zdarzenie> all = new ObservableCollection<Zdarzenie>(this.dataR.GetZdarzenia());
-            foreach(Zdarzenie t in all)
-            {
-                if (t.Opis_Stanu.Equals(a) && t.Wykaz.Equals(b)) this.dataR.DeleteZdarzenie(t);
-            }
-        }
-        
     }
 }

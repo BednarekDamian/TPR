@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Zadanie1.Data;
 
+
 namespace UnitTestProject1
 {
     [TestClass]
@@ -14,16 +15,15 @@ namespace UnitTestProject1
         public void WykazTest()
         {
             DataContext context = new DataContext();
-            WypelnienieStalymi stale = new WypelnienieStalymi();
-            DataRepository data = new DataRepository(context, stale);
+            DataRepository data = new DataRepository(context);
             
-            Wykaz wykaz = new Wykaz("1", "Mariusz");
+            Wykaz wykaz = new Wykaz(1, "Mariusz");
             data.AddWykaz(wykaz);
-            if (wykaz.toString() != data.GetWykaz("1").toString()) Assert.Fail(wykaz.toString()+" : "+ data.GetWykaz("1").toString());
-            data.AddWykaz(new Wykaz("2", "Malik"));
-            data.AddWykaz(new Wykaz("3", "Eustachy"));
+            if (wykaz.toString() != data.GetWykaz(0).toString()) Assert.Fail(wykaz.toString()+" : "+ data.GetWykaz(0).toString());
+            data.AddWykaz(new Wykaz(2, "Malik"));
+            data.AddWykaz(new Wykaz(3, "Eustachy"));
    
-            data.DeleteWykaz("1");
+            data.DeleteWykaz(wykaz);
             if (data.GetAllWykaz().Count() != 2) Assert.Fail();
 
         }
@@ -31,13 +31,12 @@ namespace UnitTestProject1
         public void KatalogTest()
         {
             DataContext context = new DataContext();
-            WypelnienieStalymi stale = new WypelnienieStalymi();
-            DataRepository data = new DataRepository(context, stale);
-            Katalog katalog1 = new Katalog("1", "Wiedzmin", "Sapkowski", "2000", (float)32.5);
+            DataRepository data = new DataRepository(context);
+            Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
             data.AddKatalog(katalog1);
-            if (data.GetKatalog(0).toString() != katalog1.toString()) Assert.Fail();
-            data.AddKatalog(new Katalog("2", "Harry Pota", "J.K. Rowling", "1999", (float)24.0));
-            data.DeleteKatalog(0);
+            if (data.GetKatalog(1).toString() != katalog1.toString()) Assert.Fail();
+            data.AddKatalog(new Katalog(2, "Harry Pota", "J.K. Rowling", "1999", (float)24.0));
+            data.DeleteKatalog(katalog1);
             if (data.GetAllKatalog().Count() != 1) Assert.Fail();
         }
 
@@ -45,72 +44,70 @@ namespace UnitTestProject1
         public void OpisStanuTest()
         {
             DataContext context = new DataContext();
-            WypelnienieStalymi stale = new WypelnienieStalymi();
-            DataRepository data = new DataRepository(context, stale);
+            DataRepository data = new DataRepository(context);
 
-            Katalog katalog1 = new Katalog("1", "Wiedzmin", "Sapkowski", "2000", (float)32.5);
-            OpisStanu opisStanu = new OpisStanu(katalog1, DateTime.Now, 3, (float)32.5);
+            Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
+            OpisStanu opisStanu = new OpisStanu(0,katalog1,1);
 
-            data.AddOpis(opisStanu);
+            data.AddOpisStanu(opisStanu);
             if (data.GetOpisStanu(0).toString() != opisStanu.toString()) Assert.Fail();
-            data.AddOpis(new OpisStanu(katalog1, DateTime.Now, 5,(float)53.5));
-            data.AddOpis(new OpisStanu(katalog1, DateTime.Now, 6, (float)23.5));
-            data.DeleteOpis(0);
-            if (data.GetAllOpis().Count() != 2) Assert.Fail();
+            data.AddOpisStanu(new OpisStanu(1,katalog1,2));
+            data.AddOpisStanu(new OpisStanu(2,katalog1,5));
+            data.DeleteOpisStanu(opisStanu);
+            if (data.GetAllOpisStanu().Count() != 2) Assert.Fail();
         }
         [TestMethod]
         public void ZdarzenieTest()
         {
-            DataContext context = new DataContext();
-            WypelnienieStalymi stale = new WypelnienieStalymi();
-            DataRepository data = new DataRepository(context, stale);
+            DataContext context = new DataContext();         
+            DataRepository data = new DataRepository(context);
 
-            Katalog katalog1 = new Katalog("1", "Wiedzmin", "Sapkowski", "2000", (float)32.5);
-            OpisStanu opisStanu = new OpisStanu(katalog1, DateTime.Now, 3, (float)32.5);
-            Wykaz wykaz = new Wykaz("1", "Mariusz");
+            Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
+            OpisStanu opisStanu = new OpisStanu(0,katalog1,1);
+            Wykaz wykaz = new Wykaz(1, "Mariusz");
 
-            Zdarzenie zdarzenie = new Zdarzenie(opisStanu, wykaz);
+            Zdarzenie zdarzenie = new Zdarzenie(0,opisStanu, wykaz,DateTimeOffset.Now,1);
             data.AddZdarzenie(zdarzenie);
             if (data.GetZdarzenie(0).toString() != zdarzenie.toString()) Assert.Fail();
 
-            Katalog katalog2 = new Katalog("1", "Wiedzmin", "Sapkowski", "2000", (float)32.5);
-            OpisStanu opisStan2 = new OpisStanu(katalog1, DateTime.Now, 3, (float)32.5);
-            Wykaz wykaz2 = new Wykaz("1", "Mariusz");
+            Katalog katalog2 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
+            OpisStanu opisStan2 = new  OpisStanu(1, katalog1, 1);
+            Wykaz wykaz2 = new Wykaz(1, "Mariusz");
 
-            Zdarzenie zdarzenie2 = new Zdarzenie(opisStanu, wykaz);
+            Zdarzenie zdarzenie2 = new Zdarzenie(1,opisStanu, wykaz, DateTimeOffset.Now, 1);
             data.AddZdarzenie(zdarzenie2);
-            Katalog katalog3 = new Katalog("1", "Wiedzmin", "Sapkowski", "2000", (float)32.5);
-            OpisStanu opisStanu3 = new OpisStanu(katalog1, DateTime.Now, 3, (float)32.5);
-            Wykaz wykaz3 = new Wykaz("1", "Mariusz");
+            Katalog katalog3 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
+            OpisStanu opisStanu3 = new OpisStanu(2, katalog1, 1);
+            Wykaz wykaz3 = new Wykaz(1, "Mariusz");
 
-            Zdarzenie zdarzenie3 = new Zdarzenie(opisStanu, wykaz);
+            Zdarzenie zdarzenie3 = new Zdarzenie(2,opisStanu, wykaz,DateTimeOffset.Now,2);
             data.AddZdarzenie(zdarzenie3);
 
-            data.DeleteZdarzenie(0);
-            if (data.GetZdarzenia().Count() != 2) Assert.Fail();
+            data.DeleteZdarzenie(zdarzenie);
+            if (data.GetAllZdarzenie().Count() != 2) Assert.Fail();
                 }
         [TestMethod()]
         public void WypelnienieWykazdTest()
         {
             DataContext context_plik = new DataContext();
             WypelnienieStalymi plik = new WypelnienieStalymi();
-            DataRepository data_plik = new DataRepository(context_plik, plik);
-            data_plik.FillerStatic();
+            DataRepository data_plik = new DataRepository(context_plik);
+            plik.Filling(data_plik);
 
             List<Wykaz> kopia = new List<Wykaz>();
-            kopia.Add(new Wykaz("1", "Mariusz"));
-            kopia.Add(new Wykaz("2", "Malik"));
-            kopia.Add(new Wykaz("3", "Eustachy"));
-            kopia.Add(new Wykaz("4", "Andrzej"));
-            kopia.Add(new Wykaz("5", "Maciek"));
-            kopia.Add(new Wykaz("6", "Pawel"));
-            kopia.Add(new Wykaz("7", "Mariusz"));
-            kopia.Add(new Wykaz("8", "Piotr"));
+            kopia.Add(new Wykaz(1, "Mariusz"));
+            kopia.Add(new Wykaz(2, "Malik"));
+            kopia.Add(new Wykaz(3, "Eustachy"));
+            kopia.Add(new Wykaz(4, "Andrzej"));
+            kopia.Add(new Wykaz(5, "Maciek"));
+            kopia.Add(new Wykaz(6, "Pawel"));
+            kopia.Add(new Wykaz(7, "Mariusz"));
+            kopia.Add(new Wykaz(8, "Piotr"));
 
             for (int i = 0; i < kopia.Count; i++)
             {
-                if (!kopia[i].toString().Equals(data_plik.GetWykaz((i + 1).ToString()).toString()))
-                { Assert.Fail(kopia[i].toString() + " : " + data_plik.GetWykaz((i + 1).ToString()).toString()); }
+                if (!kopia[i].toString().Equals(data_plik.GetWykaz((i )).toString()))
+                { Assert.Fail(kopia[i].toString() + " : " + data_plik.GetWykaz((i )).toString()); }
 
             }
 
@@ -121,21 +118,21 @@ namespace UnitTestProject1
         {
             DataContext context_plik = new DataContext();
             WypelnienieStalymi plik = new WypelnienieStalymi();
-            DataRepository data_plik = new DataRepository(context_plik, plik);
-            data_plik.FillerStatic();
+            DataRepository data_plik = new DataRepository(context_plik);
+            plik.Filling(data_plik);
 
             IEnumerable<Katalog> stala = data_plik.GetAllKatalog();
-            Dictionary<int, Katalog> nowa = stala.ToDictionary(x => Int32.Parse(x.IdKatalogu) - 1, x => x);
+            Dictionary<int, Katalog> nowa = stala.ToDictionary(x => x.idKatalogu - 1, x => x);
 
             Dictionary<int, Katalog> test = new Dictionary<int, Katalog>();
-            test.Add(0, new Katalog("1", "Basnie", "Grim", "1894", (float)34.7));
-            test.Add(1, new Katalog("2", "Harry Pota", "J.K. Rowling", "1999", (float)24.4));
-            test.Add(2, new Katalog("3", "Chłopcy z Placu Broni", "Ferenc Molnar", "1913", (float)24.0));
-            test.Add(3, new Katalog("4", "Kamienie na szaniec", "Aleksander Kaminski", "1945", (float)42.0));
-            test.Add(4, new Katalog("5", "Wesele", "Stanislaw Wyspianski", "1901", (float)21.3));
-            test.Add(5, new Katalog("6", "Wiedzmin", "Andrzej Sapkowski", "1993", (float)15.0));
-            test.Add(6, new Katalog("7", "Dziady", "Adam Mickiewicz", "1822", (float)18.2));
-            test.Add(7, new Katalog("8", "Sen srebny Salomei", "Juliusz Slowacki", "1900", (float)11.2));
+            test.Add(0, new Katalog(1, "Basnie", "Grim", "1894", (float)34.7));
+            test.Add(1, new Katalog(2, "Harry Pota", "J.K. Rowling", "1999", (float)24.4));
+            test.Add(2, new Katalog(3, "Chłopcy z Placu Broni", "Ferenc Molnar", "1913", (float)24.0));
+            test.Add(3, new Katalog(4, "Kamienie na szaniec", "Aleksander Kaminski", "1945", (float)42.0));
+            test.Add(4, new Katalog(5, "Wesele", "Stanislaw Wyspianski", "1901", (float)21.3));
+            test.Add(5, new Katalog(6, "Wiedzmin", "Andrzej Sapkowski", "1993", (float)15.0));
+            test.Add(6, new Katalog(7, "Dziady", "Adam Mickiewicz", "1822", (float)18.2));
+            test.Add(7, new Katalog(8, "Sen srebny Salomei", "Juliusz Slowacki", "1900", (float)11.2));
 
             for (int i = 0; i < 7; i++)
             {
@@ -149,33 +146,33 @@ namespace UnitTestProject1
         {
             DataContext context_plik = new DataContext();
             WypelnienieStalymi plik = new WypelnienieStalymi();
-            DataRepository data_plik = new DataRepository(context_plik, plik);
-            data_plik.FillerStatic();
+            DataRepository data_plik = new DataRepository(context_plik);
+            plik.Filling(data_plik);
 
-            IEnumerable<OpisStanu> stala = data_plik.GetAllOpis();
+            IEnumerable<OpisStanu> stala = data_plik.GetAllOpisStanu();
             List<OpisStanu> nowa = stala.ToList<OpisStanu>();
 
             List<OpisStanu> test = new List<OpisStanu>();
 
             Dictionary<int, Katalog> test2 = new Dictionary<int, Katalog>();
-            test2.Add(0, new Katalog("1", "Basnie", "Grim", "1894", (float)34.7));
-            test2.Add(1, new Katalog("2", "Harry Pota", "J.K. Rowling", "1999", (float)24.4));
-            test2.Add(2, new Katalog("3", "Chłopcy z Placu Broni", "Ferenc Molnar", "1913", (float)24.0));
-            test2.Add(3, new Katalog("4", "Kamienie na szaniec", "Aleksander Kaminski", "1945", (float)42.0));
-            test2.Add(4, new Katalog("5", "Wesele", "Stanislaw Wyspianski", "1901", (float)21.3));
-            test2.Add(5, new Katalog("6", "Wiedzmin", "Andrzej Sapkowski", "1993", (float)15.0));
-            test2.Add(6, new Katalog("7", "Dziady", "Adam Mickiewicz", "1822", (float)18.2));
-            test2.Add(7, new Katalog("8", "Sen srebny Salomei", "Juliusz Slowacki", "1900", (float)11.2));
+            test2.Add(0, new Katalog(1, "Basnie", "Grim", "1894", (float)34.7));
+            test2.Add(1, new Katalog(2, "Harry Pota", "J.K. Rowling", "1999", (float)24.4));
+            test2.Add(2, new Katalog(3, "Chłopcy z Placu Broni", "Ferenc Molnar", "1913", (float)24.0));
+            test2.Add(3, new Katalog(4, "Kamienie na szaniec", "Aleksander Kaminski", "1945", (float)42.0));
+            test2.Add(4, new Katalog(5, "Wesele", "Stanislaw Wyspianski", "1901", (float)21.3));
+            test2.Add(5, new Katalog(6, "Wiedzmin", "Andrzej Sapkowski", "1993", (float)15.0));
+            test2.Add(6, new Katalog(7, "Dziady", "Adam Mickiewicz", "1822", (float)18.2));
+            test2.Add(7, new Katalog(8, "Sen srebny Salomei", "Juliusz Slowacki", "1900", (float)11.2));
 
 
 
-            test.Add(new OpisStanu(test2[0], DateTimeOffset.Now, 1, (float)34.7));
-            test.Add(new OpisStanu(test2[1], DateTimeOffset.Now, 2, (float)24.4));
-            test.Add(new OpisStanu(test2[2], DateTimeOffset.Now, 3, (float)24.0));
-            test.Add(new OpisStanu(test2[3], DateTimeOffset.Now, 4, (float)42.0));
-            test.Add(new OpisStanu(test2[4], DateTimeOffset.Now, 5, (float)21.3));
-            test.Add(new OpisStanu(test2[5], DateTimeOffset.Now, 6, (float)15.0));
-            test.Add(new OpisStanu(test2[6], DateTimeOffset.Now, 7, (float)18.2));
+            test.Add(new OpisStanu(0,test2[0],0));
+            test.Add(new OpisStanu(1, test2[1],1));
+            test.Add(new OpisStanu(2,test2[2],2));
+            test.Add(new OpisStanu(3, test2[3], 3));
+            test.Add(new OpisStanu(4, test2[4], 4));
+            test.Add(new OpisStanu(5, test2[5], 5));
+            test.Add(new OpisStanu(6, test2[6], 6));
             for (int i = 0; i < 7; i++)
             {
                 if (!(test[i].toString() == nowa[i].toString())) Assert.Fail(test[i].toString() + " : " + nowa[i].toString());
@@ -187,57 +184,56 @@ namespace UnitTestProject1
         {
             DataContext context_plik = new DataContext();
             WypelnienieStalymi plik = new WypelnienieStalymi();
-            DataRepository data_plik = new DataRepository(context_plik, plik);
-            data_plik.FillerStatic();
-
-            IEnumerable<Zdarzenie> stala = data_plik.GetZdarzenia();
+            DataRepository data_plik = new DataRepository(context_plik);
+            plik.Filling(data_plik);
+            IEnumerable<Zdarzenie> stala = data_plik.GetAllZdarzenie();
             ObservableCollection<Zdarzenie> nowa = new ObservableCollection<Zdarzenie>(stala);
 
             ObservableCollection<Zdarzenie> test = new ObservableCollection<Zdarzenie>();
             List<OpisStanu> test1 = new List<OpisStanu>();
 
             Dictionary<int, Katalog> test2 = new Dictionary<int, Katalog>();
-            test2.Add(0, new Katalog("1", "Basnie", "Grim", "1894", (float)34.7));
-            test2.Add(1, new Katalog("2", "Harry Pota", "J.K. Rowling", "1999", (float)24.4));
-            test2.Add(2, new Katalog("3", "Chłopcy z Placu Broni", "Ferenc Molnar", "1913", (float)24.0));
-            test2.Add(3, new Katalog("4", "Kamienie na szaniec", "Aleksander Kaminski", "1945", (float)42.0));
-            test2.Add(4, new Katalog("5", "Wesele", "Stanislaw Wyspianski", "1901", (float)21.3));
-            test2.Add(5, new Katalog("6", "Wiedzmin", "Andrzej Sapkowski", "1993", (float)15.0));
-            test2.Add(6, new Katalog("7", "Dziady", "Adam Mickiewicz", "1822", (float)18.2));
-            test2.Add(7, new Katalog("8", "Sen srebny Salomei", "Juliusz Slowacki", "1900", (float)11.2));
+            test2.Add(0, new Katalog(1, "Basnie", "Grim", "1894", (float)34.7));
+            test2.Add(1, new Katalog(2, "Harry Pota", "J.K. Rowling", "1999", (float)24.4));
+            test2.Add(2, new Katalog(3, "Chłopcy z Placu Broni", "Ferenc Molnar", "1913", (float)24.0));
+            test2.Add(3, new Katalog(4, "Kamienie na szaniec", "Aleksander Kaminski", "1945", (float)42.0));
+            test2.Add(4, new Katalog(5, "Wesele", "Stanislaw Wyspianski", "1901", (float)21.3));
+            test2.Add(5, new Katalog(6, "Wiedzmin", "Andrzej Sapkowski", "1993", (float)15.0));
+            test2.Add(6, new Katalog(7, "Dziady", "Adam Mickiewicz", "1822", (float)18.2));
+            test2.Add(7, new Katalog(8, "Sen srebny Salomei", "Juliusz Slowacki", "1900", (float)11.2));
 
 
 
 
-            test1.Add(new OpisStanu(test2[0], DateTimeOffset.Now, 1, (float)34.7));
-            test1.Add(new OpisStanu(test2[1], DateTimeOffset.Now, 2, (float)24.4));
-            test1.Add(new OpisStanu(test2[2], DateTimeOffset.Now, 3, (float)24.0));
-            test1.Add(new OpisStanu(test2[3], DateTimeOffset.Now, 4, (float)42.0));
-            test1.Add(new OpisStanu(test2[4], DateTimeOffset.Now, 5, (float)21.3));
-            test1.Add(new OpisStanu(test2[5], DateTimeOffset.Now, 6, (float)15.0));
-            test1.Add(new OpisStanu(test2[6], DateTimeOffset.Now, 7, (float)18.2));
+            test1.Add(new OpisStanu(0, test2[0], 0));
+            test1.Add(new OpisStanu(1, test2[1], 1));
+            test1.Add(new OpisStanu(2, test2[2], 2));
+            test1.Add(new OpisStanu(3, test2[3], 3));
+            test1.Add(new OpisStanu(4, test2[4], 4));
+            test1.Add(new OpisStanu(5, test2[5], 5));
+            test1.Add(new OpisStanu(6, test2[6], 6));
 
             List<Wykaz> kopia = new List<Wykaz>();
-            kopia.Add(new Wykaz("1", "Mariusz"));
-            kopia.Add(new Wykaz("2", "Malik"));
-            kopia.Add(new Wykaz("3", "Eustachy"));
-            kopia.Add(new Wykaz("4", "Andrzej"));
-            kopia.Add(new Wykaz("5", "Maciek"));
-            kopia.Add(new Wykaz("6", "Pawel"));
-            kopia.Add(new Wykaz("7", "Mariusz"));
-            kopia.Add(new Wykaz("8", "Piotr"));
+            kopia.Add(new Wykaz(1, "Mariusz"));
+            kopia.Add(new Wykaz(2, "Malik"));
+            kopia.Add(new Wykaz(3, "Eustachy"));
+            kopia.Add(new Wykaz(4, "Andrzej"));
+            kopia.Add(new Wykaz(5, "Maciek"));
+            kopia.Add(new Wykaz(6, "Pawel"));
+            kopia.Add(new Wykaz(7, "Mariusz"));
+            kopia.Add(new Wykaz(8, "Piotr"));
 
 
-            test.Add(new Zdarzenie(test1[0], kopia[0]));
-            test.Add(new Zdarzenie(test1[1], kopia[1]));
-            test.Add(new Zdarzenie(test1[2], kopia[2]));
-            test.Add(new Zdarzenie(test1[3], kopia[3]));
-            test.Add(new Zdarzenie(test1[4], kopia[4]));
-            test.Add(new Zdarzenie(test1[5], kopia[5]));
+            test.Add(new Zdarzenie(0,test1[0], kopia[0],DateTimeOffset.Now,1));
+            test.Add(new Zdarzenie(1, test1[1], kopia[1], DateTimeOffset.Now, 1));
+            test.Add(new Zdarzenie(2, test1[2], kopia[2], DateTimeOffset.Now, 1));
+            test.Add(new Zdarzenie(3, test1[3], kopia[3], DateTimeOffset.Now, 1));
+            test.Add(new Zdarzenie(4, test1[4], kopia[4], DateTimeOffset.Now, 1));
+            test.Add(new Zdarzenie(5, test1[5], kopia[5], DateTimeOffset.Now, 1));
 
             for (int i = 0; i < 6; i++)
             {
-                if (!(test[i].toString() == nowa[i].toString())) Assert.Fail(test[i].toString() + " : " + nowa[i].toString());
+                if (!(test[i].idZdarzenie == nowa[i].idZdarzenie)) Assert.Fail(test[i].toString() + " : " + nowa[i].toString());
             }
         }
     }

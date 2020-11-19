@@ -2,18 +2,14 @@
 {
     public class Wykaz
     {
-        private string idKlienta;
-        private string nazwaKlienta;
+        public int idKlienta { get; set; }
+        public string nazwaKlienta { get; set; }
 
-        public Wykaz(string id, string nazwa)
+        public Wykaz(int id, string nazwa)
         {
             this.idKlienta = id;
             this.nazwaKlienta = nazwa;
         }
-
-        public string IdKlienta { get => idKlienta; set => idKlienta = value; }
-        public string NazwaKlienta { get => nazwaKlienta; set => nazwaKlienta = value; }
-
         public string toString()
         {
             return  idKlienta + " " + nazwaKlienta;

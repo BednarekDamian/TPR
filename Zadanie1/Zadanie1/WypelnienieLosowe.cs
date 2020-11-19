@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Linq;
 
 namespace Zadanie1.Data
@@ -54,3 +54,4 @@ namespace Zadanie1.Data
         }
     }
 }
+*/
