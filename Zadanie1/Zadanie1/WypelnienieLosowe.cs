@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Linq;
 
 namespace Zadanie1.Data
@@ -11,10 +11,10 @@ namespace Zadanie1.Data
         float myFloat;
         int myInt;
         private static Random rnd = new Random();
-       // System.Random rnd = new System.Random();
+        // System.Random rnd = new System.Random();
 
         private static Random radomia = new Random();
-            public static string RandomWord(int size)
+        public static string RandomWord(int size)
         {
             const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             return new string(Enumerable.Repeat(letters, size)
@@ -32,26 +32,27 @@ namespace Zadanie1.Data
             myFloat = (myInt / 10) + 10.5f;
             return myFloat;
         }
-        public void Filling(DataContext contL)
+  
+
+        public void Filling(IDataRepo dataRepo)
         {
-            for(int i=0;i<50;i++)
+            for (int i = 0; i < 50; i++)
             {
-                contL.wykazy.Add(new Wykaz(RandomNumber(3), RandomWord(6)));
+                dataRepo.AddWykaz(new Wykaz(Int32.Parse(RandomNumber(3)), RandomWord(6)));
             }
             for (int i = 0; i < 50; i++)
             {
-                contL.katalogi.Add(i + 5, new Katalog(RandomNumber(4), RandomWord(10), RandomWord(25), RandomNumber(4), GenerateFloat()));
+                dataRepo.AddKatalog(new Katalog(Int32.Parse(RandomNumber(4)), RandomWord(10), RandomWord(25), RandomNumber(4), GenerateFloat()));
             }
 
             for (int i = 0; i < 50; i++)
             {
-                contL.opisyStanu.Add(new OpisStanu(contL.katalogi[i], DateTimeOffset.Now, i + 1, contL.katalogi[i].Cena));
+                dataRepo.AddOpisStanu(new OpisStanu(Int32.Parse(RandomNumber(3)), dataRepo.GetKatalog(i),i));
             }
             for (int i = 0; i < 8; i++)
             {
-                contL.zdarzenia.Add(new Zdarzenie(contL.opisyStanu[i], contL.wykazy[i]));
+               dataRepo.AddZdarzenie(new Zdarzenie(Int32.Parse(RandomNumber(5)),dataRepo.GetOpisStanu(i),dataRepo.GetWykaz(i),DateTimeOffset.Now,i));
             }
         }
     }
 }
-*/
