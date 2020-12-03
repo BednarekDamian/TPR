@@ -1,4 +1,5 @@
 ﻿using System;
+using Zadanie1;
 
 namespace Zadanie2
 {
