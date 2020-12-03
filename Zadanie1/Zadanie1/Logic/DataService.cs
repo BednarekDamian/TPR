@@ -14,11 +14,15 @@ namespace Zadanie1.logic
             this.dataRepo = dataRepo;
         }
 
-        public void DodajZdarzenie(int id, Wykaz wykaz, OpisStanu opisStanu, DateTimeOffset time, int ilosc)
+        public void Sprzedaz(int id, Wykaz wykaz, OpisStanu opisStanu, DateTimeOffset time, int ilosc)
         {
-            dataRepo.AddZdarzenie(new Zdarzenie(id, opisStanu, wykaz, time, ilosc));
+            dataRepo.AddZdarzenie(new Sprzedaz(id,opisStanu,wykaz,time,ilosc));
         }
 
+        public void Zakup_Ksiazek(int id, Wykaz wykaz, OpisStanu opisStanu, DateTimeOffset time, int ilosc)
+        {
+            dataRepo.AddZdarzenie(new Zakup(id, opisStanu, wykaz, time, ilosc));
+        }
         public IEnumerable<OpisStanu> OpisDlaKatalogu(Katalog katalog)
         {
             List<OpisStanu> opisStanu = new List<OpisStanu>();

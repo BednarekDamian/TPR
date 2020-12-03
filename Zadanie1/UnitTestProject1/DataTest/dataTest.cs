@@ -14,8 +14,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void WykazTest()
         {
-            DataContext context = new DataContext();
-            DataRepository data = new DataRepository(context);
+            DataFiller dataFiller = new WypelnienieStalymi();
+            DataRepository data = new DataRepository(dataFiller);
             
             Wykaz wykaz = new Wykaz(1, "Mariusz");
             data.AddWykaz(wykaz);
@@ -30,8 +30,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void KatalogTest()
         {
-            DataContext context = new DataContext();
-            DataRepository data = new DataRepository(context);
+            DataFiller dataFiller = new WypelnienieStalymi();
+            DataRepository data = new DataRepository(dataFiller);
             Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
             data.AddKatalog(katalog1);
             if (data.GetKatalog(1).toString() != katalog1.toString()) Assert.Fail();
@@ -43,8 +43,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void OpisStanuTest()
         {
-            DataContext context = new DataContext();
-            DataRepository data = new DataRepository(context);
+            DataFiller dataFiller = new WypelnienieStalymi();
+            DataRepository data = new DataRepository(dataFiller);
 
             Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
             OpisStanu opisStanu = new OpisStanu(0,katalog1,1);
@@ -59,14 +59,14 @@ namespace UnitTestProject1
         [TestMethod]
         public void ZdarzenieTest()
         {
-            DataContext context = new DataContext();         
-            DataRepository data = new DataRepository(context);
+            DataFiller dataFiller = new WypelnienieStalymi();
+            DataRepository data = new DataRepository(dataFiller);
 
             Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
             OpisStanu opisStanu = new OpisStanu(0,katalog1,1);
             Wykaz wykaz = new Wykaz(1, "Mariusz");
 
-            Zdarzenie zdarzenie = new Zdarzenie(0,opisStanu, wykaz,DateTimeOffset.Now,1);
+            Zdarzenie zdarzenie = new Sprzedaz(0,opisStanu, wykaz,DateTimeOffset.Now,1);
             data.AddZdarzenie(zdarzenie);
             if (data.GetZdarzenie(0).toString() != zdarzenie.toString()) Assert.Fail();
 
@@ -74,13 +74,13 @@ namespace UnitTestProject1
             OpisStanu opisStan2 = new  OpisStanu(1, katalog1, 1);
             Wykaz wykaz2 = new Wykaz(1, "Mariusz");
 
-            Zdarzenie zdarzenie2 = new Zdarzenie(1,opisStanu, wykaz, DateTimeOffset.Now, 1);
+            Zdarzenie zdarzenie2 = new Sprzedaz(1,opisStanu, wykaz, DateTimeOffset.Now, 1);
             data.AddZdarzenie(zdarzenie2);
             Katalog katalog3 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
             OpisStanu opisStanu3 = new OpisStanu(2, katalog1, 1);
             Wykaz wykaz3 = new Wykaz(1, "Mariusz");
 
-            Zdarzenie zdarzenie3 = new Zdarzenie(2,opisStanu, wykaz,DateTimeOffset.Now,2);
+            Zdarzenie zdarzenie3 = new Sprzedaz(2,opisStanu, wykaz,DateTimeOffset.Now,2);
             data.AddZdarzenie(zdarzenie3);
 
             data.DeleteZdarzenie(zdarzenie);
@@ -89,10 +89,8 @@ namespace UnitTestProject1
         [TestMethod()]
         public void WypelnienieWykazdTest()
         {
-            DataContext context_plik = new DataContext();
-            WypelnienieStalymi plik = new WypelnienieStalymi();
-            DataRepository data_plik = new DataRepository(context_plik);
-            plik.Filling(data_plik);
+            DataFiller dataFiller = new WypelnienieStalymi();
+            DataRepository data = new DataRepository(dataFiller);
 
             List<Wykaz> kopia = new List<Wykaz>();
             kopia.Add(new Wykaz(1, "Mariusz"));
@@ -106,8 +104,8 @@ namespace UnitTestProject1
 
             for (int i = 0; i < kopia.Count; i++)
             {
-                if (!kopia[i].toString().Equals(data_plik.GetWykaz((i )).toString()))
-                { Assert.Fail(kopia[i].toString() + " : " + data_plik.GetWykaz((i )).toString()); }
+                if (!kopia[i].toString().Equals(data.GetWykaz((i )).toString()))
+                { Assert.Fail(kopia[i].toString() + " : " + data.GetWykaz((i )).toString()); }
 
             }
 
@@ -116,12 +114,10 @@ namespace UnitTestProject1
         [TestMethod()]
         public void WypelnienieKatalogTest()
         {
-            DataContext context_plik = new DataContext();
-            WypelnienieStalymi plik = new WypelnienieStalymi();
-            DataRepository data_plik = new DataRepository(context_plik);
-            plik.Filling(data_plik);
+            DataFiller dataFiller = new WypelnienieStalymi();
+            DataRepository data = new DataRepository(dataFiller);
 
-            IEnumerable<Katalog> stala = data_plik.GetAllKatalog();
+            IEnumerable<Katalog> stala = data.GetAllKatalog();
             Dictionary<int, Katalog> nowa = stala.ToDictionary(x => x.idKatalogu - 1, x => x);
 
             Dictionary<int, Katalog> test = new Dictionary<int, Katalog>();
@@ -144,12 +140,10 @@ namespace UnitTestProject1
         [TestMethod()]
         public void WypelnienieOpisStanuTest()
         {
-            DataContext context_plik = new DataContext();
-            WypelnienieStalymi plik = new WypelnienieStalymi();
-            DataRepository data_plik = new DataRepository(context_plik);
-            plik.Filling(data_plik);
+            DataFiller dataFiller = new WypelnienieStalymi();
+            DataRepository data = new DataRepository(dataFiller);
 
-            IEnumerable<OpisStanu> stala = data_plik.GetAllOpisStanu();
+            IEnumerable<OpisStanu> stala = data.GetAllOpisStanu();
             List<OpisStanu> nowa = stala.ToList<OpisStanu>();
 
             List<OpisStanu> test = new List<OpisStanu>();
@@ -167,12 +161,12 @@ namespace UnitTestProject1
 
 
             test.Add(new OpisStanu(0,test2[0],0));
-            test.Add(new OpisStanu(1, test2[1],1));
-            test.Add(new OpisStanu(2,test2[2],2));
-            test.Add(new OpisStanu(3, test2[3], 3));
-            test.Add(new OpisStanu(4, test2[4], 4));
-            test.Add(new OpisStanu(5, test2[5], 5));
-            test.Add(new OpisStanu(6, test2[6], 6));
+            test.Add(new OpisStanu(1, test2[1],0));
+            test.Add(new OpisStanu(2,test2[2],0));
+            test.Add(new OpisStanu(3, test2[3], 0));
+            test.Add(new OpisStanu(4, test2[4], 0));
+            test.Add(new OpisStanu(5, test2[5], 0));
+            test.Add(new OpisStanu(6, test2[6],0));
             for (int i = 0; i < 7; i++)
             {
                 if (!(test[i].toString() == nowa[i].toString())) Assert.Fail(test[i].toString() + " : " + nowa[i].toString());
@@ -182,11 +176,9 @@ namespace UnitTestProject1
         [TestMethod()]
         public void WypelnienieZdarzenieTest()
         {
-            DataContext context_plik = new DataContext();
-            WypelnienieStalymi plik = new WypelnienieStalymi();
-            DataRepository data_plik = new DataRepository(context_plik);
-            plik.Filling(data_plik);
-            IEnumerable<Zdarzenie> stala = data_plik.GetAllZdarzenie();
+            DataFiller dataFiller = new WypelnienieStalymi();
+            DataRepository data = new DataRepository(dataFiller);
+            IEnumerable<Zdarzenie> stala = data.GetAllZdarzenie();
             ObservableCollection<Zdarzenie> nowa = new ObservableCollection<Zdarzenie>(stala);
 
             ObservableCollection<Zdarzenie> test = new ObservableCollection<Zdarzenie>();
@@ -224,12 +216,12 @@ namespace UnitTestProject1
             kopia.Add(new Wykaz(8, "Piotr"));
 
 
-            test.Add(new Zdarzenie(0,test1[0], kopia[0],DateTimeOffset.Now,1));
-            test.Add(new Zdarzenie(1, test1[1], kopia[1], DateTimeOffset.Now, 1));
-            test.Add(new Zdarzenie(2, test1[2], kopia[2], DateTimeOffset.Now, 1));
-            test.Add(new Zdarzenie(3, test1[3], kopia[3], DateTimeOffset.Now, 1));
-            test.Add(new Zdarzenie(4, test1[4], kopia[4], DateTimeOffset.Now, 1));
-            test.Add(new Zdarzenie(5, test1[5], kopia[5], DateTimeOffset.Now, 1));
+            test.Add(new Sprzedaz(0,test1[0], kopia[0],DateTimeOffset.Now,1));
+            test.Add(new Sprzedaz(1, test1[1], kopia[1], DateTimeOffset.Now, 1));
+            test.Add(new Sprzedaz(2, test1[2], kopia[2], DateTimeOffset.Now, 1));
+            test.Add(new Sprzedaz(3, test1[3], kopia[3], DateTimeOffset.Now, 1));
+            test.Add(new Sprzedaz(4, test1[4], kopia[4], DateTimeOffset.Now, 1));
+            test.Add(new Sprzedaz(5, test1[5], kopia[5], DateTimeOffset.Now, 1));
 
             for (int i = 0; i < 6; i++)
             {
