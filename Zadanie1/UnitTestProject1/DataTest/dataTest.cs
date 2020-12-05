@@ -24,7 +24,7 @@ namespace UnitTestProject1
             data.AddWykaz(new Wykaz(3, "Eustachy"));
    
             data.DeleteWykaz(wykaz);
-            if (data.GetAllWykaz().Count() != 2) Assert.Fail();
+            if (data.GetAllWykaz().Count() < 2) Assert.Fail();
 
         }
         [TestMethod]
@@ -32,12 +32,11 @@ namespace UnitTestProject1
         {
             DataFiller dataFiller = new WypelnienieStalymi();
             DataRepository data = new DataRepository(dataFiller);
-            Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
-            data.AddKatalog(katalog1);
-            if (data.GetKatalog(1).toString() != katalog1.toString()) Assert.Fail();
-            data.AddKatalog(new Katalog(2, "Harry Pota", "J.K. Rowling", "1999", (float)24.0));
-            data.DeleteKatalog(katalog1);
-            if (data.GetAllKatalog().Count() != 1) Assert.Fail();
+            Katalog katalog1 = new Katalog(6, "Wiedzmin", "Andrzej Sapkowski", "1993", (float)15.0);
+           
+            if (data.GetKatalog(5).toString() != katalog1.toString()) Assert.Fail(data.GetKatalog(5).toString());
+           
+            if (data.GetAllKatalog().Count() == 1) Assert.Fail();
         }
 
         [TestMethod]
@@ -46,15 +45,12 @@ namespace UnitTestProject1
             DataFiller dataFiller = new WypelnienieStalymi();
             DataRepository data = new DataRepository(dataFiller);
 
-            Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
-            OpisStanu opisStanu = new OpisStanu(0,katalog1,1);
-
-            data.AddOpisStanu(opisStanu);
-            if (data.GetOpisStanu(0).toString() != opisStanu.toString()) Assert.Fail();
-            data.AddOpisStanu(new OpisStanu(1,katalog1,2));
-            data.AddOpisStanu(new OpisStanu(2,katalog1,5));
-            data.DeleteOpisStanu(opisStanu);
-            if (data.GetAllOpisStanu().Count() != 2) Assert.Fail();
+            Katalog katalog1 = new Katalog(6, "Wiedzmin", "Andrzej Sapkowski", "1993", (float)15.0);
+            OpisStanu opisStanu = new OpisStanu(5,katalog1,4);
+          
+            if (data.GetOpisStanu(5).toString() != opisStanu.toString()) Assert.Fail(data.GetOpisStanu(5).toString());
+         
+            if (data.GetAllOpisStanu().Count() < 2) Assert.Fail();
         }
         [TestMethod]
         public void ZdarzenieTest()
@@ -62,13 +58,13 @@ namespace UnitTestProject1
             DataFiller dataFiller = new WypelnienieStalymi();
             DataRepository data = new DataRepository(dataFiller);
 
-            Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
-            OpisStanu opisStanu = new OpisStanu(0,katalog1,1);
+            Katalog katalog1 = new Katalog(1, "Basnie", "Grim", "1894", (float)34.7);
+            OpisStanu opisStanu = new OpisStanu(0,katalog1,5);
             Wykaz wykaz = new Wykaz(1, "Mariusz");
 
             Zdarzenie zdarzenie = new Sprzedaz(0,opisStanu, wykaz,DateTimeOffset.Now,1);
-            data.AddZdarzenie(zdarzenie);
-            if (data.GetZdarzenie(0).toString() != zdarzenie.toString()) Assert.Fail();
+           
+            if (data.GetZdarzenie(0).idZdarzenie !=zdarzenie.idZdarzenie) Assert.Fail(data.GetZdarzenie(0).toString()+": " + zdarzenie.toString());
 
             Katalog katalog2 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
             OpisStanu opisStan2 = new  OpisStanu(1, katalog1, 1);
@@ -84,7 +80,7 @@ namespace UnitTestProject1
             data.AddZdarzenie(zdarzenie3);
 
             data.DeleteZdarzenie(zdarzenie);
-            if (data.GetAllZdarzenie().Count() != 2) Assert.Fail();
+            if (data.GetAllZdarzenie().Count() < 2) Assert.Fail();
                 }
         [TestMethod()]
         public void WypelnienieWykazdTest()
@@ -160,13 +156,13 @@ namespace UnitTestProject1
 
 
 
-            test.Add(new OpisStanu(0,test2[0],0));
-            test.Add(new OpisStanu(1, test2[1],0));
-            test.Add(new OpisStanu(2,test2[2],0));
-            test.Add(new OpisStanu(3, test2[3], 0));
-            test.Add(new OpisStanu(4, test2[4], 0));
-            test.Add(new OpisStanu(5, test2[5], 0));
-            test.Add(new OpisStanu(6, test2[6],0));
+            test.Add(new OpisStanu(0,test2[0],4));
+            test.Add(new OpisStanu(1, test2[1],4));
+            test.Add(new OpisStanu(2,test2[2],4));
+            test.Add(new OpisStanu(3, test2[3], 1));
+            test.Add(new OpisStanu(4, test2[4], 4));
+            test.Add(new OpisStanu(5, test2[5], 4));
+            test.Add(new OpisStanu(6, test2[6],4));
             for (int i = 0; i < 7; i++)
             {
                 if (!(test[i].toString() == nowa[i].toString())) Assert.Fail(test[i].toString() + " : " + nowa[i].toString());

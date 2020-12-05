@@ -28,16 +28,16 @@ namespace Zadanie1.Data
 
             for (int i = 0; i <7; i++)
             {
-              dataContext.opisyStanu.Add(new OpisStanu(i, dataContext.katalogi[i+1], i));
+              dataContext.opisyStanu.Add(new OpisStanu(i, dataContext.katalogi[i+1], 5));
             }
             for (int i = 0; i < 7; i++)
             {
-                dataContext.zdarzenia.Add(new Sprzedaz(i, dataContext.opisyStanu[i], dataContext.wykazy[i], DateTimeOffset.Now, i));
+                dataContext.zdarzenia.Add(new Sprzedaz(i, dataContext.opisyStanu[i], dataContext.wykazy[i], DateTimeOffset.Now, 1));
             }
 
             for (int i = 0; i < 3; i++)
             {
-                dataContext.zdarzenia.Add(new Sprzedaz(i, dataContext.opisyStanu[3], dataContext.wykazy[i], DateTimeOffset.Now, i));
+                dataContext.zdarzenia.Add(new Sprzedaz(i, dataContext.opisyStanu[3], dataContext.wykazy[i], DateTimeOffset.Now, 1));
             }
         }
     }
