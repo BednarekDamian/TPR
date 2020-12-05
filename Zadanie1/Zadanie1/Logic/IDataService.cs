@@ -12,7 +12,9 @@ namespace Zadanie1.logic
         void  WyswietlZdarzenia();
         IEnumerable<Zdarzenie> ZdarzenieDlaWykazu(Wykaz wykaz);
         IEnumerable<Zdarzenie> ZdarazeniePomiedzyDatami(DateTimeOffset from, DateTimeOffset to);
-        void DodajZdarzenie(int id,Wykaz wykaz, OpisStanu opisStanu, DateTimeOffset time, int ilosc);
+        void Sprzedaz(int id,Wykaz wykaz, OpisStanu opisStanu, DateTimeOffset time, int ilosc);
+        void Zakup_Ksiazek(int id, Wykaz wykaz, OpisStanu opisStanu, DateTimeOffset time, int ilosc);
+
 
     }
 }

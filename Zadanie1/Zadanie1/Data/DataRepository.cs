@@ -7,15 +7,16 @@ namespace Zadanie1.Data
     public class DataRepository : IDataRepo
     {
         private DataContext dataContex;
+        private DataFiller dataFiller;
 
-        public DataRepository(DataContext contex)
+        public DataRepository(DataFiller dataFiller)
         {
-            this.dataContex = contex;
+            dataContex = new DataContext();
+            this.dataFiller = dataFiller;
+            this.dataFiller.Filling(dataContex);
+
         }
-       /* public void Fill()
-        {
-            throw new NotImplementedException();
-        } */
+     
         public void AddKatalog(Katalog katalog)
         {
             dataContex.katalogi.Add(katalog.idKatalogu, katalog);

@@ -2,6 +2,6 @@
 {
     public interface DataFiller
     {
-        void Filling(IDataRepo dataRepo);
+        void Filling(DataContext dataContext);
     }
 }

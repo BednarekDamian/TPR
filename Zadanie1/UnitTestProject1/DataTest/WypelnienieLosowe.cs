@@ -34,24 +34,24 @@ namespace Zadanie1.Data
         }
   
 
-        public void Filling(IDataRepo dataRepo)
+        public void Filling(DataContext dataContext)
         {
             for (int i = 0; i < 50; i++)
             {
-                dataRepo.AddWykaz(new Wykaz(Int32.Parse(RandomNumber(3)), RandomWord(6)));
+                dataContext.wykazy.Add(new Wykaz(Int32.Parse(RandomNumber(3)), RandomWord(6)));
             }
             for (int i = 0; i < 50; i++)
             {
-                dataRepo.AddKatalog(new Katalog(Int32.Parse(RandomNumber(4)), RandomWord(10), RandomWord(25), RandomNumber(4), GenerateFloat()));
+                dataContext.katalogi.Add(i,new Katalog(Int32.Parse(RandomNumber(4)), RandomWord(10), RandomWord(25), RandomNumber(4), GenerateFloat()));
             }
 
             for (int i = 0; i < 50; i++)
             {
-                dataRepo.AddOpisStanu(new OpisStanu(Int32.Parse(RandomNumber(3)), dataRepo.GetKatalog(i),i));
+                dataContext.opisyStanu.Add(new OpisStanu(Int32.Parse(RandomNumber(3)), dataContext.katalogi[i],i));
             }
             for (int i = 0; i < 8; i++)
             {
-               dataRepo.AddZdarzenie(new Zdarzenie(Int32.Parse(RandomNumber(5)),dataRepo.GetOpisStanu(i),dataRepo.GetWykaz(i),DateTimeOffset.Now,i));
+                dataContext.zdarzenia.Add(new Sprzedaz(Int32.Parse(RandomNumber(5)),dataContext.opisyStanu[i],dataContext.wykazy[i],DateTimeOffset.Now,i));
             }
         }
     }
