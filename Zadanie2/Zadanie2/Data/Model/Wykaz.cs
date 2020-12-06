@@ -18,7 +18,7 @@ namespace Zadanie2
         }
         public override string ToString()
         {
-            return  idKlienta + "_ " + nazwaKlienta;
+            return  idKlienta + "_" + nazwaKlienta;
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context,int i)

@@ -21,7 +21,7 @@ namespace Zadanie2
         }
         public override string ToString()
         {
-            return idOpis + "_ " + katalog.ToString() + "_ " + ilosc;
+            return idOpis + "_" + katalog.ToString() + "_" + ilosc;
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)

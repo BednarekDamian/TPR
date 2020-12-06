@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Zadanie2
 {
-    class CustomFormatter 
+    public  class CustomFormatter 
     {
         
         public CustomFormatter()

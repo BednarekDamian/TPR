@@ -24,7 +24,7 @@ namespace Zadanie2
 
         public override string ToString()
         {
-            return idKatalogu +"_ "+ tytul + "_ " + autor + "_ " + rok + "_ " + cena;
+            return idKatalogu +"_"+ tytul + "_" + autor + "_" + rok + "_" + cena;
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)

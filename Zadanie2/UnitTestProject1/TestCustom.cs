@@ -9,10 +9,10 @@ using Zadanie2;
 namespace UnitTestProject1
 {
     [TestClass]
-    public class WRTest
+    public class CustomTest
     {
         [TestMethod]
-        public void WriteReadTest()
+        public void CFormatterTest()
         {
             DataRepository dataRepository = new DataRepository();
             dataRepository.AddWykaz(new Wykaz(0, "Damian"));
@@ -24,9 +24,9 @@ namespace UnitTestProject1
             dataRepository.AddZdarzenie(new Sprzedaz(0, dataRepository.GetOpisStanu(0), dataRepository.GetWykaz(0), DateTimeOffset.Now, 2));
             dataRepository.AddZdarzenie(new Sprzedaz(1, dataRepository.GetOpisStanu(1), dataRepository.GetWykaz(0), DateTimeOffset.Now, 2));
             dataRepository.AddZdarzenie(new Sprzedaz(2, dataRepository.GetOpisStanu(0), dataRepository.GetWykaz(1), DateTimeOffset.Now, 2));
-            XmlSerialize write_to_XML = new XmlSerialize();
-            write_to_XML.writeAll(dataRepository);
-            DataRepository dataRepositoryTest = write_to_XML.readALL();
+            CustomFormatter formater = new CustomFormatter();
+            formater.writeAll(dataRepository);
+            DataRepository dataRepositoryTest = formater.readALL();
 
             //Testy przesylu
             for (int i = 0; i < dataRepository.GetAllWykaz().Count(); i++)
@@ -46,7 +46,7 @@ namespace UnitTestProject1
 
             for (int i = 0; i < dataRepository.GetAllZdarzenie().Count(); i++)
             {
-                if (dataRepository.GetZdarzenie(i).ToString().Equals(dataRepositoryTest.GetZdarzenie(i).ToString()))  Assert.Fail();
+                if (dataRepository.GetZdarzenie(i).ToString().Equals(dataRepositoryTest.GetZdarzenie(i).ToString())) Assert.Fail();
 
             }
 

@@ -20,7 +20,7 @@ namespace Zadanie2
         public override string ToString()
 
         {
-            return idZdarzenie + "_ " + opis_Stanu.ToString() + "_ " + wykaz.ToString() + "_ " + data_zakupu + "_ " + ilosc_zakupionych + "_ " + cena_calkowita;
+            return idZdarzenie + "_" + opis_Stanu.ToString() + "_" + wykaz.ToString() + "_" + data_zakupu + "_" + ilosc_zakupionych + "_" + cena_calkowita;
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
