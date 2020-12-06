@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+Zadanie2/Zadanie2/katalog.xml
+Zadanie2/Zadanie2/opisStanu.xml
+Zadanie2/Zadanie2/wykaz.xml
+Zadanie2/Zadanie2/zdarzenia.xml
