@@ -16,6 +16,7 @@ namespace Zadanie1.logic
 
         public void Sprzedaz(int id, Wykaz wykaz, OpisStanu opisStanu, DateTimeOffset time, int ilosc)
         {
+            if(opisStanu.ilosc>=ilosc)
             dataRepo.AddZdarzenie(new Sprzedaz(id,opisStanu,wykaz,time,ilosc));
         }
 

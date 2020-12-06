@@ -8,6 +8,10 @@ namespace Zadanie1.Data
     {
         private DataContext dataContex;
         private DataFiller dataFiller;
+        public DataRepository()
+        {
+            dataContex = new DataContext();           
+        }
 
         public DataRepository(DataFiller dataFiller)
         {

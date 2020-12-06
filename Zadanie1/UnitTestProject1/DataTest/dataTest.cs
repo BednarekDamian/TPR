@@ -11,6 +11,31 @@ namespace UnitTestProject1
     [TestClass]
     public class Datatest
     {
+
+        [TestMethod]
+        public void WypelnianieStalymiWykazTest()
+        {
+            DataFiller dataFiller = new WypelnienieStalymi();
+            DataRepository data = new DataRepository(dataFiller);
+
+            Wykaz wykaz1 =new Wykaz(1, "Mariusz");
+            Wykaz wykaz2 = new Wykaz(2, "Malik");
+            Wykaz wykaz3 = new Wykaz(3, "Eustachy");
+            Wykaz wykaz4 = new Wykaz(4, "Andrzej");
+            Wykaz wykaz5 = new Wykaz(5, "Maciek");
+            Wykaz wykaz6 = new Wykaz(6, "Pawel");
+            Wykaz wykaz7 = new Wykaz(7, "Mariusz");
+            Wykaz wykaz8 = new Wykaz(8, "Piotr");
+
+            if (data.GetWykaz(0).toString() != wykaz1.toString()) Assert.Fail();
+            if (data.GetWykaz(1).toString() != wykaz2.toString()) Assert.Fail();
+            if (data.GetWykaz(2).toString() != wykaz3.toString()) Assert.Fail();
+            if (data.GetWykaz(3).toString() != wykaz4.toString()) Assert.Fail();
+            if (data.GetWykaz(4).toString() != wykaz5.toString()) Assert.Fail();
+            if (data.GetWykaz(5).toString() != wykaz6.toString()) Assert.Fail();
+            if (data.GetWykaz(6).toString() != wykaz7.toString()) Assert.Fail();
+            if (data.GetWykaz(7).toString() != wykaz8.toString()) Assert.Fail();
+        }
         [TestMethod]
         public void WykazTest()
         {

@@ -13,11 +13,11 @@ namespace UnitTestProject1
         public void ZdarzenieTest()
         {
             DataFiller dataFiller = new WypelnienieStalymi();
-            DataRepository data = new DataRepository(dataFiller);
+            DataRepository data = new DataRepository();
             DataService dataService  = new DataService(data);
 
             Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
-            OpisStanu opisStanu = new OpisStanu(0, katalog1, 1);
+            OpisStanu opisStanu = new OpisStanu(0, katalog1, 5);
             Wykaz wykaz = new Wykaz(1, "Mariusz");
             Zdarzenie zdarzenie = new Sprzedaz(0, opisStanu, wykaz, DateTime.Parse("05.03.2020"), 1);
             dataService.Sprzedaz(0 , wykaz, opisStanu, DateTime.Parse("05.03.2020"), 1);
@@ -32,7 +32,7 @@ namespace UnitTestProject1
             DataService dataService = new DataService(data);
 
             Katalog katalog1 = new Katalog(1, "Wiedzmin", "Sapkowski", "2000", (float)32.5);
-            OpisStanu opisStanu = new OpisStanu(0, katalog1, 1);
+            OpisStanu opisStanu = new OpisStanu(0, katalog1, 5);
             Wykaz wykaz = new Wykaz(1, "Mariusz");
             Zdarzenie zdarzenie = new Sprzedaz(0, opisStanu, wykaz, DateTime.Parse("05.03.2020"), 1);
             dataService.Sprzedaz(0, wykaz, opisStanu, DateTime.Parse("05.03.2020"), 1);
