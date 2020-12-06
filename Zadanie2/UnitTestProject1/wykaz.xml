@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfWykaz xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Wykaz>
+    <idKlienta>0</idKlienta>
+    <nazwaKlienta>Damian</nazwaKlienta>
+  </Wykaz>
+  <Wykaz>
+    <idKlienta>0</idKlienta>
+    <nazwaKlienta>Michal</nazwaKlienta>
+  </Wykaz>
+</ArrayOfWykaz>

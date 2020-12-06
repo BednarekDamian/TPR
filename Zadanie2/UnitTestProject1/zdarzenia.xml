@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfZdarzenie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Zdarzenie xsi:type="Sprzedaz">
+    <idZdarzenie>0</idZdarzenie>
+    <opis_Stanu>
+      <idOpis>0</idOpis>
+      <katalog>
+        <idKatalogu>0</idKatalogu>
+        <tytul>wiedzmin</tytul>
+        <autor>Adnrzej Sapkowski</autor>
+        <rok>1993</rok>
+        <cena>25</cena>
+      </katalog>
+      <ilosc>6</ilosc>
+    </opis_Stanu>
+    <wykaz>
+      <idKlienta>0</idKlienta>
+      <nazwaKlienta>Damian</nazwaKlienta>
+    </wykaz>
+    <data_zakupu />
+    <ilosc_zakupionych>2</ilosc_zakupionych>
+    <cena_calkowita>50</cena_calkowita>
+  </Zdarzenie>
+  <Zdarzenie xsi:type="Sprzedaz">
+    <idZdarzenie>1</idZdarzenie>
+    <opis_Stanu>
+      <idOpis>1</idOpis>
+      <katalog>
+        <idKatalogu>1</idKatalogu>
+        <tytul>Harry Potter</tytul>
+        <autor>JKK Rowling</autor>
+        <rok>1995</rok>
+        <cena>33.5</cena>
+      </katalog>
+      <ilosc>8</ilosc>
+    </opis_Stanu>
+    <wykaz>
+      <idKlienta>0</idKlienta>
+      <nazwaKlienta>Damian</nazwaKlienta>
+    </wykaz>
+    <data_zakupu />
+    <ilosc_zakupionych>2</ilosc_zakupionych>
+    <cena_calkowita>67</cena_calkowita>
+  </Zdarzenie>
+  <Zdarzenie xsi:type="Sprzedaz">
+    <idZdarzenie>2</idZdarzenie>
+    <opis_Stanu>
+      <idOpis>0</idOpis>
+      <katalog>
+        <idKatalogu>0</idKatalogu>
+        <tytul>wiedzmin</tytul>
+        <autor>Adnrzej Sapkowski</autor>
+        <rok>1993</rok>
+        <cena>25</cena>
+      </katalog>
+      <ilosc>6</ilosc>
+    </opis_Stanu>
+    <wykaz>
+      <idKlienta>0</idKlienta>
+      <nazwaKlienta>Michal</nazwaKlienta>
+    </wykaz>
+    <data_zakupu />
+    <ilosc_zakupionych>2</ilosc_zakupionych>
+    <cena_calkowita>50</cena_calkowita>
+  </Zdarzenie>
+</ArrayOfZdarzenie>
