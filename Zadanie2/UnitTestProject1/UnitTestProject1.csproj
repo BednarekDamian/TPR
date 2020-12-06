@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="katalog.txt" />
+    <None Remove="katalog.xml" />
+    <None Remove="opisStanu.txt" />
+    <None Remove="opisStanu.xml" />
+    <None Remove="wykaz.txt" />
+    <None Remove="wykaz.xml" />
+    <None Remove="zdarzenia.txt" />
+    <None Remove="zdarzenia.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
