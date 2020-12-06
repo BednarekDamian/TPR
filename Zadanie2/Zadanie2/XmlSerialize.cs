@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace Zadanie2
 {
-    class XmlSerialize
+   public class XmlSerialize
     {
         public XmlSerialize()
         {
