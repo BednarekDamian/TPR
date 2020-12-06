@@ -5,4 +5,16 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="customFormat.xml" />
+    <None Remove="katalog.txt" />
+    <None Remove="katalog.xml" />
+    <None Remove="opisStanu.txt" />
+    <None Remove="opisStanu.xml" />
+    <None Remove="wykaz.txt" />
+    <None Remove="wykaz.xml" />
+    <None Remove="zdarzenia.txt" />
+    <None Remove="zdarzenia.xml" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,10 @@
-﻿namespace Zadanie2
+﻿using System.Runtime.Serialization;
+
+namespace Zadanie2
 {
-    public class Wykaz
+    public class Wykaz 
     {
+       
         public int idKlienta { get; set; }
         public string nazwaKlienta { get; set; }
         public Wykaz()
@@ -13,10 +16,16 @@
             this.idKlienta = id;
             this.nazwaKlienta = nazwa;
         }
-        public string toString()
+        public override string ToString()
         {
-            return  idKlienta + " " + nazwaKlienta;
+            return  idKlienta + "_ " + nazwaKlienta;
         }
 
+        public void GetObjectData(SerializationInfo info, StreamingContext context,int i)
+        {
+            info.AddValue("IdKlienta", idKlienta);
+            info.AddValue("NazwaKlienta", nazwaKlienta);
+           
+        }
     }
 }

@@ -1,0 +1,3 @@
+0_ 0_ 0_ wiedzmin_ Adnrzej Sapkowski_ 1993_ 25_ 6_ 0_ Damian_ 06.12.2020 22:34:55 +01:00_ 2_ 50
+1_ 1_ 1_ Harry Potter_ JKK Rowling_ 1995_ 33,5_ 8_ 0_ Damian_ 06.12.2020 22:34:55 +01:00_ 2_ 67
+2_ 0_ 0_ wiedzmin_ Adnrzej Sapkowski_ 1993_ 25_ 6_ 1_ Michal_ 06.12.2020 22:34:55 +01:00_ 2_ 50

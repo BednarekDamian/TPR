@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Zadanie2
@@ -16,9 +17,21 @@ namespace Zadanie2
         {
 
         }
-        public String toString()
+        public override string ToString()
+
         {
-            return idZdarzenie + opis_Stanu.toString() + "\t" + wykaz.toString() + data_zakupu + ilosc_zakupionych + cena_calkowita;
+            return idZdarzenie + "_ " + opis_Stanu.ToString() + "_ " + wykaz.ToString() + "_ " + data_zakupu + "_ " + ilosc_zakupionych + "_ " + cena_calkowita;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            
+            info.AddValue("idZdarzenia", idZdarzenie);
+            info.AddValue("opis_stanu", opis_Stanu);
+            info.AddValue("wykaz", wykaz);
+            info.AddValue("data_zakupu", data_zakupu);
+            info.AddValue("ilosc_zakupionych", ilosc_zakupionych);
+            info.AddValue("cena_calkowita", cena_calkowita);
         }
     }
 }

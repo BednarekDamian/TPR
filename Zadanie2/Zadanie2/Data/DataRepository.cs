@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Collections.ObjectModel;
+using System.Runtime.Serialization;
 
 namespace Zadanie2
 {
-    public class DataRepository : IDataRepo
+    public class DataRepository : IDataRepo ,ISerializable
     {
         private DataContext dataContex;
         private DataFiller dataFiller;
@@ -110,7 +111,21 @@ namespace Zadanie2
             return this.dataContex;
         }
 
-     
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            ObservableCollection<Zdarzenie> zdarzenia = (ObservableCollection<Zdarzenie>) GetAllZdarzenie();
+            for(int i = 0; i < zdarzenia.Count; i++)
+            {
+                info.AddValue("idZdarzenia"+i, zdarzenia[i].idZdarzenie);
+                info.AddValue("opis_stanu"+i, zdarzenia[i].opis_Stanu);
+                info.AddValue("wykaz"+i, zdarzenia[i].wykaz);
+                info.AddValue("data_zakupu"+i, zdarzenia[i].data_zakupu);
+                info.AddValue("ilosc_zakupionych"+i, zdarzenia[i].ilosc_zakupionych);
+                info.AddValue("cena_calkowita"+i, zdarzenia[i].cena_calkowita);
+                
+            }     
+        }
+ 
     }
 
 }

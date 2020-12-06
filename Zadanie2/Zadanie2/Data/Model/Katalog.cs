@@ -1,6 +1,8 @@
-﻿namespace Zadanie2
+﻿using System.Runtime.Serialization;
+
+namespace Zadanie2
 {
-    public class Katalog
+    public class Katalog : ISerializable
     {
         public int idKatalogu { get; set; }
         public string tytul { get; set; }
@@ -20,9 +22,18 @@
             this.cena = cena;
         }
 
-        public string toString()
+        public override string ToString()
         {
-            return "Id Katalogu: " + idKatalogu + " , Tytul: " + tytul + " , autor: " + autor + " , Rok: " + rok + " , Cena: " + cena + "\n";
+            return idKatalogu +"_ "+ tytul + "_ " + autor + "_ " + rok + "_ " + cena;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("IdKatalogu_", idKatalogu);
+            info.AddValue("tytul", tytul);
+            info.AddValue("autor", autor);
+            info.AddValue("rok", rok);
+            info.AddValue("cena", cena);
         }
     }
 }
