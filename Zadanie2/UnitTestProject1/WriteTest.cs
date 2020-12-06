@@ -12,7 +12,7 @@ namespace UnitTestProject1
     public class WRTest
     {
         [TestMethod]
-        public void WriteTest()
+        public void WriteReadTest()
         {
             DataRepository dataRepository = new DataRepository();
             dataRepository.AddWykaz(new Wykaz(0, "Damian"));
@@ -27,20 +27,26 @@ namespace UnitTestProject1
             XmlSerialize write_to_XML = new XmlSerialize();
             write_to_XML.writeAll(dataRepository);
 
-            DataRepository dataRepositoryTest = new DataRepository();
-            dataRepositoryTest.AddWykaz(new Wykaz(0, "Damian"));
-            dataRepositoryTest.AddWykaz(new Wykaz(0, "Michal"));
-            dataRepositoryTest.AddKatalog(new Katalog(0, "wiedzmin", "Adnrzej Sapkowski", "1993", (float)25.0));
-            dataRepositoryTest.AddKatalog(new Katalog(1, "Harry Potter", "JKK Rowling", "1995", (float)33.5));
-            dataRepositoryTest.AddOpisStanu(new OpisStanu(0, dataRepositoryTest.GetKatalog(0), 10));
-            dataRepositoryTest.AddOpisStanu(new OpisStanu(1, dataRepositoryTest.GetKatalog(1), 10));
-            dataRepositoryTest.AddZdarzenie(new Sprzedaz(0, dataRepositoryTest.GetOpisStanu(0), dataRepositoryTest.GetWykaz(0), DateTimeOffset.Now, 2));
-            dataRepositoryTest.AddZdarzenie(new Sprzedaz(1, dataRepositoryTest.GetOpisStanu(1), dataRepositoryTest.GetWykaz(0), DateTimeOffset.Now, 2));
-            dataRepositoryTest.AddZdarzenie(new Sprzedaz(2, dataRepositoryTest.GetOpisStanu(0), dataRepositoryTest.GetWykaz(1), DateTimeOffset.Now, 2));
+            DataRepository dataRepositoryTest = write_to_XML.readALL();
 
             for(int i= 0; i < dataRepository.GetAllWykaz().Count(); i++)
             {
                 if(!dataRepository.GetWykaz(i).toString().Equals(dataRepositoryTest.GetWykaz(i).toString())) Assert.Fail();
+            }
+
+            for (int i = 0; i < dataRepository.GetAllKatalog().Count(); i++)
+            {
+                if (!dataRepository.GetKatalog(i).toString().Equals(dataRepositoryTest.GetKatalog(i).toString())) Assert.Fail();
+            }
+
+            for (int i = 0; i < dataRepository.GetAllOpisStanu().Count(); i++)
+            {
+                if (!dataRepository.GetOpisStanu(i).toString().Equals(dataRepositoryTest.GetOpisStanu(i).toString())) Assert.Fail();
+            }
+
+            for (int i = 0; i < dataRepository.GetAllZdarzenie().Count(); i++)
+            {
+                if (!dataRepository.GetZdarzenie(i).toString().Equals(dataRepositoryTest.GetZdarzenie(i).toString())) Assert.Fail();
             }
         }
     }
