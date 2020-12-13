@@ -34,13 +34,11 @@ namespace Zadanie2
                         CustomFormatter formatter = new CustomFormatter();
                         using (Stream stream = new FileStream("../../../custom.xml", FileMode.Create))
                         {
-
                             formatter.Serialize(stream, dataRepository);
                         }
                         Console.WriteLine("done");
                         using (Stream reader = new FileStream("../../../custom.xml", FileMode.Open))
                         {
-
                             DataRepository data_from_custom = (DataRepository)formatter.Deserialize(reader);
                             Console.WriteLine("done");
                         }
@@ -50,7 +48,6 @@ namespace Zadanie2
                         return;
                 }
             }
-  
         }
     }
 

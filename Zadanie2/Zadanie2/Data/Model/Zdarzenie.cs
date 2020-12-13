@@ -8,7 +8,7 @@ namespace Zadanie2
     public  class Zdarzenie : ISerializable
     {
         public int idZdarzenie { get; set; }
-         public OpisStanu opis_Stanu { get; set; }
+        public OpisStanu opis_Stanu { get; set; }
         public Wykaz wykaz { get; set; }
         public DateTimeOffset data_zakupu { get; set; }
         public int ilosc_zakupionych {get; set; }
@@ -26,7 +26,6 @@ namespace Zadanie2
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            
             info.AddValue("idZdarzenia", idZdarzenie);
             info.AddValue("opis_stanu", opis_Stanu, typeof(OpisStanu));
             info.AddValue("wykaz", wykaz, typeof(Wykaz));

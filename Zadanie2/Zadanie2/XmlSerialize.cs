@@ -11,7 +11,6 @@ namespace Zadanie2
     {
         public XmlSerialize()
         {
-
         }
         #region WRITE
         public void writeAll(DataRepository data)
@@ -29,6 +28,7 @@ namespace Zadanie2
             serializer.Serialize(writer, wykazy);
             writer.Close();
         }
+
         public void writeKatalog(IEnumerable<Katalog> katalogi)
         {
             TextWriter writer = new StreamWriter("../../../katalog.xml");
@@ -36,6 +36,7 @@ namespace Zadanie2
             serializer.Serialize(writer, katalogi);
             writer.Close();
         }
+
         public void writeOpisStanu(IEnumerable<OpisStanu> opisyStanu)
         {
             TextWriter writer = new StreamWriter("../../../opisStanu.xml");
@@ -43,6 +44,7 @@ namespace Zadanie2
             serializer.Serialize(writer, opisyStanu);
             writer.Close();
         }
+
         public void writeZdarzenie(IEnumerable<Zdarzenie> zdarzenie)
         {
             TextWriter writer = new StreamWriter("../../../zdarzenia.xml");

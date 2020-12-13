@@ -10,21 +10,13 @@ namespace UnitTestProject1
     public class CustomTest
     {
         [TestMethod]
-        public void CFormatterTestWykaz()
+        public void CFormatterTest()
         {
+
             DataFill filerdata = new DataFill();
             DataRepository dataRepositoryTest = new DataRepository();
+            filerdata.fill(dataRepositoryTest);
             DataRepository dataAfterCustomTest = new DataRepository();
-            dataRepositoryTest.AddWykaz(new Wykaz(0, "Damian"));
-            dataRepositoryTest.AddWykaz(new Wykaz(0, "Michal"));
-            dataRepositoryTest.AddKatalog(new Katalog(0, "wiedzmin", "Adnrzej Sapkowski", "1993", (float)25.0));
-            dataRepositoryTest.AddKatalog(new Katalog(1, "Harry Potter", "JKK Rowling", "1995", (float)33.0));
-            dataRepositoryTest.AddOpisStanu(new OpisStanu(0, dataRepositoryTest.GetKatalog(0), 10));
-            dataRepositoryTest.AddOpisStanu(new OpisStanu(1, dataRepositoryTest.GetKatalog(1), 10));
-            dataRepositoryTest.AddZdarzenie(new Sprzedaz(0, dataRepositoryTest.GetOpisStanu(0), dataRepositoryTest.GetWykaz(0), DateTimeOffset.Now, 2));
-            dataRepositoryTest.AddZdarzenie(new Sprzedaz(1, dataRepositoryTest.GetOpisStanu(1), dataRepositoryTest.GetWykaz(0), DateTimeOffset.Now, 2));
-            dataRepositoryTest.AddZdarzenie(new Sprzedaz(2, dataRepositoryTest.GetOpisStanu(0), dataRepositoryTest.GetWykaz(1), DateTimeOffset.Now, 2));
-            Console.WriteLine(dataRepositoryTest.GetOpisStanu(1));
             CustomFormatter formatter = new CustomFormatter();
             using (Stream stream = new FileStream("../../../custom.xml", FileMode.Create))
             {
@@ -59,16 +51,47 @@ namespace UnitTestProject1
 
 
             //testy wybiórcze
-            if (!dataRepositoryTest.GetWykaz(0).ToString().Equals(new Wykaz(0, "Damian").ToString())) Assert.Fail();
-            if (!dataRepositoryTest.GetWykaz(1).ToString().Equals(new Wykaz(0, "Michal").ToString())) Assert.Fail();
-            if (dataRepositoryTest.GetWykaz(1).ToString().Equals(new Wykaz(0, "cokolwiek").ToString())) Assert.Fail();
+            if (!dataAfterCustomTest.GetWykaz(0).ToString().Equals(new Wykaz(0, "Damian").ToString())) Assert.Fail();
+            if (!dataAfterCustomTest.GetWykaz(1).ToString().Equals(new Wykaz(1, "Michal").ToString())) Assert.Fail();
+            if (dataAfterCustomTest.GetWykaz(1).ToString().Equals(new Wykaz(0, "cokolwiek").ToString())) Assert.Fail();
 
-            if (!dataRepositoryTest.GetKatalog(0).ToString().Equals(new Katalog(0, "wiedzmin", "Adnrzej Sapkowski", "1993", (float)25.0).ToString())) Assert.Fail();
-            if (!dataRepositoryTest.GetKatalog(1).ToString().Equals(new Katalog(1, "Harry Potter", "JKK Rowling", "1995", (float)33.0).ToString())) Assert.Fail();
-            if (dataRepositoryTest.GetWykaz(0).ToString().Equals(new Katalog(1, "nie", "cos", "tak", (float)33.0).ToString())) Assert.Fail();
+            if (!dataAfterCustomTest.GetKatalog(0).ToString().Equals(new Katalog(0, "wiedzmin", "Adnrzej Sapkowski", "1993", (float)25.0).ToString())) Assert.Fail();
+            if (!dataAfterCustomTest.GetKatalog(1).ToString().Equals(new Katalog(1, "Harry Potter", "JKK Rowling", "1995", (float)33.0).ToString())) Assert.Fail();
+            if (dataAfterCustomTest.GetKatalog(0).ToString().Equals(new Katalog(1, "nie", "cos", "tak", (float)33.0).ToString())) Assert.Fail();
 
         }
+        [TestMethod]
+        public void CFormatterTestExt()
+        {
+            DataRepository dataRepositoryTest = new DataRepository();
+            DataRepository dataAfterCustomTest = new DataRepository();
+            dataRepositoryTest.AddWykaz(new Wykaz(0, "Bendzamin"));
+            dataRepositoryTest.AddKatalog(new Katalog(0, "Chlopi", "Wladyslaw Reymont", "1904", (float)42.0));
+            dataRepositoryTest.AddOpisStanu(new OpisStanu(0, dataRepositoryTest.GetKatalog(0), 5));
+            dataRepositoryTest.AddZdarzenie(new Sprzedaz(0, dataRepositoryTest.GetOpisStanu(0), dataRepositoryTest.GetWykaz(0), DateTimeOffset.Now, 4));
+            CustomFormatter formatter = new CustomFormatter();
+            using (Stream stream = new FileStream("../../../custom.xml", FileMode.Create))
+            {
+                formatter.Serialize(stream, dataRepositoryTest);
+            }
+            using (Stream reader = new FileStream("../../../custom.xml", FileMode.Open))
+            {
+                dataAfterCustomTest = (DataRepository)formatter.Deserialize(reader);
+            }
 
+            if (!dataAfterCustomTest.GetWykaz(0).ToString().Equals(new Wykaz(0, "Bendzamin").ToString())) Assert.Fail();
+            if (dataAfterCustomTest.GetWykaz(0).ToString().Equals(new Wykaz(0, "cokolwiek").ToString())) Assert.Fail();
+            if (dataAfterCustomTest.GetWykaz(0).ToString().Equals(new Wykaz(1, "Bendzamin").ToString())) Assert.Fail();
+            if (!dataAfterCustomTest.GetKatalog(0).ToString().Equals(new Katalog(0, "Chlopi", "Wladyslaw Reymont", "1904", (float)42.0).ToString())) Assert.Fail();
+            if (dataAfterCustomTest.GetKatalog(0).ToString().Equals(new Katalog(0, "Harry Potter", "JKK Rowling", "1995", (float)33.0).ToString())) Assert.Fail();
+            if (dataAfterCustomTest.GetKatalog(0).ToString().Equals(new Katalog(1, "nie", "cos", "tak", (float)33.0).ToString())) Assert.Fail();
+            if (!dataAfterCustomTest.GetOpisStanu(0).ToString().Equals(new OpisStanu(0, dataAfterCustomTest.GetKatalog(0), 5).ToString())) Assert.Fail();
+            if (dataAfterCustomTest.GetOpisStanu(0).ToString().Equals(new OpisStanu(20, dataAfterCustomTest.GetKatalog(0), 5).ToString())) Assert.Fail();
+            if (dataAfterCustomTest.GetOpisStanu(0).ToString().Equals(new OpisStanu(0, dataAfterCustomTest.GetKatalog(0), 15).ToString())) Assert.Fail();
+            if (!dataAfterCustomTest.GetZdarzenie(0).ToString().Equals(new Sprzedaz(0, dataAfterCustomTest.GetOpisStanu(0), dataAfterCustomTest.GetWykaz(0), DateTimeOffset.Now, 4).ToString())) Assert.Fail();
+            if (dataAfterCustomTest.GetZdarzenie(0).ToString().Equals(new Sprzedaz(4, dataAfterCustomTest.GetOpisStanu(0), dataAfterCustomTest.GetWykaz(0), DateTimeOffset.Now, 4).ToString())) Assert.Fail();
+            if (dataAfterCustomTest.GetZdarzenie(0).ToString().Equals(new Sprzedaz(0, dataAfterCustomTest.GetOpisStanu(00), dataAfterCustomTest.GetWykaz(0), DateTimeOffset.Now, 5).ToString())) Assert.Fail();
+        }
     }
 }
 

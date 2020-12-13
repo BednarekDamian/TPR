@@ -113,7 +113,6 @@ namespace Zadanie2
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-
             /*   CustomFormatter formater = new CustomFormatter();
                List<Wykaz> wykazy = (List<Wykaz>)GetAllWykaz();
 
@@ -121,10 +120,6 @@ namespace Zadanie2
                GetKatalog(0).GetObjectData(info, context);
                GetOpisStanu(0).GetObjectData(info, context);
                GetZdarzenie(0).GetObjectData(info, context);*/
-
-
-
-
 
             int i = 0;
             foreach (Wykaz wykaz in dataContex.wykazy)

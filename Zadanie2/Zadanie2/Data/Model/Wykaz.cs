@@ -4,7 +4,6 @@ namespace Zadanie2
 {
     public class Wykaz : ISerializable
     {
-       
         public int idKlienta { get; set; }
         public string nazwaKlienta { get; set; }
        

@@ -6,7 +6,6 @@ using System.Xml.Serialization;
 
 namespace Zadanie2
 {
-  
     public  class DataContext 
     {
         public List<Wykaz> wykazy  =new List<Wykaz>();
@@ -16,9 +15,6 @@ namespace Zadanie2
 
         public DataContext()
         {
-
         }
-
-   
     }
 }

@@ -9,7 +9,6 @@ namespace Zadanie2
 {
     public  class CustomFormatter : Formatter 
     {
-        
         public CustomFormatter()
         {
 
@@ -18,25 +17,21 @@ namespace Zadanie2
         private List<XElement> values = new List<XElement>();
         private List<XElement> values2 = new List<XElement>();
        
-
         public override void Serialize(Stream serializationStream, object graph)
         {
-            
             ISerializable _data = (ISerializable)graph;
             SerializationInfo _info = new SerializationInfo(graph.GetType(), new FormatterConverter());
             StreamingContext _context = new StreamingContext(StreamingContextStates.File);
             _data.GetObjectData(_info, _context);
+            
             foreach (SerializationEntry _item in _info)
             {
-                
                 this.WriteMember(_item.Name, _item.Value);
-              
             }
 
             using (StreamWriter writer = new StreamWriter(serializationStream))
             {
-                writer.Write(new XElement("DataRepository",values));
-         
+                writer.Write(new XElement("DataRepository",values));         
             }
         }
 
@@ -45,9 +40,9 @@ namespace Zadanie2
             DataRepository data = new DataRepository();
             using (StreamReader reader = new StreamReader(serializationStream))
             {
-
                 string line = reader.ReadLine();
                 int first, last, wykazy = 1, katalogi = 0, opisy = 0;
+               
                 while (line != null)
                 {
                     if (line.Contains("<IdKlienta>"))
@@ -62,6 +57,7 @@ namespace Zadanie2
                         data.AddWykaz(new Wykaz(IdKlienta, name));
                         wykazy++;
                     }
+
                     if (line.Contains("<IdKatalogu>"))
                     {
                         first = line.IndexOf("<IdKatalogu>") + "<IdKatalogu>".Length;
@@ -86,6 +82,7 @@ namespace Zadanie2
                         data.AddKatalog(new Katalog(IdKatalogu, tytul, autor, rok, cena));
                         katalogi++;
                     }
+
                     if (line.Contains("<idOpis>"))
                     {
                         first = line.IndexOf("<idOpis>") + "<idOpis>".Length;
@@ -102,6 +99,7 @@ namespace Zadanie2
                         data.AddOpisStanu(new OpisStanu(IdOpis, data.GetKatalog(katalog), ilosc));
                         opisy++;
                     }
+
                     if (line.Contains("<idZdarzenia>"))
                     {
                         first = line.IndexOf("<idZdarzenia>") + "<idZdarzenia>".Length;
@@ -129,14 +127,12 @@ namespace Zadanie2
                         int cena_calk = Int32.Parse(line.Substring(first, last - first));
                         data.AddZdarzenie(new Sprzedaz(Idzdarzenie, data.GetOpisStanu(opis), data.GetWykaz(wykaz), date, ilosc_zakup));
                     }
-
                     line = reader.ReadLine();
                 }
                 return data;
             }
-
-
         }
+
         public override SerializationBinder Binder { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public override StreamingContext Context { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public override ISurrogateSelector SurrogateSelector { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -197,17 +193,17 @@ namespace Zadanie2
             {
                 bool fristTime;
                 m_idGenerator.GetId(obj, out fristTime);
+
                 if (fristTime)
                 {
                     ISerializable _data2 = (ISerializable)obj;
                     SerializationInfo _info2 = new SerializationInfo(obj.GetType(), new FormatterConverter());
                     StreamingContext _context2 = new StreamingContext(StreamingContextStates.File);
                     _data2.GetObjectData(_info2, _context2);
+
                     foreach (SerializationEntry _item in _info2)
                     {
-
                         this.WriteMember(_item.Name, _item.Value);
-
                     }
                     values.Add(new XElement(name, values2));
                     values2.Clear();
@@ -216,11 +212,12 @@ namespace Zadanie2
                 {
                     values2.Add(new XElement(name, m_idGenerator.GetId(obj, out fristTime)));
                 }
-               
-            }else
+
+            }
+            else
+            {
                 values2.Add(new XElement(name, obj));
-                
-          
+            }   
         }
 
         protected override void WriteSByte(sbyte val, string name)

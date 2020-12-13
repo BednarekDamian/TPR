@@ -8,11 +8,9 @@ namespace Zadanie2
     {
         public DataFill()
         {
-
         }
         public void fill(DataRepository dataRepository)
         {
-          
             dataRepository.AddWykaz(new Wykaz(0, "Damian"));
             dataRepository.AddWykaz(new Wykaz(1, "Michal"));
             dataRepository.AddKatalog(new Katalog(0, "wiedzmin", "Adnrzej Sapkowski", "1993", (float)25.0));
