@@ -71,6 +71,7 @@ namespace Zadanie2
                 data.AddWykaz(wykaz);
 
             }
+            fs.Close();
         }
         public void readKatalog(DataRepository data)
         {

@@ -2,144 +2,261 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace Zadanie2
 {
-    public  class CustomFormatter 
+    public  class CustomFormatter : Formatter 
     {
         
         public CustomFormatter()
         {
 
         }
-        #region WRITE
-        public void writeAll(DataRepository data)
-        {
 
-            writeWykaz(data.GetAllWykaz());
-            writeKatalog(data.GetAllKatalog());
-            writeOpisStanu(data.GetAllOpisStanu());
-            writeZdarzenie(data.GetAllZdarzenie());
-        }
-        public void writeWykaz(IEnumerable<Wykaz> wykazy)
+        private List<XElement> values = new List<XElement>();
+        private List<XElement> values2 = new List<XElement>();
+       
+
+        public override void Serialize(Stream serializationStream, object graph)
         {
-            TextWriter writer = new StreamWriter("../../../wykaz.txt");
-            foreach(Wykaz wykaz in wykazy)
+            
+            ISerializable _data = (ISerializable)graph;
+            SerializationInfo _info = new SerializationInfo(graph.GetType(), new FormatterConverter());
+            StreamingContext _context = new StreamingContext(StreamingContextStates.File);
+            _data.GetObjectData(_info, _context);
+            foreach (SerializationEntry _item in _info)
             {
-                writer.WriteLine(wykaz.ToString());
-            }
-           
-            writer.Close();
-        }
-        public void writeKatalog(IEnumerable<Katalog> katalogi)
-        {
-            TextWriter writer = new StreamWriter("../../../katalog.txt");
-            foreach (Katalog katalog in katalogi)
-            {
-                writer.WriteLine(katalog.ToString());
+                
+                this.WriteMember(_item.Name, _item.Value);
+              
             }
 
-            writer.Close();
-        }
-        public void writeOpisStanu(IEnumerable<OpisStanu> opisyStanu)
-        {
-            TextWriter writer = new StreamWriter("../../../opisStanu.txt");
-            foreach (OpisStanu opis in opisyStanu)
+            using (StreamWriter writer = new StreamWriter(serializationStream))
             {
-                writer.WriteLine(opis.ToString());
-            }
-
-            writer.Close();
-        }
-        public void writeZdarzenie(IEnumerable<Zdarzenie> zdarzenie)
-        {
-            TextWriter writer = new StreamWriter("../../../zdarzenia.txt");
-            foreach (Zdarzenie zdarzenie1 in zdarzenie)
-            {
-                writer.WriteLine(zdarzenie1.ToString());
-            }
-
-            writer.Close();
-        }
-        #endregion
-        #region READ
-        public DataRepository readALL()
-        {
-            DataRepository import_data = new DataRepository();
-            readWykaz(import_data);
-            readKatalog(import_data);
-            readOpisStanu(import_data);
-            readZdarzenie(import_data);
-            return import_data;
-        }
-        public void readWykaz(DataRepository data)
-        {
-            using (StreamReader file = new StreamReader("../../../wykaz.txt"))
-            {
-                string line;
-                int lineNum = 0;
-                while ((line = file.ReadLine()) != null)
-                {                 
-                   string[] elements = line.Split('_');
-                   data.AddWykaz(new Wykaz(Int32.Parse(elements[0]), elements[1]));                   
-                   lineNum++;
-
-                }
-                file.Close();
+                writer.Write(new XElement("DataRepository",values));
+         
             }
         }
-        public void readKatalog(DataRepository data)
+
+        public override object Deserialize(Stream serializationStream)
         {
-            using (StreamReader file = new StreamReader("../../../katalog.txt"))
+            DataRepository data = new DataRepository();
+            using (StreamReader reader = new StreamReader(serializationStream))
             {
-                string line;
-                int lineNum = 0;
-                while ((line = file.ReadLine()) != null)
+
+                string line = reader.ReadLine();
+                int first, last, wykazy = 1, katalogi = 0, opisy = 0;
+                while (line != null)
                 {
-                    string[] elements = line.Split('_');
-                    data.AddKatalog(new Katalog(Int32.Parse(elements[0]),elements[1],elements[2],elements[3],float.Parse(elements[4])));
-                    lineNum++;
+                    if (line.Contains("<IdKlienta>"))
+                    {
+                        first = line.IndexOf("<IdKlienta>") + "<IdKlienta>".Length;
+                        last = line.IndexOf("</");
+                        int IdKlienta = Int32.Parse(line.Substring(first, last - first));
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<NazwaKlienta>") + "<NazwaKlienta>".Length;
+                        last = line.IndexOf("</");
+                        string name = line.Substring(first, last - first);
+                        data.AddWykaz(new Wykaz(IdKlienta, name));
+                        wykazy++;
+                    }
+                    if (line.Contains("<IdKatalogu>"))
+                    {
+                        first = line.IndexOf("<IdKatalogu>") + "<IdKatalogu>".Length;
+                        last = line.IndexOf("</");
+                        int IdKatalogu = Int32.Parse(line.Substring(first, last - first));
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<tytul>") + "<tytul>".Length;
+                        last = line.IndexOf("</");
+                        string tytul = line.Substring(first, last - first);
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<autor>") + "<autor>".Length;
+                        last = line.IndexOf("</");
+                        string autor = line.Substring(first, last - first);
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<rok>") + "<rok>".Length;
+                        last = line.IndexOf("</");
+                        string rok = line.Substring(first, last - first);
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<cena>") + "<cena>".Length;
+                        last = line.IndexOf("</");
+                        float cena = float.Parse(line.Substring(first, last - first));
+                        data.AddKatalog(new Katalog(IdKatalogu, tytul, autor, rok, cena));
+                        katalogi++;
+                    }
+                    if (line.Contains("<idOpis>"))
+                    {
+                        first = line.IndexOf("<idOpis>") + "<idOpis>".Length;
+                        last = line.IndexOf("</");
+                        int IdOpis = Int32.Parse(line.Substring(first, last - first));
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<katalog>") + "<katalog>".Length;
+                        last = line.IndexOf("</");
+                        int katalog = Int32.Parse(line.Substring(first, last - first)) - wykazy;
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<ilosc>") + "<ilosc>".Length;
+                        last = line.IndexOf("</");
+                        int ilosc = Int32.Parse(line.Substring(first, last - first));
+                        data.AddOpisStanu(new OpisStanu(IdOpis, data.GetKatalog(katalog), ilosc));
+                        opisy++;
+                    }
+                    if (line.Contains("<idZdarzenia>"))
+                    {
+                        first = line.IndexOf("<idZdarzenia>") + "<idZdarzenia>".Length;
+                        last = line.IndexOf("</");
+                        int Idzdarzenie = Int32.Parse(line.Substring(first, last - first));
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<opis_stanu>") + "<opis_stanu>".Length;
+                        last = line.IndexOf("</");
+                        int opis = Int32.Parse(line.Substring(first, last - first)) - (wykazy + katalogi);
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<wykaz>") + "<wykaz>".Length;
+                        last = line.IndexOf("</");
+                        int wykaz = Int32.Parse(line.Substring(first, last - first)) - 1;
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<data_zakupu>") + "<data_zakupu>".Length;
+                        last = line.IndexOf("</");
+                        DateTimeOffset date = DateTimeOffset.Parse(line.Substring(first, last - first));
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<ilosc_zakupionych>") + "<ilosc_zakupionych>".Length;
+                        last = line.IndexOf("</");
+                        int ilosc_zakup = Int32.Parse(line.Substring(first, last - first));
+                        line = reader.ReadLine();
+                        first = line.IndexOf("<cena_calkowita>") + "<cena_calkowita>".Length;
+                        last = line.IndexOf("</");
+                        int cena_calk = Int32.Parse(line.Substring(first, last - first));
+                        data.AddZdarzenie(new Sprzedaz(Idzdarzenie, data.GetOpisStanu(opis), data.GetWykaz(wykaz), date, ilosc_zakup));
+                    }
 
+                    line = reader.ReadLine();
                 }
-                file.Close();
+                return data;
             }
+
+
         }
-        public void readOpisStanu(DataRepository data)
+        public override SerializationBinder Binder { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override StreamingContext Context { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override ISurrogateSelector SurrogateSelector { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        protected override void WriteArray(object obj, string name, Type memberType)
         {
-            using (StreamReader file = new StreamReader("../../../opisStanu.txt"))
-            {
-                string line;
-                int lineNum = 0;
-                while ((line = file.ReadLine()) != null)
-                {
-                    string[] elements = line.Split('_');
-                    data.AddOpisStanu(new OpisStanu(Int32.Parse(elements[0]), new Katalog(Int32.Parse(elements[1]), elements[2], elements[3], elements[4], float.Parse(elements[5])), Int32.Parse(elements[6])));
-                    lineNum++;
-
-                }
-                file.Close();
-            }
+            throw new NotImplementedException();
         }
-        public void readZdarzenie(DataRepository data)
+
+        protected override void WriteBoolean(bool val, string name)
         {
-            using (StreamReader file = new StreamReader("../../../zdarzenia.txt"))
-            {
-                string line;
-                int lineNum = 0;
-                while ((line = file.ReadLine()) != null)
-                {
-                    string[] elements = line.Split('_');
-                    data.AddZdarzenie(new Sprzedaz(Int32.Parse(elements[0]), new OpisStanu(Int32.Parse(elements[1]), new Katalog(Int32.Parse(elements[2]), elements[3], elements[4], elements[5], float.Parse(elements[6])), Int32.Parse(elements[7])), new Wykaz(Int32.Parse(elements[8]), elements[9]), DateTimeOffset.Parse(elements[10]), Int32.Parse(elements[11])));
-                    lineNum++;
-
-                }
-                file.Close();
-            }
+            throw new NotImplementedException();
         }
-        #endregion
+
+        protected override void WriteByte(byte val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteChar(char val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteDateTime(DateTime val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteDecimal(decimal val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteDouble(double val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteInt16(short val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteInt32(int val, string name)
+        {
+            values2.Add(new XElement(name, val));
+        }
+
+        protected override void WriteInt64(long val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteObjectRef(object obj, string name, Type memberType)
+        {
+            if (memberType != typeof(String))
+            {
+                bool fristTime;
+                m_idGenerator.GetId(obj, out fristTime);
+                if (fristTime)
+                {
+                    ISerializable _data2 = (ISerializable)obj;
+                    SerializationInfo _info2 = new SerializationInfo(obj.GetType(), new FormatterConverter());
+                    StreamingContext _context2 = new StreamingContext(StreamingContextStates.File);
+                    _data2.GetObjectData(_info2, _context2);
+                    foreach (SerializationEntry _item in _info2)
+                    {
+
+                        this.WriteMember(_item.Name, _item.Value);
+
+                    }
+                    values.Add(new XElement(name, values2));
+                    values2.Clear();
+                }
+                else
+                {
+                    values2.Add(new XElement(name, m_idGenerator.GetId(obj, out fristTime)));
+                }
+               
+            }else
+                values2.Add(new XElement(name, obj));
+                
+          
+        }
+
+        protected override void WriteSByte(sbyte val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteSingle(float val, string name)
+        {
+            values2.Add(new XElement(name, val));
+        }
+
+        protected override void WriteTimeSpan(TimeSpan val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteUInt16(ushort val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteUInt32(uint val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteUInt64(ulong val, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteValueType(object obj, string name, Type memberType)
+        {
+            values2.Add(new XElement(name, obj));
+        }
     }
 }
 

@@ -113,17 +113,48 @@ namespace Zadanie2
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            ObservableCollection<Zdarzenie> zdarzenia = (ObservableCollection<Zdarzenie>) GetAllZdarzenie();
-            for(int i = 0; i < zdarzenia.Count; i++)
+
+            /*   CustomFormatter formater = new CustomFormatter();
+               List<Wykaz> wykazy = (List<Wykaz>)GetAllWykaz();
+
+               GetWykaz(0).GetObjectData(info, context);
+               GetKatalog(0).GetObjectData(info, context);
+               GetOpisStanu(0).GetObjectData(info, context);
+               GetZdarzenie(0).GetObjectData(info, context);*/
+
+
+
+
+
+            int i = 0;
+            foreach (Wykaz wykaz in dataContex.wykazy)
             {
-                info.AddValue("idZdarzenia"+i, zdarzenia[i].idZdarzenie);
-                info.AddValue("opis_stanu"+i, zdarzenia[i].opis_Stanu);
-                info.AddValue("wykaz"+i, zdarzenia[i].wykaz);
-                info.AddValue("data_zakupu"+i, zdarzenia[i].data_zakupu);
-                info.AddValue("ilosc_zakupionych"+i, zdarzenia[i].ilosc_zakupionych);
-                info.AddValue("cena_calkowita"+i, zdarzenia[i].cena_calkowita);
-                
-            }     
+                string key = "Wykaz_" + i.ToString();
+                info.AddValue(key, GetWykaz(i), typeof(Wykaz));
+                i++;
+            }
+            IEnumerable<Katalog> katalogi = GetAllKatalog();
+            i = 0;
+            foreach (Katalog katalog in katalogi)
+            {
+                string key = "Katalog_" + i.ToString();
+                info.AddValue(key, GetKatalog(i), typeof(Katalog));
+                i++;
+            }
+            i = 0;
+            foreach (OpisStanu opis in dataContex.opisyStanu)
+            {
+                string key = "OpisStanu_" + i.ToString();
+                info.AddValue(key, GetOpisStanu(i), typeof(OpisStanu));
+                i++;
+            }
+            i = 0;
+            foreach (Zdarzenie zdarzenie in dataContex.zdarzenia)
+            {
+                string key = "Zdarzenie_" + i.ToString();
+                info.AddValue(key, GetZdarzenie(i), typeof(Zdarzenie));
+                i++;
+            }
         }
  
     }

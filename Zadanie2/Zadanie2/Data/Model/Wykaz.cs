@@ -2,11 +2,12 @@
 
 namespace Zadanie2
 {
-    public class Wykaz 
+    public class Wykaz : ISerializable
     {
        
         public int idKlienta { get; set; }
         public string nazwaKlienta { get; set; }
+       
         public Wykaz()
         {
 
@@ -21,10 +22,12 @@ namespace Zadanie2
             return  idKlienta + "_" + nazwaKlienta;
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context,int i)
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+           
             info.AddValue("IdKlienta", idKlienta);
             info.AddValue("NazwaKlienta", nazwaKlienta);
+          
            
         }
     }

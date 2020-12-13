@@ -9,6 +9,7 @@ namespace Zadanie2
         public string autor { get; set; }
         public string rok { get; set; }
         public float cena { get; set; }
+       
         public Katalog()
         {
 
@@ -29,7 +30,7 @@ namespace Zadanie2
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("IdKatalogu_", idKatalogu);
+            info.AddValue("IdKatalogu", idKatalogu);
             info.AddValue("tytul", tytul);
             info.AddValue("autor", autor);
             info.AddValue("rok", rok);

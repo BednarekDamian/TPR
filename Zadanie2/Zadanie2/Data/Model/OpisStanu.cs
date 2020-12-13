@@ -8,6 +8,8 @@ namespace Zadanie2
         public int idOpis { get; set; }
         public Katalog katalog { get; set; }       
         public int ilosc { get; set; }
+       
+
         public OpisStanu()
         {
 
@@ -17,7 +19,9 @@ namespace Zadanie2
             this.idOpis = id;
             this.katalog = katalog;           
             this.ilosc = ilosc;
-           
+            
+
+
         }
         public override string ToString()
         {
@@ -27,7 +31,7 @@ namespace Zadanie2
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("idOpis", idOpis);
-            info.AddValue("katalog", katalog);
+            info.AddValue("katalog", katalog,typeof(Katalog));
             info.AddValue("ilosc", ilosc);
 
         }
