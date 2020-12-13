@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Zadanie2
 {
-    class DataFill
+    public class DataFill
     {
         public DataFill()
         {
