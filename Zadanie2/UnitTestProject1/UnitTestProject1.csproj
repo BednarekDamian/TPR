@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="custom.xml" />
     <None Remove="katalog.txt" />
     <None Remove="katalog.xml" />
     <None Remove="opisStanu.txt" />
