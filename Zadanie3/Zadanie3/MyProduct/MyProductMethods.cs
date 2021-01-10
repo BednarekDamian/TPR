@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Zadanie3.MyProduct
 {
-    class MyProductMethods
+   public class MyProductMethods
     {
         private List<MyProduct> products;
 
