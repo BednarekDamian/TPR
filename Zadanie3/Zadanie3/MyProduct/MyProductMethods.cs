@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Zadanie3
+namespace Zadanie3.MyProduct
 {
     class MyProductMethods
     {
@@ -23,9 +23,9 @@ namespace Zadanie3
         public List<MyProduct> GetNProductsFromCategory(string categoryName, int n)
         {
             List<MyProduct> result = (from product in products
-                                      where product.ProductSubcategory != null && product.ProductSubcategory.ProductCategory.Name
+                                      where product.SCategory != null && product.SCategory.ProductCategory.Name
                                           .Equals(categoryName)
-                                      orderby product.Name, product.ProductSubcategory.ProductCategory.Name
+                                      orderby product.Name, product.SCategory.ProductCategory.Name
                                       select product).Take(n).ToList();
             return result;
         }
@@ -33,7 +33,7 @@ namespace Zadanie3
         public List<MyProduct> GetNRecentlyModifiedProducts(int howManyProducts)
         {
             List<MyProduct> result = (from product in products
-                                      orderby product.ModifiedDate descending
+                                      orderby product.SellStartDate descending
                                       select product).Take(howManyProducts).ToList();
             return result;
         }

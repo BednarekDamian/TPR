@@ -42,10 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="ExtMethods.cs" />
-    <Compile Include="MyProduct\MethodsFMyProdyuct.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="MyProduct\MyProduct.cs" />
+    <Compile Include="MyProduct\MyProductMethods.cs" />
     <Compile Include="Production.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -57,6 +56,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Queries.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
