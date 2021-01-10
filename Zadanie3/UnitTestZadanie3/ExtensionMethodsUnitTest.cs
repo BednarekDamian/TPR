@@ -39,7 +39,7 @@ namespace UnitTestZadanie3
                 Assert.AreEqual(20, splited.Count);
                 for(int i = 0; i<20;i++)
                 {
-                    Assert.Equals(splited[i], products[i]);
+                    Assert.AreEqual(splited[i], products[i]);
                 }
             }
         }
@@ -55,7 +55,7 @@ namespace UnitTestZadanie3
                 string[] rows = description.Split(Environment.NewLine.ToCharArray());
 
                 Assert.IsTrue(rows.Contains("Internal Lock Washer 2-Pro Sport Industries"));
-                Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialjjjties"));
+                Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialties"));
             }
         }
 
@@ -87,7 +87,7 @@ namespace UnitTestZadanie3
                 Assert.AreEqual(20, splited.Count);
                 for (int i = 0; i < 20; i++)
                 {
-                    Assert.Equals(splited[i], products[i]);
+                    Assert.AreEqual(splited[i], products[i]);
                 }
             }
         }
@@ -103,7 +103,7 @@ namespace UnitTestZadanie3
                 string[] rows = description.Split(Environment.NewLine.ToCharArray());
 
                 Assert.IsTrue(rows.Contains("Internal Lock Washer 2-Pro Sport Industries"));
-                Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialjjjties"));
+                Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialties"));
             }
         }
 
