@@ -54,8 +54,8 @@ namespace UnitTestZadanie3
                 string description = products.GetProductNamesWithVendorName_Method(productWVendorN);
                 string[] rows = description.Split(Environment.NewLine.ToCharArray());
 
-                Assert.IsTrue(rows.Contains(""));
-                Assert.IsTrue(rows.Contains(""));
+                Assert.IsTrue(rows.Contains("Internal Lock Washer 2-Pro Sport Industries"));
+                Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialjjjties"));
             }
         }
 
@@ -67,7 +67,7 @@ namespace UnitTestZadanie3
             using (ProductionDataContext testDataContext = new ProductionDataContext())
             {
                 List<Product> products = testDataContext.GetTable<Product>().ToList();
-                List<Product> productsWOTTest = products.GetProductsWithoutCategory_Method();
+                List<Product> productsWOTTest = products.GetProductsWithoutCategory_Query();
 
                 Assert.AreEqual(209, productsWOTTest.Count);
                 foreach (Product product in productsWOTTest)
@@ -82,7 +82,7 @@ namespace UnitTestZadanie3
             using (ProductionDataContext testDataContext = new ProductionDataContext())
             {
                 List<Product> products = testDataContext.GetTable<Product>().ToList();
-                List<Product> splited = products.SplitIntoPage_Method(20, 0);
+                List<Product> splited = products.SplitIntoPage_Query(20, 0);
 
                 Assert.AreEqual(20, splited.Count);
                 for (int i = 0; i < 20; i++)
@@ -103,7 +103,7 @@ namespace UnitTestZadanie3
                 string[] rows = description.Split(Environment.NewLine.ToCharArray());
 
                 Assert.IsTrue(rows.Contains("Internal Lock Washer 2-Pro Sport Industries"));
-                Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialties"));
+                Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialjjjties"));
             }
         }
 
