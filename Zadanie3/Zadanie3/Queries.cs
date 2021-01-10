@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Zadanie3
 {
-    class Queries
+    public class Queries
     {
         private static ProductionDataContext context = new ProductionDataContext();
 
@@ -96,7 +96,7 @@ namespace Zadanie3
         public static List<Product> GetNRecentlyReviewedProducts_Query(int howManyProducts)
         {
             IEnumerable<Product> products = from productReview in context.ProductReview
-                                            orderby productReview.ReviewDate
+                                            orderby productReview.ReviewDate 
                                             select productReview.Product;
 
             return new List<Product>(products.ToArray().Take(howManyProducts));
