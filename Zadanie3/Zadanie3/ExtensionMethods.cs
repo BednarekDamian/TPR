@@ -48,7 +48,7 @@ namespace Zadanie3
             return String.Join("\n", lines.ToArray());
         }
 
-        public static string GetProductNamesWithVendorName_Method(this List<Product> products)
+        public static string GetProductNamesWithVendorName_Method(this List<Product> products, List<ProductVendor> productWVendorN)
         {
             var productWithVendor = products.Join(
                 context.ProductVendor,
