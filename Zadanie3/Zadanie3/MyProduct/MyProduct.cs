@@ -2,7 +2,7 @@
 
 namespace Zadanie3.MyProduct
 {
-    class MyProduct
+    public class MyProduct
     {
         public int ProductId { get; set; }
         public string ProductNumber { get; set; }
