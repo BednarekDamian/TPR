@@ -54,8 +54,12 @@ namespace UnitTestZadanie3
                 string description = products.GetProductNamesWithVendorName_Method(productWVendorN);
                 string[] rows = description.Split(Environment.NewLine.ToCharArray());
 
+                Assert.IsTrue(rows.Contains("Internal Lock Washer 2-Wood Fitness"));
                 Assert.IsTrue(rows.Contains("Internal Lock Washer 2-Pro Sport Industries"));
                 Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialties"));
+                Assert.IsTrue(rows.Contains("Paint - Black-Australia Bike Retailer"));
+                Assert.IsTrue(rows.Contains("Blade-Australia Bike Retailer"));
+
             }
         }
 
@@ -99,11 +103,14 @@ namespace UnitTestZadanie3
                 List<Product> products = testDataContext.GetTable<Product>().ToList();
                 List<ProductVendor> productWVendorN = testDataContext.GetTable<ProductVendor>().ToList();
 
-                string description = products.GetProductNamesWithVendorName_Query();
+                string description = products.GetProductNamesWithVendorName_Query(productWVendorN);
                 string[] rows = description.Split(Environment.NewLine.ToCharArray());
 
+                Assert.IsTrue(rows.Contains("Internal Lock Washer 2-Wood Fitness"));
                 Assert.IsTrue(rows.Contains("Internal Lock Washer 2-Pro Sport Industries"));
-                Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialties"));
+                Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialties")); 
+                Assert.IsTrue(rows.Contains("Paint - Black-Australia Bike Retailer"));
+                Assert.IsTrue(rows.Contains("Blade-Australia Bike Retailer"));
             }
         }
 

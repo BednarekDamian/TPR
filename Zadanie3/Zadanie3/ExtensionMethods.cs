@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Zadanie3
 {
@@ -36,29 +37,36 @@ namespace Zadanie3
 
       
 
-        public static string GetProductNamesWithVendorName_Query(this List<Product> products)
+        public static string GetProductNamesWithVendorName_Query(this List<Product> products, List<ProductVendor> productWVendorN)
         {
-            var productWithVendor = from product in products
-                                    from productVendor in context.ProductVendor
-                                    where productVendor.ProductID == product.ProductID
-                                    select new { ProductName = productVendor.Product.Name, VendorName = productVendor.Vendor.Name };
+            var productWithVendor = (from product in products
+                                    from vendor in productWVendorN
+                                    where vendor.ProductID == product.ProductID
+                                    select (product.Name, vendor.Vendor.Name)).ToList();
 
-            IEnumerable<string> lines = productWithVendor.Select(p => p.ProductName + " - " + p.VendorName);
-
-            return String.Join("\n", lines.ToArray());
+            StringBuilder names = new StringBuilder();
+            for (int i = 0; i < productWithVendor.Count; i++)
+            {
+                names.Append(string.Join("-", productWithVendor[i].Item1, productWithVendor[i].Item2));
+                if (i != productWithVendor.Count - 1)
+                    names.Append(Environment.NewLine);
+            }
+            return names.ToString();
         }
 
         public static string GetProductNamesWithVendorName_Method(this List<Product> products, List<ProductVendor> productWVendorN)
         {
-            var productWithVendor = products.Join(
-                context.ProductVendor,
-                product => product.ProductID,
-                productVendor => productVendor.ProductID,
-                (product, productVendor) => new { ProductName = product.Name, VendorName = productVendor.Vendor.Name });
+            var productWithVendor = products.Join(productWVendorN, product => product.ProductID, productVendor => productVendor.ProductID,
+                (product, productVendor) => new { ProductName = product.Name, VendorName = productVendor.Vendor.Name }).ToList();
 
-            IEnumerable<string> lines = productWithVendor.Select(p => p.ProductName + " - " + p.VendorName);
-
-            return String.Join("\n", lines.ToArray());
+            StringBuilder names = new StringBuilder();
+            for (int i = 0; i < productWithVendor.Count; i++)
+            {
+                names.Append(string.Join("-", productWithVendor[i].ProductName, productWithVendor[i].VendorName));
+                if (i != productWithVendor.Count - 1)
+                    names.Append(Environment.NewLine);
+            }
+            return names.ToString();
         }
     }
 }
