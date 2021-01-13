@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Zadanie3
 {
-    public class Queries
+    public class Queries: IDisposable
     {
         private static ProductionDataContext context = new ProductionDataContext();
 
@@ -162,6 +162,11 @@ namespace Zadanie3
                 .FirstOrDefault();
 
             return category;
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
