@@ -7,12 +7,18 @@ namespace UnitTestZadanie3
     [TestClass]
     public class QueriesTests
     {
+        List<Product> products1;
+        List<Product> products2;
+        List<string> products1S;
+        string vendorName1;
         [TestMethod]
         public void GetProductsByName_Method_Test()
         {
-            List<Product> products1 = Queries.GetProductsByName_Method("external");
-            List<Product> products2 = Queries.GetProductsByName_Method("nonexistent_product");
-
+            using (Queries database = new Queries())
+            {
+                products1 = database.GetProductsByName_Method("external");
+                products2 = database.GetProductsByName_Method("nonexistent_product");
+            }
             Assert.AreEqual(9, products1.Count);
             Assert.AreEqual(0, products2.Count);
 
@@ -25,9 +31,11 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetProductsByName_Query_Test()
         {
-            List<Product> products1 = Queries.GetProductsByName_Query("external");
-            List<Product> products2 = Queries.GetProductsByName_Query("nonexistent_product");
-
+            using (Queries database = new Queries())
+            {
+                products1 = database.GetProductsByName_Query("external");
+                products2 = database.GetProductsByName_Query("nonexistent_product");
+            }
             Assert.AreEqual(9, products1.Count);
             Assert.AreEqual(0, products2.Count);
 
@@ -40,9 +48,11 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetProductsByVendorName_Method_Test()
         {
-            List<Product> products1 = Queries.GetProductsByVendorName_Method("aurora bike center");
-            List<Product> products2 = Queries.GetProductsByVendorName_Method("nonexistent_vendor");
-
+            using (Queries database = new Queries())
+            {
+                products1 = database.GetProductsByVendorName_Method("aurora bike center");
+                products2 = database.GetProductsByVendorName_Method("nonexistent_vendor");
+            }
             Assert.AreEqual(19, products1.Count);
             Assert.AreEqual(0, products2.Count);
         }
@@ -50,9 +60,11 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetProductsByVendorName_Query_Test()
         {
-            List<Product> products1 = Queries.GetProductsByVendorName_Query("aurora bike center");
-            List<Product> products2 = Queries.GetProductsByVendorName_Query("nonexistent_vendor");
-
+            using (Queries database = new Queries())
+            {
+                products1 = database.GetProductsByVendorName_Query("aurora bike center");
+                products2 = database.GetProductsByVendorName_Query("nonexistent_vendor");
+            }
             Assert.AreEqual(19, products1.Count);
             Assert.AreEqual(0, products2.Count);
         }
@@ -60,8 +72,10 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetProductNamesByVendorName_Method_Test()
         {
-            List<string> products1 = Queries.GetProductNamesByVendorName_Method("aurora bike center");
-
+            using (Queries database = new Queries())
+            {
+                products1S = database.GetProductNamesByVendorName_Method("aurora bike center");
+            }
             Assert.AreEqual("External Lock Washer 3", products1[0]);
             Assert.AreEqual("External Lock Washer 4", products1[1]);
             Assert.AreEqual("External Lock Washer 9", products1[2]);
@@ -87,8 +101,10 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetProductNamesByVendorName_Query_Test()
         {
-            List<string> products1 = Queries.GetProductNamesByVendorName_Query("aurora bike center");
-
+            using (Queries database = new Queries())
+            {
+                products1S = database.GetProductNamesByVendorName_Query("aurora bike center");
+            }
             Assert.AreEqual("External Lock Washer 3", products1[0]);
             Assert.AreEqual("External Lock Washer 4", products1[1]);
             Assert.AreEqual("External Lock Washer 9", products1[2]);
@@ -113,28 +129,33 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetProductVendorByProductName_Method_Test()
         {
-            string vendorName1 = Queries.GetProductVendorByProductName_Method("External Lock Washer 3");
-          
+            using (Queries database = new Queries())
+            {
+                vendorName1 = database.GetProductVendorByProductName_Method("External Lock Washer 3");
+            }
 
             Assert.AreEqual("Aurora Bike Center", vendorName1);
-         
+
         }
 
         [TestMethod]
         public void GetProductVendorByProductName_Query_Test()
         {
-            string vendorName1 = Queries.GetProductVendorByProductName_Query("External Lock Washer 3");
+            using (Queries database = new Queries())
+            {
+                vendorName1 = database.GetProductVendorByProductName_Query("External Lock Washer 3");
+            }
             Assert.AreEqual("Aurora Bike Center", vendorName1);
-          
         }
 
         [TestMethod]
         public void GetProductsWithNRecentReviews_Method_Test()
         {
-            List<Product> products1 = Queries.GetProductsWithNRecentReviews_Method(4);
-
+            using (Queries database = new Queries())
+            {
+                products1 = database.GetProductsWithNRecentReviews_Method(4);
+            }
             Assert.AreEqual(3, products1.Count);
-
             Assert.AreEqual(709, products1[0].ProductID);
             Assert.AreEqual(798, products1[1].ProductID);
             Assert.AreEqual(937, products1[2].ProductID);
@@ -143,8 +164,10 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetProductsWithNRecentReviews_Query_Test()
         {
-            List<Product> products1 = Queries.GetProductsWithNRecentReviews_Query(4);
-
+            using (Queries database = new Queries())
+            {
+                products1 = database.GetProductsWithNRecentReviews_Query(4);
+            }
             Assert.AreEqual(3, products1.Count);
 
             Assert.AreEqual(709, products1[0].ProductID);
@@ -155,18 +178,22 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetNRecentlyReviewedProducts_Method_Test()
         {
-            List<Product> products1 = Queries.GetNRecentlyReviewedProducts_Method(3);
-
+            using (Queries database = new Queries())
+            {
+                products1 = database.GetNRecentlyReviewedProducts_Method(3);
+            }
             Assert.AreEqual(3, products1.Count);
-           
+
 
         }
 
         [TestMethod]
         public void GetNRecentlyReviewedProducts_Query_Test()
         {
-            List<Product> products1 = Queries.GetNRecentlyReviewedProducts_Query(3);
-
+            using (Queries database = new Queries())
+            {
+                products1 = database.GetNRecentlyReviewedProducts_Query(3);
+            }
             Assert.AreEqual(3, products1.Count);
 
         }
@@ -174,8 +201,10 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetNProductsFromCategory_Method_Test()
         {
-            List<Product> products1 = Queries.GetNProductsFromCategory_Method("clothing", 3);
-
+            using (Queries database = new Queries())
+            {
+                products1 = database.GetNProductsFromCategory_Method("clothing", 3);
+            }
             Assert.AreEqual(3, products1.Count);
 
             foreach (Product product in products1)
@@ -187,8 +216,10 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetNProductsFromCategory_Query_Test()
         {
-            List<Product> products1 = Queries.GetNProductsFromCategory_Query("clothing", 3);
-
+            using (Queries database = new Queries())
+            {
+                products1 = database.GetNProductsFromCategory_Query("clothing", 3);
+            }
             Assert.AreEqual(3, products1.Count);
 
             foreach (Product product in products1)

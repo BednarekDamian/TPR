@@ -5,11 +5,12 @@ using System.Linq;
 namespace Zadanie3
 {
     public class Queries: IDisposable
+    //public partial class ProductionDataContext  Opcja bez potrzeby implementacji IDisposable
     {
-        private static ProductionDataContext context = new ProductionDataContext();
+        private ProductionDataContext context = new ProductionDataContext();
 
 
-        public static List<Product> GetProductsByName_Query(string namePart)
+        public List<Product> GetProductsByName_Query(string namePart)
         {
             IEnumerable<Product> products = from product in context.Product
                                             where product.Name.Contains(namePart)
@@ -17,13 +18,13 @@ namespace Zadanie3
 
             return new List<Product>(products.ToArray());
         }
-        public static List<Product> GetProductsByName_Method(string namePart)
+        public List<Product> GetProductsByName_Method(string namePart)
         {
             List<Product> products = context.Product.Where(product => product.Name.Contains(namePart)).ToList();
             return products;
         }
 
-        public static List<Product> GetProductsByVendorName_Query(string vendorName)
+        public List<Product> GetProductsByVendorName_Query(string vendorName)
         {
             IEnumerable<Product> products = from productVendor in context.ProductVendor
                                             where productVendor.Vendor.Name.Equals(vendorName)
@@ -31,7 +32,7 @@ namespace Zadanie3
 
             return new List<Product>(products.ToArray());
         }
-        public static List<Product> GetProductsByVendorName_Method(string vendorName)
+        public List<Product> GetProductsByVendorName_Method(string vendorName)
         {
             List<Product> products = context.ProductVendor
                 .Where(productVendor => productVendor.Vendor.Name.Equals(vendorName))
@@ -40,7 +41,7 @@ namespace Zadanie3
 
             return products;
         }
-        public static List<string> GetProductNamesByVendorName_Query(string vendorName)
+        public List<string> GetProductNamesByVendorName_Query(string vendorName)
         {
             IEnumerable<string> productNames = from productVendor in context.ProductVendor
                                                where productVendor.Vendor.Name.Equals(vendorName)
@@ -48,7 +49,7 @@ namespace Zadanie3
 
             return new List<string>(productNames.ToArray());
         }
-        public static List<string> GetProductNamesByVendorName_Method(string vendorName)
+        public List<string> GetProductNamesByVendorName_Method(string vendorName)
         {
             List<string> productNames = context.ProductVendor
                 .Where(productVendor => productVendor.Vendor.Name.Equals(vendorName))
@@ -57,7 +58,7 @@ namespace Zadanie3
 
             return productNames;
         }
-        public static string GetProductVendorByProductName_Query(string productName)
+        public string GetProductVendorByProductName_Query(string productName)
         {
             IEnumerable<string> vendor = from productVendor in context.ProductVendor
                                          where productVendor.Product.Name.Equals(productName)
@@ -65,7 +66,7 @@ namespace Zadanie3
 
             return vendor.First();
         }
-        public static string GetProductVendorByProductName_Method(string productName)
+        public string GetProductVendorByProductName_Method(string productName)
         {
             string vendor = context.ProductVendor
                 .Where(productVendor => productVendor.Product.Name.Equals(productName))
@@ -74,7 +75,7 @@ namespace Zadanie3
 
             return vendor;
         }
-        public static List<Product> GetProductsWithNRecentReviews_Query(int howManyReviews)
+        public List<Product> GetProductsWithNRecentReviews_Query(int howManyReviews)
         {
             IEnumerable<Product> products = from productReview in context.ProductReview
                                             orderby productReview.ReviewDate
@@ -82,7 +83,7 @@ namespace Zadanie3
 
             return new List<Product>(products.Take(howManyReviews).Distinct().ToArray());
         }
-        public static List<Product> GetProductsWithNRecentReviews_Method(int howManyReviews)
+        public List<Product> GetProductsWithNRecentReviews_Method(int howManyReviews)
         {
             List<Product> products = context.ProductReview
                 .OrderBy(productReview => productReview.ReviewDate)
@@ -93,7 +94,7 @@ namespace Zadanie3
 
             return products;
         }
-        public static List<Product> GetNRecentlyReviewedProducts_Query(int howManyProducts)
+        public List<Product> GetNRecentlyReviewedProducts_Query(int howManyProducts)
         {
             IEnumerable<Product> products = from productReview in context.ProductReview
                                             orderby productReview.ReviewDate 
@@ -101,7 +102,7 @@ namespace Zadanie3
 
             return new List<Product>(products.ToArray().Take(howManyProducts));
         }
-        public static List<Product> GetNRecentlyReviewedProducts_Method(int howManyProducts)
+        public List<Product> GetNRecentlyReviewedProducts_Method(int howManyProducts)
         {
             List<Product> products = context.ProductReview
                 .OrderBy(productReview => productReview.ReviewDate)
@@ -112,7 +113,7 @@ namespace Zadanie3
             return products;
         }
 
-        public static List<Product> GetNProductsFromCategory_Query(string categoryName, int n)
+        public List<Product> GetNProductsFromCategory_Query(string categoryName, int n)
         {
             IEnumerable<Product> products = from product in context.Product
                                             where product.ProductSubcategory.ProductCategory.Name.Equals(categoryName)
@@ -121,7 +122,7 @@ namespace Zadanie3
 
             return products.Take(n).ToList();
         }
-        public static List<Product> GetNProductsFromCategory_Method(string categoryName, int n)
+        public List<Product> GetNProductsFromCategory_Method(string categoryName, int n)
         {
             List<Product> products = context.Product
                 .Where(product => product.ProductSubcategory.ProductCategory.Name.Equals(categoryName))
@@ -131,7 +132,7 @@ namespace Zadanie3
 
             return products;
         }
-        public static int GetTotalStandardCostByCategory_Query(ProductCategory category)
+        public int GetTotalStandardCostByCategory_Query(ProductCategory category)
         {
             IEnumerable<decimal> costs = from product in context.Product
                                          where product.ProductSubcategory.ProductCategory.ProductCategoryID == category.ProductCategoryID
@@ -139,7 +140,7 @@ namespace Zadanie3
 
             return Decimal.ToInt32(costs.Sum());
         }
-        public static int GetTotalStandardCostByCategory_Method(ProductCategory category)
+        public int GetTotalStandardCostByCategory_Method(ProductCategory category)
         {
             decimal costs = context.Product
                 .Where(product => product.ProductSubcategory.ProductCategory.ProductCategoryID == category.ProductCategoryID)
@@ -148,14 +149,14 @@ namespace Zadanie3
 
             return Decimal.ToInt32(costs);
         }
-        public static ProductCategory GetProductCategoryByName_Query(string name)
+        public ProductCategory GetProductCategoryByName_Query(string name)
         {
             IEnumerable<ProductCategory> categories = from category in context.ProductCategory
                                                       where category.Name.Equals(name)
                                                       select category;
             return categories.First();
         }
-        public static ProductCategory GetProductCategoryByName_Method(string name)
+        public ProductCategory GetProductCategoryByName_Method(string name)
         {
             ProductCategory category = context.ProductCategory
                 .Where(productCategory => productCategory.Name.Equals(name))
@@ -166,7 +167,7 @@ namespace Zadanie3
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            context.Dispose();
         }
     }
 }

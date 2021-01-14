@@ -10,7 +10,8 @@ namespace UnitTestZadanie3
     [TestClass]
     public class ExtensionMethodsUnitTest
     {
-
+        List<Product> products;
+        List<ProductVendor> productWVendorN;
         #region Methods
 
         [TestMethod]
@@ -18,29 +19,29 @@ namespace UnitTestZadanie3
         {
             using (ProductionDataContext testDataContext = new ProductionDataContext())
             {
-                List<Product> products = testDataContext.GetTable<Product>().ToList();
+                products = testDataContext.GetTable<Product>().ToList();
+             }   
                 List<Product> productsWOTTest = products.GetProductsWithoutCategory_Method();
-
+           
                 Assert.AreEqual(209, productsWOTTest.Count);
                 foreach (Product product in productsWOTTest)
                 {
                     Assert.IsNull(product.ProductSubcategory);
                 }
-            }
         }
         [TestMethod]
         public void SplitIntoPage_Method_Test()
         {
             using (ProductionDataContext testDataContext = new ProductionDataContext())
             {
-                List<Product> products = testDataContext.GetTable<Product>().ToList();
+                products = testDataContext.GetTable<Product>().ToList();
+            }
                 List<Product> splited = products.SplitIntoPage_Method(20,0);
 
                 Assert.AreEqual(20, splited.Count);
-                for(int i = 0; i<20;i++)
-                {
-                    Assert.AreEqual(splited[i], products[i]);
-                }
+            for (int i = 0; i < 20; i++)
+            {
+                Assert.AreEqual(splited[i], products[i]);
             }
         }
         [TestMethod]
@@ -48,9 +49,9 @@ namespace UnitTestZadanie3
         {
             using (ProductionDataContext testDataContext = new ProductionDataContext())
             {
-                List<Product> products = testDataContext.GetTable<Product>().ToList();
-                List<ProductVendor> productWVendorN = testDataContext.GetTable<ProductVendor>().ToList();
-
+                products = testDataContext.GetTable<Product>().ToList();
+                productWVendorN = testDataContext.GetTable<ProductVendor>().ToList();
+            }
                 string description = products.GetProductNamesWithVendorName_Method(productWVendorN);
                 string[] rows = description.Split(Environment.NewLine.ToCharArray());
                
@@ -59,8 +60,6 @@ namespace UnitTestZadanie3
                Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialties"));
                 Assert.IsTrue(rows.Contains("Paint - Red-Trey Research"));
                 Assert.IsTrue(rows.Contains("Lock Nut 15-Mountain Works"));
-
-            }
         }
 
         #endregion
@@ -70,7 +69,8 @@ namespace UnitTestZadanie3
         {
             using (ProductionDataContext testDataContext = new ProductionDataContext())
             {
-                List<Product> products = testDataContext.GetTable<Product>().ToList();
+              products = testDataContext.GetTable<Product>().ToList();
+            }
                 List<Product> productsWOTTest = products.GetProductsWithoutCategory_Query();
 
                 Assert.AreEqual(209, productsWOTTest.Count);
@@ -78,14 +78,14 @@ namespace UnitTestZadanie3
                 {
                     Assert.IsNull(product.ProductSubcategory);
                 }
-            }
         }
         [TestMethod]
         public void SplitIntoPage_Query_Test()
         {
             using (ProductionDataContext testDataContext = new ProductionDataContext())
             {
-                List<Product> products = testDataContext.GetTable<Product>().ToList();
+               products = testDataContext.GetTable<Product>().ToList();
+            }
                 List<Product> splited = products.SplitIntoPage_Query(20, 0);
 
                 Assert.AreEqual(20, splited.Count);
@@ -93,16 +93,15 @@ namespace UnitTestZadanie3
                 {
                     Assert.AreEqual(splited[i], products[i]);
                 }
-            }
         }
         [TestMethod]
         public void GetProductNamesWithVendorName_Query_Test()
         {
-            using (ProductionDataContext testDataContext = new ProductionDataContext())
-            {
-                List<Product> products = testDataContext.GetTable<Product>().ToList();
-                List<ProductVendor> productWVendorN = testDataContext.GetTable<ProductVendor>().ToList();
-
+        using (ProductionDataContext testDataContext = new ProductionDataContext())
+        {
+            products = testDataContext.GetTable<Product>().ToList();
+            productWVendorN = testDataContext.GetTable<ProductVendor>().ToList();
+        }
                 string description = products.GetProductNamesWithVendorName_Query(productWVendorN);
                 string[] rows = description.Split(Environment.NewLine.ToCharArray());
 
@@ -111,7 +110,6 @@ namespace UnitTestZadanie3
                 Assert.IsTrue(rows.Contains("Paint - Black-Carlson Specialties"));
                 Assert.IsTrue(rows.Contains("Paint - Red-Trey Research"));
                 Assert.IsTrue(rows.Contains("Lock Nut 15-Mountain Works"));
-            }
         }
 
         #endregion

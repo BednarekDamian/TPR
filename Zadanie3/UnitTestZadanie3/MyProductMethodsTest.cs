@@ -9,28 +9,28 @@ namespace UnitTestZadanie3
     [TestClass]
     public class MyProductMethodsTest
     {
-       // private static ProductionDataContext context = new ProductionDataContext();
+        // private static ProductionDataContext context = new ProductionDataContext();
         //private MyProductMethods MyProducts = new MyProductMethods(context);
+        List<MyProduct> products1;
+        List<MyProduct> products2;
+        MyProduct nextProduct;
+        MyProductMethods MyProducts;
         [TestMethod]
         public void GetProductsByName_Test()
         {
-
             using (ProductionDataContext context = new ProductionDataContext())
             {
-                MyProductMethods MyProducts = new MyProductMethods(context);
-                List<MyProduct> products1 = MyProducts.GetProductsByName("External");
-                List<MyProduct> products2 = MyProducts.GetProductsByName("nonexistent_product");
-                
-                Assert.AreEqual(9, products1.Count);
-                Assert.AreEqual(0, products2.Count);
-
-                foreach (MyProduct product in products1)
-                {
-                    Assert.IsTrue(product.Name.Contains("External"));
-                }
+                MyProducts = new MyProductMethods(context);
+                products1 = MyProducts.GetProductsByName("External");
+                products2 = MyProducts.GetProductsByName("nonexistent_product");
             }
-                
-            
+            Assert.AreEqual(9, products1.Count);
+            Assert.AreEqual(0, products2.Count);
+
+            foreach (MyProduct product in products1)
+            {
+                Assert.IsTrue(product.Name.Contains("External"));
+            }
         }
 
         [TestMethod]
@@ -38,16 +38,14 @@ namespace UnitTestZadanie3
         {
             using (ProductionDataContext context = new ProductionDataContext())
             {
-                MyProductMethods MyProducts = new MyProductMethods(context);
+                MyProducts = new MyProductMethods(context);
+                products1 = MyProducts.GetNProductsFromCategory("Clothing", 3);
+            }
+            Assert.AreEqual(3, products1.Count);
 
-                List<MyProduct> products1 = MyProducts.GetNProductsFromCategory("Clothing", 3);
-
-                Assert.AreEqual(3, products1.Count);
-
-                foreach (MyProduct product in products1)
-                {
-                    Assert.IsTrue(product.SCategory.ProductCategory.Name.Equals("Clothing"));
-                }
+            foreach (MyProduct product in products1)
+            {
+                Assert.IsTrue(product.SCategory.ProductCategory.Name.Equals("Clothing"));
             }
         }
 
@@ -56,20 +54,18 @@ namespace UnitTestZadanie3
         {
             using (ProductionDataContext context = new ProductionDataContext())
             {
-                MyProductMethods MyProducts = new MyProductMethods(context);
+                MyProducts = new MyProductMethods(context);
+                products1 = MyProducts.GetNRecentlyModifiedProducts(10);
+                nextProduct = MyProducts.GetNRecentlyModifiedProducts(11)[10];
+            }
+            Assert.AreEqual(10, products1.Count);
 
-                List<MyProduct> products1 = MyProducts.GetNRecentlyModifiedProducts(10);
-                MyProduct nextProduct = MyProducts.GetNRecentlyModifiedProducts(11)[10];
-
-                Assert.AreEqual(10, products1.Count);
-
-                foreach (MyProduct product in products1)
-                {
-                    Assert.IsTrue(product.SellStartDate.CompareTo(nextProduct.SellStartDate) == 0 ||
-                                  product.SellStartDate.CompareTo(nextProduct.SellStartDate) == 1);
-                }
+            foreach (MyProduct product in products1)
+            {
+                Assert.IsTrue(product.SellStartDate.CompareTo(nextProduct.SellStartDate) == 0 ||
+                              product.SellStartDate.CompareTo(nextProduct.SellStartDate) == 1);
             }
         }
-        
+
     }
 }
