@@ -7,24 +7,22 @@ namespace UnitTestZadanie3
     [TestClass]
     public class QueriesTests
     {
-        List<Product> products1;
-        List<Product> products2;
-        List<string> products1S;
-        string vendorName1;
+        
         [TestMethod]
         public void GetProductsByName_Method_Test()
         {
             using (Queries database = new Queries())
             {
-                products1 = database.GetProductsByName_Method("external");
-                products2 = database.GetProductsByName_Method("nonexistent_product");
-            }
+                List<Product> products1 = database.GetProductsByName_Method("external");
+                List<Product> products2 = database.GetProductsByName_Method("nonexistent_product");
+           
             Assert.AreEqual(9, products1.Count);
             Assert.AreEqual(0, products2.Count);
 
             foreach (Product product in products1)
             {
                 Assert.IsTrue(product.Name.ToLower().Contains("external"));
+            }
             }
         }
 
@@ -33,15 +31,16 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1 = database.GetProductsByName_Query("external");
-                products2 = database.GetProductsByName_Query("nonexistent_product");
-            }
+                List<Product> products1 = database.GetProductsByName_Query("external");
+                List<Product> products2 = database.GetProductsByName_Query("nonexistent_product");
+      
             Assert.AreEqual(9, products1.Count);
             Assert.AreEqual(0, products2.Count);
 
             foreach (Product product in products1)
             {
                 Assert.IsTrue(product.Name.ToLower().Contains("external"));
+            }
             }
         }
 
@@ -50,11 +49,12 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1 = database.GetProductsByVendorName_Method("aurora bike center");
-                products2 = database.GetProductsByVendorName_Method("nonexistent_vendor");
-            }
+                List<Product> products1 = database.GetProductsByVendorName_Method("aurora bike center");
+                List<Product> products2 = database.GetProductsByVendorName_Method("nonexistent_vendor");
+         
             Assert.AreEqual(19, products1.Count);
             Assert.AreEqual(0, products2.Count);
+            }
         }
 
         [TestMethod]
@@ -62,11 +62,12 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1 = database.GetProductsByVendorName_Query("aurora bike center");
-                products2 = database.GetProductsByVendorName_Query("nonexistent_vendor");
-            }
+                List<Product> products1 = database.GetProductsByVendorName_Query("aurora bike center");
+                List<Product> products2 = database.GetProductsByVendorName_Query("nonexistent_vendor");
+           
             Assert.AreEqual(19, products1.Count);
             Assert.AreEqual(0, products2.Count);
+            }
         }
 
         [TestMethod]
@@ -74,8 +75,8 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1S = database.GetProductNamesByVendorName_Method("aurora bike center");
-            }
+                List<string> products1 = database.GetProductNamesByVendorName_Method("aurora bike center");
+            
             Assert.AreEqual("External Lock Washer 3", products1[0]);
             Assert.AreEqual("External Lock Washer 4", products1[1]);
             Assert.AreEqual("External Lock Washer 9", products1[2]);
@@ -95,6 +96,7 @@ namespace UnitTestZadanie3
             Assert.AreEqual("Internal Lock Washer 1", products1[16]);
             Assert.AreEqual("Internal Lock Washer 8", products1[17]);
             Assert.AreEqual("Internal Lock Washer 2", products1[18]);
+            }
         }
 
 
@@ -103,8 +105,8 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1S = database.GetProductNamesByVendorName_Query("aurora bike center");
-            }
+                List<string> products1 = database.GetProductNamesByVendorName_Query("aurora bike center");
+           
             Assert.AreEqual("External Lock Washer 3", products1[0]);
             Assert.AreEqual("External Lock Washer 4", products1[1]);
             Assert.AreEqual("External Lock Washer 9", products1[2]);
@@ -124,6 +126,7 @@ namespace UnitTestZadanie3
             Assert.AreEqual("Internal Lock Washer 1", products1[16]);
             Assert.AreEqual("Internal Lock Washer 8", products1[17]);
             Assert.AreEqual("Internal Lock Washer 2", products1[18]);
+            }
         }
 
         [TestMethod]
@@ -131,10 +134,11 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                vendorName1 = database.GetProductVendorByProductName_Method("External Lock Washer 3");
-            }
+                string vendorName1 = database.GetProductVendorByProductName_Method("External Lock Washer 3");
+         
 
             Assert.AreEqual("Aurora Bike Center", vendorName1);
+            }
 
         }
 
@@ -143,9 +147,10 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                vendorName1 = database.GetProductVendorByProductName_Query("External Lock Washer 3");
-            }
+                string vendorName1 = database.GetProductVendorByProductName_Query("External Lock Washer 3");
+           
             Assert.AreEqual("Aurora Bike Center", vendorName1);
+            }
         }
 
         [TestMethod]
@@ -153,12 +158,13 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1 = database.GetProductsWithNRecentReviews_Method(4);
-            }
+                List<Product> products1 = database.GetProductsWithNRecentReviews_Method(4);
+         
             Assert.AreEqual(3, products1.Count);
             Assert.AreEqual(709, products1[0].ProductID);
             Assert.AreEqual(798, products1[1].ProductID);
             Assert.AreEqual(937, products1[2].ProductID);
+            }
         }
 
         [TestMethod]
@@ -166,13 +172,14 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1 = database.GetProductsWithNRecentReviews_Query(4);
-            }
+                List<Product> products1 = database.GetProductsWithNRecentReviews_Query(4);
+
             Assert.AreEqual(3, products1.Count);
 
             Assert.AreEqual(709, products1[0].ProductID);
             Assert.AreEqual(937, products1[1].ProductID);
             Assert.AreEqual(798, products1[2].ProductID);
+            }
         }
 
         [TestMethod]
@@ -180,10 +187,10 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1 = database.GetNRecentlyReviewedProducts_Method(3);
-            }
+                List<Product> products1 = database.GetNRecentlyReviewedProducts_Method(3);
+          
             Assert.AreEqual(3, products1.Count);
-
+            }
 
         }
 
@@ -192,10 +199,10 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1 = database.GetNRecentlyReviewedProducts_Query(3);
-            }
-            Assert.AreEqual(3, products1.Count);
+                List<Product> products1 = database.GetNRecentlyReviewedProducts_Query(3);
 
+            Assert.AreEqual(3, products1.Count);
+            }
         }
 
         [TestMethod]
@@ -203,13 +210,14 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1 = database.GetNProductsFromCategory_Method("clothing", 3);
-            }
+                List<Product> products1 = database.GetNProductsFromCategory_Method("clothing", 3);
+            
             Assert.AreEqual(3, products1.Count);
 
             foreach (Product product in products1)
             {
                 Assert.IsTrue(product.ProductSubcategory.ProductCategory.Name.Equals("Clothing"));
+            }
             }
         }
 
@@ -218,13 +226,14 @@ namespace UnitTestZadanie3
         {
             using (Queries database = new Queries())
             {
-                products1 = database.GetNProductsFromCategory_Query("clothing", 3);
-            }
+                List<Product> products1 = database.GetNProductsFromCategory_Query("clothing", 3);
+            
             Assert.AreEqual(3, products1.Count);
 
             foreach (Product product in products1)
             {
                 Assert.IsTrue(product.ProductSubcategory.ProductCategory.Name.Equals("Clothing"));
+            }
             }
         }
 
