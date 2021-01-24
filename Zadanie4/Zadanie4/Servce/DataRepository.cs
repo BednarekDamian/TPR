@@ -19,52 +19,65 @@ namespace Service
         }
 
         #region add
-        public void AddReason() 
+        public void AddReason(ReasonS reasonS)
         {
-            SalesReason ReasonToAdd;
+            SalesReason ReasonToAdd = reasonS.getSalesReason();
             Task.Run(() =>
             {
-                dataContext.SalesReason.InsertOnSubmit();
+                dataContext.SalesReason.InsertOnSubmit(ReasonToAdd);
                 dataContext.SubmitChanges();
             });
         }
 
         #endregion
         #region Update
-        public void UpdateReason()
+        public void UpdateReason(ReasonS reasonS, int id)
         {
-            Task.Run(()=>
+            Task.Run(() =>
             {
-                SalesReason upReason = dataContext.SalesReason.Where(m => m.SalesReasonID == ...).FirstOrDefaukt();
+                SalesReason upReason = dataContext.SalesReason.Where(m => m.SalesReasonID == reasonS.SalesReasonID).FirstOrDefault();
+                foreach (System.Reflection.PropertyInfo property in upReason.GetType().GetProperties())
+                {
+                    if (property.CanWrite)
+                    {
+                        property.SetValue(upReason, property.GetValue(reasonS.getSalesReason()));
+                    }
+                }
+                dataContext.SubmitChanges();
             });
         }
 
         #endregion
         #region Delete
-        public void DeleteReason()
+        public void DeleteReason(int id)
         {
             Task.Run(() =>
             {
-                dataContext.SalesReason.DeleteOnSubmit(GetReason());
+                dataContext.SalesReason.DeleteOnSubmit(GetSalesReason(id).getSalesReason());
                 dataContext.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
             });
         }
 
         #endregion
         #region Read
-        public void GetReason()
+        public ReasonS GetSalesReason(int id)
         {
-            Task.Run(() =>
-            {
-                dataContext.SalesReason.DeleteOnSubmit(GetReason());
-                dataContext.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
-            });
+            SalesReason reason = dataContext.SalesReason.Where(e => e.SalesReasonID == id).FirstOrDefault();
+            return new ReasonS(reason);
         }
 
+
+        public IEnumerable<ReasonS> GetAllReasons()
+        {
+            List<ReasonS> reasonS = new List<ReasonS>();
+            IQueryable<SalesReason> salesReasons = dataContext.SalesReason;
+            foreach (SalesReason salesReason in salesReasons)
+            {
+                reasonS.Add(new ReasonS(salesReason));
+            }
+            return reasonS;
+        }
         #endregion
-
-
-
 
         public void Dispose()
         {

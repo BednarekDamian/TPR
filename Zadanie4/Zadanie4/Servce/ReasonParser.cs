@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dane;
 
-namespace Servce
+namespace Service
 {
     public static class ReasonParser
     {

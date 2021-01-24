@@ -1,7 +1,7 @@
 ﻿using System;
 using Dane;
 
-namespace Servce
+namespace Service
 {
     public class ReasonS
     {
@@ -12,7 +12,7 @@ namespace Servce
             this.salesReason = salesReason;
         }
 
-        internal SalesReason GetSalesReason()
+        internal SalesReason getSalesReason()
         {
             return this.salesReason;
         }

@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Service
 {
-    interface IDataRepo
+    public interface IDataRepo
     {
-        public void AddReason()
-        public void UpdateReason()
-        public void DeleteReason()
-        public void GetReason()
-        public void Dispose()
-
+        void AddReason(ReasonS reasonS);
+        void UpdateReason(ReasonS reasonS, int id);
+        void DeleteReason(int id);
+        ReasonS GetSalesReason(int id);
+        IEnumerable<ReasonS> GetAllReasons();
+        void Dispose();
     }
 }
