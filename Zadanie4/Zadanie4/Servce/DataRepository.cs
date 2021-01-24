@@ -54,7 +54,11 @@ namespace Service
         #region Read
         public void GetReason()
         {
-
+            Task.Run(() =>
+            {
+                dataContext.SalesReason.DeleteOnSubmit(GetReason());
+                dataContext.SubmitChanges(System.Data.Linq.ConflictMode.ContinueOnConflict);
+            });
         }
 
         #endregion
