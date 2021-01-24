@@ -36,6 +36,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReasonParser.cs" />
     <Compile Include="ReasonS.cs" />
     <Compile Include="DataRepository.cs" />
     <Compile Include="IDataRepo.cs" />

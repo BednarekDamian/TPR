@@ -3,7 +3,7 @@ using Dane;
 
 namespace Servce
 {
-    class ReasonS
+    public class ReasonS
     {
         private SalesReason salesReason;
      
