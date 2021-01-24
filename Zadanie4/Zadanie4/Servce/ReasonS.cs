@@ -1,7 +1,7 @@
 ﻿using System;
 using Dane;
 
-namespace Service
+namespace Servce
 {
     public class ReasonS
     {

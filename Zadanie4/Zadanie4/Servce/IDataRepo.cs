@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Service
+namespace Servce
 {
     public interface IDataRepo
     {

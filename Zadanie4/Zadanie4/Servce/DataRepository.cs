@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 //repo
-namespace Service
+namespace Servce
 {
     public class DataRepository : IDataRepo, IDisposable
     {
