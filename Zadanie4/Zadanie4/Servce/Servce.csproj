@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8149C01E-66D4-4E3F-A474-13BA6597C321}</ProjectGuid>
+    <ProjectGuid>{4F06DB20-4728-4054-A287-91A54F9BC9CB}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Dane</RootNamespace>
-    <AssemblyName>Dane</AssemblyName>
+    <RootNamespace>Servce</RootNamespace>
+    <AssemblyName>Servce</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,38 +34,19 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="SalesReason.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>SalesReason.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SalesReason.dbml.layout">
-      <DependentUpon>SalesReason.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
+    <Compile Include="DataRepository.cs" />
+    <Compile Include="IDataRepo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dane\Dane.csproj">
+      <Project>{8149c01e-66d4-4e3f-a474-13ba6597c321}</Project>
+      <Name>Dane</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Data.Linq" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="SalesReason.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SalesReason.dbml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

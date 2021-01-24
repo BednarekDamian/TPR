@@ -30,9 +30,9 @@ namespace Dane
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertStore(Store instance);
-    partial void UpdateStore(Store instance);
-    partial void DeleteStore(Store instance);
+    partial void InsertSalesReason(SalesReason instance);
+    partial void UpdateSalesReason(SalesReason instance);
+    partial void DeleteSalesReason(SalesReason instance);
     #endregion
 		
 		public StoreDataContext() : 
@@ -65,30 +65,26 @@ namespace Dane
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Store> Store
+		public System.Data.Linq.Table<SalesReason> SalesReason
 		{
 			get
 			{
-				return this.GetTable<Store>();
+				return this.GetTable<SalesReason>();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="Sales.Store")]
-	public partial class Store : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Sales.SalesReason")]
+	public partial class SalesReason : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _BusinessEntityID;
+		private int _SalesReasonID;
 		
 		private string _Name;
 		
-		private System.Nullable<int> _SalesPersonID;
-		
-		private System.Xml.Linq.XElement _Demographics;
-		
-		private System.Guid _rowguid;
+		private string _ReasonType;
 		
 		private System.DateTime _ModifiedDate;
 		
@@ -96,41 +92,37 @@ namespace Dane
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnBusinessEntityIDChanging(int value);
-    partial void OnBusinessEntityIDChanged();
+    partial void OnSalesReasonIDChanging(int value);
+    partial void OnSalesReasonIDChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
-    partial void OnSalesPersonIDChanging(System.Nullable<int> value);
-    partial void OnSalesPersonIDChanged();
-    partial void OnDemographicsChanging(System.Xml.Linq.XElement value);
-    partial void OnDemographicsChanged();
-    partial void OnrowguidChanging(System.Guid value);
-    partial void OnrowguidChanged();
+    partial void OnReasonTypeChanging(string value);
+    partial void OnReasonTypeChanged();
     partial void OnModifiedDateChanging(System.DateTime value);
     partial void OnModifiedDateChanged();
     #endregion
 		
-		public Store()
+		public SalesReason()
 		{
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessEntityID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int BusinessEntityID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesReasonID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int SalesReasonID
 		{
 			get
 			{
-				return this._BusinessEntityID;
+				return this._SalesReasonID;
 			}
 			set
 			{
-				if ((this._BusinessEntityID != value))
+				if ((this._SalesReasonID != value))
 				{
-					this.OnBusinessEntityIDChanging(value);
+					this.OnSalesReasonIDChanging(value);
 					this.SendPropertyChanging();
-					this._BusinessEntityID = value;
-					this.SendPropertyChanged("BusinessEntityID");
-					this.OnBusinessEntityIDChanged();
+					this._SalesReasonID = value;
+					this.SendPropertyChanged("SalesReasonID");
+					this.OnSalesReasonIDChanged();
 				}
 			}
 		}
@@ -155,62 +147,22 @@ namespace Dane
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesPersonID", DbType="Int")]
-		public System.Nullable<int> SalesPersonID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReasonType", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ReasonType
 		{
 			get
 			{
-				return this._SalesPersonID;
+				return this._ReasonType;
 			}
 			set
 			{
-				if ((this._SalesPersonID != value))
+				if ((this._ReasonType != value))
 				{
-					this.OnSalesPersonIDChanging(value);
+					this.OnReasonTypeChanging(value);
 					this.SendPropertyChanging();
-					this._SalesPersonID = value;
-					this.SendPropertyChanged("SalesPersonID");
-					this.OnSalesPersonIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Demographics", DbType="Xml", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Xml.Linq.XElement Demographics
-		{
-			get
-			{
-				return this._Demographics;
-			}
-			set
-			{
-				if ((this._Demographics != value))
-				{
-					this.OnDemographicsChanging(value);
-					this.SendPropertyChanging();
-					this._Demographics = value;
-					this.SendPropertyChanged("Demographics");
-					this.OnDemographicsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_rowguid", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid rowguid
-		{
-			get
-			{
-				return this._rowguid;
-			}
-			set
-			{
-				if ((this._rowguid != value))
-				{
-					this.OnrowguidChanging(value);
-					this.SendPropertyChanging();
-					this._rowguid = value;
-					this.SendPropertyChanged("rowguid");
-					this.OnrowguidChanged();
+					this._ReasonType = value;
+					this.SendPropertyChanged("ReasonType");
+					this.OnReasonTypeChanged();
 				}
 			}
 		}
