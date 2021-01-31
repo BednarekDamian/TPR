@@ -5,20 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
-        xmlns:view="clr-namespace:View"
+        xmlns:view="clr-namespace:View" 
+        xmlns:validator="clr-namespace:View.Validatior"
         Title="MainWindow" Height="450" Width="600">
+
+    <Window.Resources>
+        <ControlTemplate x:Key="validationT">
+            <DockPanel>
+                <TextBlock Foreground="Red" FontSize="30">!!!</TextBlock>
+                <AdornedElementPlaceholder/>
+            </DockPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    
+    
     <Window.DataContext>
         <viewModel:MainWindowActions />
     </Window.DataContext>
     <Grid>
-        <Grid.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform/>
-                <SkewTransform/>
-                <RotateTransform Angle="-0.172"/>
-                <TranslateTransform/>
-            </TransformGroup>
-        </Grid.RenderTransform>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="2*"/>
@@ -39,11 +43,81 @@
             </ListView.View>
         </ListView>
         <Grid Grid.Column="1" Grid.Row="0" >
-        <Button Content="Add" Command="{Binding AddReason}" HorizontalAlignment="Left" Height="36.153" Margin="10,145.198,0,0" VerticalAlignment="Top" Width="169.344"/>
-        <Button Content="Delite" Command="{Binding DeleteReason}" HorizontalAlignment="Left" Height="36.153" Margin="10,181.351,0,0" VerticalAlignment="Top" Width="169.344"/>
-            <Button Content="Modify" Command="{Binding UpdateReason}" HorizontalAlignment="Left" Height="36.153" Margin="10,217.504,0,0" VerticalAlignment="Top" Width="169.344"/>
-            <Button Content= "Refresh" Command="{Binding Refresh}" HorizontalAlignment="Left" Height="36.153" Margin="10,253.657,0,0" VerticalAlignment="Top" Width="169.344"/>
-                <Button Content= "GetReason" Command="{Binding GetReason}" HorizontalAlignment="Left" Height="36.153" Margin="10,253.657,0,0" VerticalAlignment="Top" Width="169.344"/>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Id:"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ToUpdateReason.Id}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Name:"/>
+                <TextBox Name="NameDb" Grid.Column="1" Grid.Row="1" Validation.ErrorTemplate="{StaticResource validationT}">
+                    <TextBox.Text>
+                        <Binding Path="NewaReason.Name">
+                            <Binding.ValidationRules>
+                    <!--            <validator:Stringvalidation mini="3" maxy="30"/> -->
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="ReasonType:"/>
+                 <TextBox Name="ReasonT" Grid.Column="1" Grid.Row="2" Validation.ErrorTemplate="{StaticResource validationT}">
+                    <TextBox.Text>
+                        <Binding Path="NewaReason.Name">
+                            <Binding.ValidationRules>
+                    <!--                       <validator:Stringvalidation mini="3" maxy="30"/> -->
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Button Content="Add" Command="{Binding AddReason}"  VerticalAlignment="Top" HorizontalAlignment="Center" Height="20" Width="80" Margin="10,10,10,10">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=NameDb}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ReasonT}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="Delite" Command="{Binding DeleteReason}" VerticalAlignment="Top" HorizontalAlignment="Center" Height="20" Width="80" Margin="10,35,10,10"/>
+                <Button Content="Modify" Command="{Binding UpdateReason}" VerticalAlignment="Top" HorizontalAlignment="Center" Height="20" Width="80" Margin="10,60,10,10">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=NameDb}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ReasonT}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content= "Refresh" Command="{Binding Refresh}" VerticalAlignment="Top" HorizontalAlignment="Center" Height="20" Width="80" Margin="10,85,10,10"/>
+                <Button Content= "GetReason" Command="{Binding GetReason}" VerticalAlignment="Top" HorizontalAlignment="Center" Height="20" Width="80" Margin="10,110,10,10"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

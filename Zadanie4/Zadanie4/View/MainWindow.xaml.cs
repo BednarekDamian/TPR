@@ -35,7 +35,6 @@ namespace View
         {
             base.OnInitialized(e);
             MainWindowActions mw = (MainWindowActions)DataContext;
-        //    mw.MainWindow = this;
         }
     }
 }
