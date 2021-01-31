@@ -6,7 +6,7 @@ using Servce;
 
 namespace Model
 {
-    class ListOfReasons : Change
+    public class ListOfReasons 
     {
         private readonly IDataRepo dataRepo;
 
@@ -29,7 +29,6 @@ namespace Model
             set
             {
                 models = value;
-                WhenPropertyChanged();
             }
         }
         public SalesReasonModel NModels
@@ -38,8 +37,7 @@ namespace Model
             set
             {
                 nModel = value;
-                WhenPropertyChanged();
-            }
+;            }
         }
         public void ModelsRefresh()
         {

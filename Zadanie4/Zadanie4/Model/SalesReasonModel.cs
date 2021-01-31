@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model
 {
-    public class SalesReasonModel : Change
+    public class SalesReasonModel 
     {
         private int id;
         private string name;
@@ -27,7 +27,6 @@ namespace Model
             set
             {
                 id = value;
-                WhenPropertyChanged();
             }
         }
 
@@ -37,7 +36,6 @@ namespace Model
             set
             {
                 name = value;
-                WhenPropertyChanged();
             }
         }
         public string ReasonSale
@@ -46,7 +44,6 @@ namespace Model
             set
             {
                 reasonSale = value;
-                WhenPropertyChanged();
             }
         }
         public DateTime ModifTime
@@ -55,7 +52,6 @@ namespace Model
             set
             {
                 modifTime = value;
-                WhenPropertyChanged();
             }
         }
 
