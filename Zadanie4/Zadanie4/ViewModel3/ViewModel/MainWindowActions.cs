@@ -32,11 +32,11 @@ namespace ViewModel
 
         public ObservableCollection<SalesReasonModel> Reasons
         {
-            get => ListOfReasons.Models;
+            get => reasonList.Models;
 
             set
             {
-                ListOfReasons.Models = value;
+                reasonList.Models = value;
             }
         }
         public SalesReasonModel NewaReason
