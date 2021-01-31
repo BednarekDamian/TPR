@@ -1,9 +1,7 @@
-﻿using System;
-using Dane;
-using System.Linq;
-using System.Data.Linq;
+﻿using Dane;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 //repo

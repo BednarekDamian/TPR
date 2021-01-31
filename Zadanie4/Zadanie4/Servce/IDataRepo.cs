@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Servce
 {
@@ -11,6 +9,6 @@ namespace Servce
         void DeleteReason(int id);
         ReasonS GetSalesReason(int id);
         IEnumerable<ReasonS> GetAllReasons();
-      
+
     }
 }
