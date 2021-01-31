@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Model
 {
-    public class SalesReasonModel 
+    public class SalesReasonModel
     {
         private int id;
         private string name;
