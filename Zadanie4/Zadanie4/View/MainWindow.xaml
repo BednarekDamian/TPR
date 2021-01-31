@@ -6,33 +6,44 @@
         xmlns:viewModel="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
         xmlns:view="clr-namespace:View"
-        Title="MainWindow" Height="450" Width="800">
-  <!--   <Window.DataContext>
-       <viewModel:MainWindowActions />
-    </Window.DataContext> -->
+        Title="MainWindow" Height="450" Width="600">
+    <Window.DataContext>
+        <viewModel:MainWindowActions />
+    </Window.DataContext>
     <Grid>
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="-0.172"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <ListView Name="ListaS" ItemsSource="{Binding }">
+        <ListView Name="ListaS" ItemsSource="{Binding Reasons}" SelectedItem="{Binding crModel}" Width="400" HorizontalAlignment="Left">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
-                    <GridViewColumn/>
-                    <GridViewColumn/>
-                    <GridViewColumn/>
-                    <GridViewColumn/>
+                    <GridView.Columns>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Id" Width="30"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ReasonSale}" Header="ReasonSale" Width="70"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ModifTime}" Header="ModifTime" Width="150"/>
+                    </GridView.Columns>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" HorizontalAlignment="Left" Height="36.153" Margin="10,145.198,0,0" VerticalAlignment="Top" Width="169.344"/>
-        <Button Content="Delite" HorizontalAlignment="Left" Height="36.153" Margin="10,181.351,0,0" VerticalAlignment="Top" Width="169.344"/>
-        <Button Content="Modify" HorizontalAlignment="Left" Height="36.153" Margin="10,217.504,0,0" VerticalAlignment="Top" Width="169.344"/>
-        <Button Content= "Delite" HorizontalAlignment="Left" Height="36.153" Margin="10,253.657,0,0" VerticalAlignment="Top" Width="169.344"/>
-        
+        <Grid Grid.Column="1" Grid.Row="0" >
+        <Button Content="Add" Command="{Binding AddReason}" HorizontalAlignment="Left" Height="36.153" Margin="10,145.198,0,0" VerticalAlignment="Top" Width="169.344"/>
+        <Button Content="Delite" Command="{Binding DeleteReason}" HorizontalAlignment="Left" Height="36.153" Margin="10,181.351,0,0" VerticalAlignment="Top" Width="169.344"/>
+            <Button Content="Modify" Command="{Binding UpdateReason}" HorizontalAlignment="Left" Height="36.153" Margin="10,217.504,0,0" VerticalAlignment="Top" Width="169.344"/>
+            <Button Content= "Refresh" Command="{Binding Refresh}" HorizontalAlignment="Left" Height="36.153" Margin="10,253.657,0,0" VerticalAlignment="Top" Width="169.344"/>
+                <Button Content= "GetReason" Command="{Binding GetReason}" HorizontalAlignment="Left" Height="36.153" Margin="10,253.657,0,0" VerticalAlignment="Top" Width="169.344"/>
+        </Grid>
     </Grid>
 </Window>
