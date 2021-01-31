@@ -70,8 +70,8 @@
       <Project>{4f06db20-4728-4054-a287-91a54f9bc9cb}</Project>
       <Name>Servce</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
-      <Project>{a625f37f-b480-4005-9d29-48cfafcff8a9}</Project>
+    <ProjectReference Include="..\ViewModel3\ViewModel\ViewModel.csproj">
+      <Project>{2530e0a6-6ed7-460d-b5d5-3d0b6f38dec0}</Project>
       <Name>ViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\View\View.csproj">
