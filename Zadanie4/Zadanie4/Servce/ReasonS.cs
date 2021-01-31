@@ -1,12 +1,12 @@
-﻿using System;
-using Dane;
+﻿using Dane;
+using System;
 
 namespace Servce
 {
     public class ReasonS
     {
         private SalesReason salesReason;
-     
+
         public ReasonS(SalesReason salesReason)
         {
             this.salesReason = salesReason;
