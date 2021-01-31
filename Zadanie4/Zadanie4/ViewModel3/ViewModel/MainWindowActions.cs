@@ -30,6 +30,17 @@ namespace ViewModel
             this.Refresh = new Binding(RefreshReasonF);
         }
 
+        public SalesReasonModel crModel
+        {
+            get => reasonList.NModels;
+            set
+            {
+                reasonList.NModels = value;
+                WhenPropertyChanged();
+            }
+        }
+
+
         public ObservableCollection<SalesReasonModel> Reasons
         {
             get => reasonList.Models;
@@ -37,6 +48,7 @@ namespace ViewModel
             set
             {
                 reasonList.Models = value;
+                WhenPropertyChanged();
             }
         }
         public SalesReasonModel NewaReason
