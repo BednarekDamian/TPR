@@ -74,10 +74,6 @@
       <Project>{2530e0a6-6ed7-460d-b5d5-3d0b6f38dec0}</Project>
       <Name>ViewModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\View\View.csproj">
-      <Project>{65f74355-02ff-4307-95da-5cbebe941fcb}</Project>
-      <Name>View</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

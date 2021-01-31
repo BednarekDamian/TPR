@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Servce;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using Servce;
 
 namespace Model
 {
-    public class ListOfReasons 
+    public class ListOfReasons
     {
         private readonly IDataRepo dataRepo;
 
@@ -37,7 +35,8 @@ namespace Model
             set
             {
                 nModel = value;
-;            }
+                ;
+            }
         }
         public void ModelsRefresh()
         {

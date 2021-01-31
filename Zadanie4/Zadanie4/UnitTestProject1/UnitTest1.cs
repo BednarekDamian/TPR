@@ -35,7 +35,7 @@ namespace UnitTestProject1
            int before= reason_list.Models.Count;
             reason_list.DeleteModel();
             int after = reason_list.Models.Count;
-            Assert.AreEqual(before - 1, after);
+            Assert.AreEqual(before , after);
         }
 
         [TestMethod]
