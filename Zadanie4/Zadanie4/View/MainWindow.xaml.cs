@@ -12,22 +12,30 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModel;
 
 namespace View
 {
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IWindow
     {
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        public void DisplayPopup(string popoutM)
+        {
+            MessageBox.Show(popoutM);
+        }
+
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            
+            MainWindowActions mw = (MainWindowActions)DataContext;
+        //    mw.MainWindow = this;
         }
     }
 }

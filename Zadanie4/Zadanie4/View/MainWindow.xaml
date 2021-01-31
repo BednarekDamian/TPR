@@ -3,15 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View"
-        xmls:viewModel="clr-namespace:ViewModel;assembly=ViewModel"
+        xmlns:viewModel="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
+        xmlns:view="clr-namespace:View"
         Title="MainWindow" Height="450" Width="800">
-    <Window.DataContext>
-      ///////////////////////////////////  <viewModel:
-    </Window.DataContext>
+  <!--   <Window.DataContext>
+       <viewModel:MainWindowActions />
+    </Window.DataContext> -->
     <Grid>
-        <ListView Name="ListaS" HorizontalAlignment="Left" Height="130.198" Margin="10,10,0,0" VerticalAlignment="Top" Width="479.763">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <ListView Name="ListaS" ItemsSource="{Binding }">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
