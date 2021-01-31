@@ -23,7 +23,7 @@ namespace Dane
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="AdventureWorks2019")]
-	public partial class SaleReasonDataContext : System.Data.Linq.DataContext
+	public partial class StoreDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -35,31 +35,31 @@ namespace Dane
     partial void DeleteSalesReason(SalesReason instance);
     #endregion
 		
-		public SaleReasonDataContext() : 
+		public StoreDataContext() : 
 				base(global::Dane.Properties.Settings.Default.AdventureWorks2019ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public SaleReasonDataContext(string connection) : 
+		public StoreDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public SaleReasonDataContext(System.Data.IDbConnection connection) : 
+		public StoreDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public SaleReasonDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public StoreDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public SaleReasonDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public StoreDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dane", "Dane\Dane.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servce", "Servce\Servce.csproj", "{4F06DB20-4728-4054-A287-91A54F9BC9CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{E328F958-6716-40B5-B0EA-DFDC7F2F26A4}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel3\ViewModel\ViewModel.csproj", "{2530E0A6-6ED7-460D-B5D5-3D0B6F38DEC0}"
 EndProject
 Global
@@ -35,6 +37,10 @@ Global
 		{4F06DB20-4728-4054-A287-91A54F9BC9CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F06DB20-4728-4054-A287-91A54F9BC9CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F06DB20-4728-4054-A287-91A54F9BC9CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E328F958-6716-40B5-B0EA-DFDC7F2F26A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E328F958-6716-40B5-B0EA-DFDC7F2F26A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E328F958-6716-40B5-B0EA-DFDC7F2F26A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E328F958-6716-40B5-B0EA-DFDC7F2F26A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2530E0A6-6ED7-460D-B5D5-3D0B6F38DEC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2530E0A6-6ED7-460D-B5D5-3D0B6F38DEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2530E0A6-6ED7-460D-B5D5-3D0B6F38DEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU

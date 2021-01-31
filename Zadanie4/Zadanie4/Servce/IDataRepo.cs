@@ -11,6 +11,6 @@ namespace Servce
         void DeleteReason(int id);
         ReasonS GetSalesReason(int id);
         IEnumerable<ReasonS> GetAllReasons();
-        void Dispose();
+      
     }
 }
