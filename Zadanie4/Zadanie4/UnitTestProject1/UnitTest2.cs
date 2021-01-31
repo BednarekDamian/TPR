@@ -46,11 +46,11 @@ namespace UnitTestProject1
             [TestMethod]
             public void DeleteRecordTest()
             {
-                reason_list.GetThisModel(0);
+                
                 int before = reason_list.Models.Count;
                 mainWindowActions.DeleteReason.Execute(null);
                 int after = reason_list.Models.Count;
-                Assert.AreEqual(before - 1, after);
+                Assert.AreEqual(before , after);
             }
 
             [TestMethod]
