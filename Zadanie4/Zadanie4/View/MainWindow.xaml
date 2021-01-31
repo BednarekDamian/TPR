@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:view="clr-namespace:View" 
         xmlns:validator="clr-namespace:View.Validatior"
-        Title="MainWindow" Height="450" Width="600">
+        Title="MainWindow" Height="450" Width="650">
 
     <Window.Resources>
         <ControlTemplate x:Key="validationT">
@@ -30,13 +30,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <ListView Name="ListaS" ItemsSource="{Binding Reasons}" SelectedItem="{Binding crModel}" Width="400" HorizontalAlignment="Left">
+        <ListView Name="ListaS" ItemsSource="{Binding Reasons}" SelectedItem="{Binding crModel}" Width="420" HorizontalAlignment="Left">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Id" Width="30"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Id" Width="35"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="150"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding ReasonSale}" Header="ReasonSale" Width="70"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ReasonSale}" Header="ReasonSale" Width="75"/>
                     <GridViewColumn DisplayMemberBinding="{Binding ModifTime}" Header="ModifTime" Width="150"/>
                     </GridView.Columns>
                 </GridView>
@@ -58,13 +58,18 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Id:"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ToUpdateReason.Id}"/>
+                <TextBox Name="IdDb" Grid.Column="1" Grid.Row="0" Validation.ErrorTemplate="{StaticResource validationT}">
+                    <TextBox.Text>
+                        <Binding Path="NewaReason.Id">
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Name:"/>
                 <TextBox Name="NameDb" Grid.Column="1" Grid.Row="1" Validation.ErrorTemplate="{StaticResource validationT}">
                     <TextBox.Text>
                         <Binding Path="NewaReason.Name">
                             <Binding.ValidationRules>
-                    <!--            <validator:Stringvalidation mini="3" maxy="30"/> -->
+                             <validator:Stringvalidation mini="3" maxy="30"/> 
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
@@ -73,9 +78,9 @@
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="ReasonType:"/>
                  <TextBox Name="ReasonT" Grid.Column="1" Grid.Row="2" Validation.ErrorTemplate="{StaticResource validationT}">
                     <TextBox.Text>
-                        <Binding Path="NewaReason.Name">
+                        <Binding Path="NewaReason.ReasonSale">
                             <Binding.ValidationRules>
-                    <!--                       <validator:Stringvalidation mini="3" maxy="30"/> -->
+                                <validator:Stringvalidation mini="3" maxy="30"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
@@ -106,6 +111,7 @@
                             <Style.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=IdDb}" Value="False"/>
                                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=NameDb}" Value="False"/>
                                         <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ReasonT}" Value="False"/>
                                     </MultiDataTrigger.Conditions>
@@ -116,7 +122,6 @@
                     </Button.Style>
                 </Button>
                 <Button Content= "Refresh" Command="{Binding Refresh}" VerticalAlignment="Top" HorizontalAlignment="Center" Height="20" Width="80" Margin="10,85,10,10"/>
-                <Button Content= "GetReason" Command="{Binding GetReason}" VerticalAlignment="Top" HorizontalAlignment="Center" Height="20" Width="80" Margin="10,110,10,10"/>
             </Grid>
         </Grid>
     </Grid>

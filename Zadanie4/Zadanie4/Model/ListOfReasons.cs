@@ -65,11 +65,11 @@ namespace Model
                 Models.Remove(nModel);
             }
         }
-        public void UpdateModel()
+        public void UpdateModel(SalesReasonModel model)
         {
             if (nModel != null)
             {
-                this.dataRepo.UpdateReason(ReasonParser.CreateNewSalesReasonS(nModel.Id, nModel.Name, nModel.ReasonSale), nModel.Id);
+                this.dataRepo.UpdateReason(ReasonParser.CreateNewSalesReasonS(model.Id, model.Name, model.ReasonSale), nModel.Id);
             }
         }
         public SalesReasonModel GetThisModel(int id)

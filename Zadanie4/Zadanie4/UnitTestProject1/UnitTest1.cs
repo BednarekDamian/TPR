@@ -55,7 +55,7 @@ namespace UnitTestProject1
         {
             SalesReasonModel reason = new SalesReasonModel(0, "Test1", "type", DateTime.Now);
             reason_list.GetThisModel(0);
-            reason_list.UpdateModel();
+            reason_list.UpdateModel(reason);
             reason_list.ModelsRefresh();
             Assert.AreEqual(reason.Id, reason_list.Models[0].Id);
             Assert.AreEqual(reason.Name, reason_list.Models[0].Name);

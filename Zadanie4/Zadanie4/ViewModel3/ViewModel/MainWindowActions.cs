@@ -88,7 +88,7 @@ namespace ViewModel
         }
         private void UpdateReasonF()
         {
-            reasonList.UpdateModel();
+            reasonList.UpdateModel(newaReason);
         }
         private void GetReasonF()
         {
