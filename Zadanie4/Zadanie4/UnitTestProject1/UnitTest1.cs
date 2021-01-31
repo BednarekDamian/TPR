@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using Servce;
 using Model;
+using Servce;
+using System;
 
 namespace UnitTestProject1
 {
@@ -24,18 +24,18 @@ namespace UnitTestProject1
             SalesReasonModel reasonModel = reason_list.GetThisModel(0);
             Assert.AreEqual(reasonModel.Id, 0);
             Assert.AreEqual(reasonModel.Name, "Test1");
-            Assert.AreEqual(reasonModel.ReasonSale,"type");
-        
+            Assert.AreEqual(reasonModel.ReasonSale, "type");
+
         }
 
         [TestMethod]
         public void DeleteLocationTest()
         {
             reason_list.GetThisModel(4);
-           int before= reason_list.Models.Count;
+            int before = reason_list.Models.Count;
             reason_list.DeleteModel();
             int after = reason_list.Models.Count;
-            Assert.AreEqual(before , after);
+            Assert.AreEqual(before, after);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace UnitTestProject1
             Assert.AreEqual(reason.Id, reason_list.Models[0].Id);
             Assert.AreEqual(reason.Name, reason_list.Models[0].Name);
             Assert.AreEqual(reason.ReasonSale, reason_list.Models[0].ReasonSale);
-            
+
         }
     }
 }
