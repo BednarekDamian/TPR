@@ -52,6 +52,7 @@
     <Compile Include="DataRepo_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest1.cs" />
+    <Compile Include="UnitTest2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -68,6 +69,14 @@
     <ProjectReference Include="..\Servce\Servce.csproj">
       <Project>{4f06db20-4728-4054-a287-91a54f9bc9cb}</Project>
       <Name>Servce</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
+      <Project>{a625f37f-b480-4005-9d29-48cfafcff8a9}</Project>
+      <Name>ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\View\View.csproj">
+      <Project>{65f74355-02ff-4307-95da-5cbebe941fcb}</Project>
+      <Name>View</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

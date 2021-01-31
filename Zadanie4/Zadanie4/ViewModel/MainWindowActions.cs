@@ -5,7 +5,7 @@ using Model;
 
 namespace ViewModel
 {
-    class MainWindowActions : Change
+    public class MainWindowActions : Change
     {
         public ListOfReasons reasonList { get; set; }
         public Binding AddReason { get; set; }

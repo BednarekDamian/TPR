@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace ViewModel
 {
-    class Binding : ICommand
+   public  class Binding : ICommand
     {
         private readonly Action action;
         public event EventHandler CanExecuteChanged;
